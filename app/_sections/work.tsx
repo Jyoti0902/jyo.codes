@@ -15,7 +15,7 @@ export function Work() {
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
           <p className="font-mono text-[10px] tracking-[0.14em] text-muted/70 uppercase">
-            Interface studies — original compositions, not screenshots
+            Live product screenshots · hover to pause
           </p>
           <p className="font-mono text-[10px] tracking-[0.14em] text-muted/70 uppercase">
             {site.projects.length} live products

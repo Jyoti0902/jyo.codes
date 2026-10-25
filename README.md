@@ -81,10 +81,22 @@ rings, glowing nodes and floating interface fragments. It:
 
 ## Project previews
 
-The five project visuals in `app/_components/project-visual.tsx` are hand-built
-CSS compositions, not screenshots. Each frame is labelled **Interface study —
-original composition · Not a screenshot**, and the work section repeats the
-disclaimer. Real live-site links only.
+All five project visuals in `app/_components/project-visual.tsx` are real
+screenshots of the live products — three per project, cross-fading every ~5 s
+while the frame is in view, pausing on hover and held static under
+`prefers-reduced-motion`. Each frame is labelled **Live product screenshot** with
+its domain in the title bar.
+
+Images live in `public/projects/<slug>/01.jpg`–`03.jpg` (1600 px wide, JPEG
+q80–82). Replace a file to update a shot. Setting `images: []` in `lib/site.ts`
+falls back to the CSS **interface study** frame (`CrmPreview`) and is labelled
+as such.
+
+The work rows animate against their own scroll progress: a hairline accent bar
+fills across the top edge, the preview lifts and flattens from a slight tilt and
+drifts against the page, and each title assembles word by word on first view.
+Sunny Homes uses the full-bleed 21/9 layout because its CRM screens are
+ultra-wide.
 
 ## Theme
 

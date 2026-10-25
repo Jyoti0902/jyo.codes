@@ -66,7 +66,7 @@ export const site = {
       category: "Healthcare booking",
       client: "Global",
       description:
-        "A healthcare booking platform that helps patients arrange dialysis sessions while traveling.",
+        "A healthcare booking platform that helps patients and travellers find vetted dialysis clinics across India, check real-time chair availability and book sessions with no booking fees.",
       contribution: [
         "Collaborated with a cross-functional team to build the platform.",
         "Developed responsive, multilingual interfaces.",
@@ -74,6 +74,11 @@ export const site = {
       ],
       stack: ["Next.js", "TypeScript", "PostgreSQL"],
       href: "https://dialysisongo.com/",
+      images: [
+        "/projects/dialysisongo/01.jpg",
+        "/projects/dialysisongo/02.jpg",
+        "/projects/dialysisongo/03.jpg",
+      ],
       preview: "booking",
       tone: "mint",
       featured: true,
@@ -85,7 +90,7 @@ export const site = {
       category: "Real-estate CRM",
       client: "Australia",
       description:
-        "A CRM platform supporting lead tracking, property management, and sales workflows.",
+        "A custom CRM for an Australian home builder — lead opportunities, jobs, WHS, forms and reporting in one workspace, with per-lead activity timelines and document checklists.",
       contribution: [
         "Developed reusable UI components and responsive CRM interfaces.",
         "Integrated APIs using SWR.",
@@ -93,6 +98,11 @@ export const site = {
       ],
       stack: ["React.js", ".NET", "SQL"],
       href: "https://crm.sunnyhomes.com.au/",
+      images: [
+        "/projects/sunnyhomes/01.jpg",
+        "/projects/sunnyhomes/02.jpg",
+        "/projects/sunnyhomes/03.jpg",
+      ],
       preview: "crm",
       tone: "lime",
       featured: false,
@@ -104,7 +114,7 @@ export const site = {
       category: "Event platform",
       client: "Multi-role marketplace",
       description:
-        "A multi-role event planning platform connecting users, vendors, and service providers.",
+        "A multi-role event marketplace where planners discover venues, request and compare quotations, and manage contracts with vendors and service providers.",
       contribution: [
         "Developed features for bookings, quotations, users, and vendors.",
         "Built and integrated REST APIs.",
@@ -112,6 +122,11 @@ export const site = {
       ],
       stack: ["React.js", "Node.js", "Express.js", "MongoDB"],
       href: "https://tracevenue.com/",
+      images: [
+        "/projects/tracevenue/01.jpg",
+        "/projects/tracevenue/02.jpg",
+        "/projects/tracevenue/03.jpg",
+      ],
       preview: "venue",
       tone: "mint",
       featured: false,
@@ -123,7 +138,7 @@ export const site = {
       category: "Digital healthcare",
       client: "United States",
       description:
-        "A digital healthcare platform focused on remote patient monitoring, personalized care plans, and virtual physical therapy.",
+        "A remote patient monitoring platform combining personalised care plans, virtual physical therapy and IoT device telemetry for patients and clinicians across the US.",
       contribution: [
         "Developed and maintained platform features.",
         "Integrated APIs and managed application state.",
@@ -131,6 +146,11 @@ export const site = {
       ],
       stack: ["React.js", ".NET", "SQL"],
       href: "https://vitalwatch365.com/",
+      images: [
+        "/projects/vitalwatch/01.jpg",
+        "/projects/vitalwatch/02.jpg",
+        "/projects/vitalwatch/03.jpg",
+      ],
       preview: "vitals",
       tone: "lime",
       featured: false,
@@ -142,7 +162,7 @@ export const site = {
       category: "Healthcare discovery",
       client: "Angola",
       description:
-        "A healthcare platform for discovering pharmaceutical products, wellness items, pharmacies, clinics, and hospitals.",
+        "A healthcare marketplace for Angola — pharmaceutical products, supplements and wellness items, plus a searchable directory of pharmacies, clinics and hospitals.",
       contribution: [
         "Supported product browsing and category navigation.",
         "Implemented and maintained responsive UI components.",
@@ -150,6 +170,11 @@ export const site = {
       ],
       stack: ["React.js", ".NET", "SQL"],
       href: "https://appysaude.co.ao/",
+      images: [
+        "/projects/appysaude/01.jpg",
+        "/projects/appysaude/02.jpg",
+        "/projects/appysaude/03.jpg",
+      ],
       preview: "catalog",
       tone: "mint",
       featured: false,
