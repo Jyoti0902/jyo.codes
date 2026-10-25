@@ -13,15 +13,7 @@ import type { Project } from "@/lib/site";
 import { ArrowUpRight } from "./icons";
 import { ProjectVisual } from "./project-visual";
 
-function TiltPreview({
-  children,
-  href,
-  label,
-}: {
-  children: ReactNode;
-  href: string;
-  label: string;
-}) {
+function TiltPreview({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const x = useMotionValue(0);
@@ -61,15 +53,9 @@ function TiltPreview({
       }
       className="relative [transform-style:preserve-3d]"
     >
-      <a
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={label}
-        className="block transition-transform duration-500 hover:scale-[1.008]"
-      >
+      <div className="transition-transform duration-500 hover:scale-[1.008]">
         {children}
-      </a>
+      </div>
     </motion.div>
   );
 }
@@ -244,7 +230,7 @@ function ProjectRow({
           : { rotateX, scale, opacity, y, transformPerspective: 1200 }
       }
     >
-      <TiltPreview href={project.href} label={`${project.title} — open live site`}>
+      <TiltPreview>
         <div
           className={
             wide

@@ -87,6 +87,11 @@ while the frame is in view, pausing on hover and held static under
 `prefers-reduced-motion`. Each frame is labelled **Live product screenshot** with
 its domain in the title bar.
 
+Every frame also has manual controls in the bottom-right: previous/next arrows
+and one dot per screenshot, so you can page through at your own pace. Picking a
+shot restarts the 5.2 s dwell. The image itself links to the live site; the
+controls sit above that link, so they never navigate.
+
 Images live in `public/projects/<slug>/01.jpg`–`03.jpg` (1600 px wide, JPEG
 q80–82). Replace a file to update a shot. Setting `images: []` in `lib/site.ts`
 falls back to the CSS **interface study** frame (`CrmPreview`) and is labelled

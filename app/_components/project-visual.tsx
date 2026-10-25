@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 import type { Project } from "@/lib/site";
+import { ChevronLeft, ChevronRight } from "./icons";
 
 /**
  * Project previews.
@@ -81,7 +82,8 @@ function ShotGallery({ project, wide }: { project: Project; wide: boolean }) {
       5200,
     );
     return () => window.clearInterval(id);
-  }, [reduceMotion, inView, paused, images.length]);
+    // `index` is a dependency so a manual jump restarts the full 5.2s dwell.
+  }, [reduceMotion, inView, paused, images.length, index]);
 
   const domain = (() => {
     try {
@@ -91,12 +93,18 @@ function ShotGallery({ project, wide }: { project: Project; wide: boolean }) {
     }
   })();
 
+  const count = images.length;
+
+  function step(delta: number) {
+    setIndex((current) => (current + delta + count) % count);
+  }
+
   return (
     <Frame
       title={domain}
       tag={project.category}
       footerLeft="Live product screenshot"
-      footerRight={`${String(index + 1).padStart(2, "0")} / ${String(images.length).padStart(2, "0")}`}
+      footerRight={`${String(index + 1).padStart(2, "0")} / ${String(count).padStart(2, "0")}`}
       flush
     >
       <div
@@ -118,27 +126,67 @@ function ShotGallery({ project, wide }: { project: Project; wide: boolean }) {
           />
         ))}
 
-        <div className="pointer-events-none absolute inset-x-3 bottom-3 flex items-center justify-between gap-3">
+        {/* Whole-frame link sits under the controls (z-20) so the gallery can
+            be driven manually without nesting buttons inside an anchor. */}
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${project.title} — open live site`}
+          className="absolute inset-0 z-10 focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white"
+        />
+
+        <div className="pointer-events-none absolute inset-x-3 bottom-3 z-20 flex items-end justify-between gap-3">
           <span className="rounded-full border border-white/25 bg-black/45 px-2.5 py-1 font-mono text-[8px] tracking-[0.16em] text-white/90 uppercase backdrop-blur">
             {project.title}
           </span>
-          <span className="flex items-center gap-1.5">
-            {images.map((src, i) => (
-              <span
-                key={src}
-                className={`h-1 rounded-full transition-all duration-300 ${
-                  i === index ? "w-5 bg-white/90" : "w-1.5 bg-white/40"
-                }`}
-              />
-            ))}
-          </span>
+
+          {count > 1 && (
+            <div className="pointer-events-auto flex items-center gap-0.5 rounded-full border border-white/25 bg-black/60 p-1 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.9)] backdrop-blur-md">
+              <button
+                type="button"
+                onClick={() => step(-1)}
+                aria-label={`Previous ${project.title} screenshot`}
+                className="grid size-7 place-items-center rounded-full text-white/85 transition hover:bg-white/20 hover:text-white active:scale-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <ChevronLeft className="size-4" />
+              </button>
+
+              {images.map((src, i) => (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setIndex(i)}
+                  aria-label={`Show ${project.title} screenshot ${i + 1} of ${count}`}
+                  aria-current={i === index ? "true" : undefined}
+                  className="group/dot grid h-7 place-items-center px-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                  <span
+                    aria-hidden
+                    className={`h-1.5 rounded-full transition-all duration-300 group-hover/dot:bg-white ${
+                      i === index ? "w-5 bg-white" : "w-1.5 bg-white/50"
+                    }`}
+                  />
+                </button>
+              ))}
+
+              <button
+                type="button"
+                onClick={() => step(1)}
+                aria-label={`Next ${project.title} screenshot`}
+                className="grid size-7 place-items-center rounded-full text-white/85 transition hover:bg-white/20 hover:text-white active:scale-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <ChevronRight className="size-4" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </Frame>
   );
 }
 
-function CrmPreview() {
+function CrmPreview({ project }: { project: Project }) {
   const columns = [
     { label: "New enquiry", count: "02", cards: ["Website enquiry", "Referral"] },
     { label: "Site visit", count: "01", cards: ["Property viewing"] },
@@ -152,6 +200,13 @@ function CrmPreview() {
       footerLeft="Interface study — original composition"
       footerRight="Not a screenshot"
     >
+      <a
+        href={project.href}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`${project.title} — open live site`}
+        className="absolute inset-0 z-10 rounded-lg focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-accent"
+      />
       <div className="grid h-full grid-cols-[1fr] gap-3 sm:grid-cols-[46px_1fr]">
         <div className="hidden flex-col items-center gap-2 rounded-lg border border-line bg-elevated/60 py-2.5 sm:flex">
           <span className="grid size-7 place-items-center rounded-md bg-accent/15 font-mono text-[11px] text-accent">
@@ -262,5 +317,5 @@ export function ProjectVisual({
     return <ShotGallery project={project} wide={wide} />;
   }
 
-  return <CrmPreview />;
+  return <CrmPreview project={project} />;
 }
