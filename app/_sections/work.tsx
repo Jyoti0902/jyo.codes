@@ -1,26 +1,28 @@
-import { ProjectFilter } from "@/app/_components/project-filter";
 import { SectionHeading } from "@/app/_components/section-heading";
+import { ProjectShowcase } from "@/app/_components/project-showcase";
+import { site } from "@/lib/site";
 
 export function Work() {
   return (
-    <section
-      id="work"
-      className="scroll-mt-24 border-t border-line py-16 sm:py-20"
-    >
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+    <section id="work" className="relative scroll-mt-24 py-20 sm:py-28">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="01 / Selected work"
-          title="Work that made it to production."
-          description="Five client products across healthcare, real estate and events — built, shipped and maintained with real users."
+          index="01"
+          eyebrow="Selected work"
+          title="Production products, shipped with care."
+          description="Five client platforms across healthcare, real estate and events — with ownership across interface, APIs and delivery."
         />
 
-        <div className="mt-8">
-          <ProjectFilter />
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+          <p className="font-mono text-[10px] tracking-[0.14em] text-muted/70 uppercase">
+            Interface studies — original compositions, not screenshots
+          </p>
+          <p className="font-mono text-[10px] tracking-[0.14em] text-muted/70 uppercase">
+            {site.projects.length} live products
+          </p>
         </div>
 
-        <p className="mt-6 font-mono text-[11px] text-muted">
-          Live client sites open in a new tab.
-        </p>
+        <ProjectShowcase projects={site.projects} />
       </div>
     </section>
   );

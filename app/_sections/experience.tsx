@@ -1,88 +1,130 @@
-import { Reveal } from "@/app/_components/reveal";
+"use client";
+
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { SectionHeading } from "@/app/_components/section-heading";
+import { Reveal } from "@/app/_components/reveal";
 import { MapPin } from "@/app/_components/icons";
 import { site } from "@/lib/site";
 
 export function Experience() {
   const { experience } = site;
+  const listRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start 72%", "end 70%"],
+  });
+  const lineScale = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 28,
+    restDelta: 0.001,
+  });
 
   return (
     <section
       id="experience"
-      className="scroll-mt-24 border-t border-line py-16 sm:py-20"
+      className="relative scroll-mt-24 border-t border-line py-20 sm:py-28"
     >
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="02 / Experience"
-          title="Where I’ve been shipping."
-          description="Production work, not prototypes — with ownership across the front end, APIs and deployment."
+          index="02"
+          eyebrow="Experience"
+          title="Where the production work happens."
+          description="Real applications, real users — with ownership across front-end systems, secure APIs and deployment."
         />
 
-        <Reveal className="mt-8">
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute top-3 bottom-3 left-[7px] w-px bg-line sm:left-[9px]"
-            />
-
-            <div className="relative pl-8 sm:pl-11">
-              <span className="absolute top-2 left-0 flex size-4 items-center justify-center rounded-full border border-line bg-canvas">
+        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-16">
+          <Reveal>
+            <div className="lg:sticky lg:top-24">
+              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-elevated/60 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-muted uppercase">
                 <span className="size-1.5 rounded-full bg-accent" />
+                {experience.period}
               </span>
 
-              <div className="rounded-2xl border border-line bg-elevated/60 p-6 transition-colors hover:bg-elevated sm:p-8">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold tracking-tight sm:text-xl">
-                      {experience.company}
-                    </h3>
-                    <p className="mt-1 text-sm text-muted">
-                      {experience.role} · {experience.type}
-                    </p>
-                  </div>
+              <h3 className="mt-6 text-2xl font-semibold tracking-[-0.03em] sm:text-3xl">
+                {experience.role}
+              </h3>
 
-                  <div className="flex flex-col items-start gap-1.5 sm:items-end">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-line bg-canvas/50 px-3 py-1 font-mono text-[10px] tracking-wider text-muted uppercase">
-                      <span className="size-1.5 rounded-full bg-accent" />
-                      {experience.period}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 font-mono text-[10px] text-muted">
-                      <MapPin className="size-3" />
-                      {experience.location}
-                    </span>
-                  </div>
+              <p className="mt-2 text-[15px] text-muted">
+                {experience.company}
+              </p>
+
+              <p className="mt-3 inline-flex items-center gap-1.5 font-mono text-[10px] tracking-wide text-muted uppercase">
+                <MapPin className="size-3.5" />
+                {experience.location}
+              </p>
+
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-muted">
+                {experience.summary}
+              </p>
+
+              <div className="mt-7 flex flex-wrap gap-1.5">
+                {experience.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="rounded-full border border-line px-2.5 py-1 font-mono text-[10px] text-muted"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-8 grid grid-cols-2 gap-4 border-t border-line pt-6">
+                <div>
+                  <p className="font-mono text-2xl font-medium tracking-tight">
+                    2.5+
+                  </p>
+                  <p className="mt-1 text-[11px] text-muted">
+                    Years in production
+                  </p>
                 </div>
-
-                <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted">
-                  {experience.summary}
-                </p>
-
-                <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
-                  {experience.bullets.map((bullet) => (
-                    <li
-                      key={bullet}
-                      className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
-                    >
-                      <span className="mt-2 size-1 shrink-0 rounded-full bg-muted/50" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-6 flex flex-wrap gap-1.5 border-t border-line pt-5">
-                  {experience.stack.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-line px-2.5 py-1 font-mono text-[10px] text-muted"
-                    >
-                      {item}
-                    </span>
-                  ))}
+                <div>
+                  <p className="font-mono text-2xl font-medium tracking-tight">
+                    5
+                  </p>
+                  <p className="mt-1 text-[11px] text-muted">
+                    Client platforms
+                  </p>
                 </div>
               </div>
             </div>
+          </Reveal>
+
+          <div ref={listRef} className="relative pl-7 sm:pl-9">
+            <div className="absolute inset-y-0 left-0 w-px bg-line" />
+            <motion.div
+              aria-hidden
+              className="absolute inset-y-0 left-0 w-px origin-top bg-gradient-to-b from-accent to-accent-2"
+              style={reduceMotion ? { scaleY: 1 } : { scaleY: lineScale }}
+            />
+
+            <ol className="space-y-8">
+              {experience.bullets.map((bullet, index) => (
+                <motion.li
+                  key={bullet}
+                  initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px 0px" }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.04,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="relative"
+                >
+                  <span className="absolute top-2 -left-7 size-2 -translate-x-1/2 rounded-full bg-accent shadow-[0_0_0_4px_var(--canvas)] sm:-left-9" />
+                  <span className="font-mono text-[10px] tracking-[0.16em] text-muted/70">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted">
+                    {bullet}
+                  </p>
+                </motion.li>
+              ))}
+            </ol>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

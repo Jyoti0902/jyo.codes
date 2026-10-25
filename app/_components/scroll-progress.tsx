@@ -12,7 +12,7 @@ export function ScrollProgress() {
       frame = 0;
       const max =
         document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0);
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
     };
 
     const onScroll = () => {
@@ -31,13 +31,10 @@ export function ScrollProgress() {
   }, []);
 
   return (
-    <div
-      aria-hidden
-      className="fixed inset-x-0 top-0 z-[60] h-px bg-transparent"
-    >
+    <div aria-hidden className="fixed inset-x-0 top-0 z-[60] h-px">
       <div
-        className="h-full bg-gradient-to-r from-accent via-accent to-accent-2 transition-[width] duration-150 ease-out"
-        style={{ width: `${progress}%` }}
+        className="scroll-progress h-full"
+        style={{ transform: `scaleX(${progress})` }}
       />
     </div>
   );

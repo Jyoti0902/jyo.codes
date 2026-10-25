@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { ScrollProgress } from "./_components/scroll-progress";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
@@ -14,6 +14,13 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
 });
 
 export const metadata: Metadata = {
@@ -35,11 +42,20 @@ export const metadata: Metadata = {
     title: site.title,
     description: site.description,
     locale: "en_US",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Jyoti — Software Engineer",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: site.title,
     description: site.description,
+    images: ["/og.png"],
   },
   robots: {
     index: true,
@@ -49,8 +65,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f7f4" },
-    { media: "(prefers-color-scheme: dark)", color: "#08090b" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f2e9" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0f14" },
   ],
 };
 
@@ -61,12 +77,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-theme="dark"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="light"){document.documentElement.setAttribute("data-theme","light")}}catch(e){}})()`,
           }}
         />
       </head>
@@ -74,7 +90,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-canvas"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[90] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-canvas"
         >
           Skip to content
         </a>
@@ -88,13 +104,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <SiteFooter />
 
+        <div aria-hidden className="noise" />
+
         <div
           aria-hidden
           className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
         >
-          <div className="dot-grid absolute inset-x-0 top-0 h-[620px] opacity-50" />
-          <div className="absolute -top-48 left-1/2 h-[460px] w-[760px] -translate-x-1/2 rounded-full bg-accent/5 blur-[140px]" />
-          <div className="absolute top-56 right-0 h-[320px] w-[320px] rounded-full bg-accent-2/5 blur-[120px]" />
+          <div className="grid-lines absolute inset-x-0 top-0 h-[860px] opacity-70" />
+          <div className="absolute -top-56 left-1/2 h-[560px] w-[920px] -translate-x-1/2 rounded-full bg-accent/8 blur-[150px]" />
+          <div className="absolute top-[42%] -right-48 size-[420px] rounded-full bg-accent-2/6 blur-[150px]" />
+          <div className="absolute bottom-0 left-0 h-[380px] w-[380px] rounded-full bg-accent/5 blur-[140px]" />
         </div>
       </body>
     </html>

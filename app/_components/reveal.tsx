@@ -1,60 +1,91 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import type { ReactNode } from "react";
 
+/**
+ * Scroll-triggered reveal. Kept subtle so long sections stay readable.
+ */
 export function Reveal({
   children,
   className = "",
   delay = 0,
+  y = 26,
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
+  y?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    if (
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      !("IntersectionObserver" in window)
-    ) {
-      element.classList.add("is-visible");
-      return;
-    }
-
-    // Content already in view should never be hidden. This also keeps the page
-    // readable if the observer callback is delayed or JavaScript is disabled.
-    if (element.getBoundingClientRect().top < window.innerHeight * 0.95) {
-      element.classList.add("is-visible");
-      return;
-    }
-
-    element.classList.add("reveal-pending");
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          element.classList.add("is-visible");
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -48px 0px" },
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div
-      ref={ref}
-      className={`reveal ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+    <motion.div
+      className={className}
+      initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-70px 0px -70px 0px" }}
+      transition={{
+        duration: 0.75,
+        delay,
+        ease: [0.16, 1, 0.3, 1],
+      }}
     >
       {children}
-    </div>
+    </motion.div>
+  );
+}
+
+/**
+ * Staggers direct children into view.
+ */
+export function RevealGroup({
+  children,
+  className = "",
+  stagger = 0.08,
+}: {
+  children: ReactNode;
+  className?: string;
+  stagger?: number;
+}) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      className={className}
+      initial={reduceMotion ? "visible" : "hidden"}
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px 0px" }}
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: stagger } },
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function RevealItem({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      className={className}
+      variants={{
+        hidden: { opacity: 0, y: 22 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+        },
+      }}
+    >
+      {children}
+    </motion.div>
   );
 }

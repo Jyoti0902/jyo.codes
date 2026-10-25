@@ -5,145 +5,102 @@ import {
   Linkedin,
   Mail,
   MapPin,
-  Phone,
 } from "@/app/_components/icons";
 import { Reveal } from "@/app/_components/reveal";
 import { site } from "@/lib/site";
-
-const details = [
-  {
-    label: "Email",
-    value: site.email,
-    href: `mailto:${site.email}`,
-    Icon: Mail,
-  },
-  {
-    label: "Phone",
-    value: site.phone,
-    href: `tel:${site.phone.replace(/\s+/g, "")}`,
-    Icon: Phone,
-  },
-  {
-    label: "Based in",
-    value: site.location,
-    href: undefined,
-    Icon: MapPin,
-  },
-] as const;
 
 export function Contact() {
   return (
     <section
       id="contact"
-      className="scroll-mt-24 border-t border-line py-16 sm:py-20"
+      className="relative scroll-mt-24 border-t border-line py-20 sm:py-28"
     >
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-2xl border border-line bg-elevated/60 p-7 sm:p-10">
-            <div
-              aria-hidden
-              className="absolute -top-32 -right-24 size-72 rounded-full bg-accent/5 blur-[110px]"
-            />
-            <div
-              aria-hidden
-              className="absolute -bottom-36 -left-24 size-64 rounded-full bg-accent-2/5 blur-[110px]"
-            />
+          <div className="relative overflow-hidden rounded-3xl border border-line bg-surface/70 px-6 py-12 sm:px-10 sm:py-16 lg:px-14">
+            <div className="dot-grid pointer-events-none absolute inset-0 opacity-25" />
+            <div className="pointer-events-none absolute -top-40 -right-24 size-[420px] rounded-full bg-accent/10 blur-[120px]" />
+            <div className="pointer-events-none absolute -bottom-48 -left-32 size-[380px] rounded-full bg-accent-2/8 blur-[120px]" />
 
-            <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-end">
-              <div>
-                <p className="font-mono text-[10px] tracking-[0.22em] text-accent uppercase">
-                  05 / Contact
-                </p>
+            <div className="orbit-spin pointer-events-none absolute top-1/2 -right-24 hidden size-[360px] -translate-y-1/2 rounded-full border border-dashed border-line-strong lg:block">
+              <span className="absolute top-8 left-10 size-1.5 rounded-full bg-accent" />
+            </div>
 
-                <h2 className="mt-3 max-w-xl text-2xl font-semibold tracking-tight text-balance sm:text-[1.9rem]">
-                  Have something worth building?
-                </h2>
-
-                <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-muted">
-                  I’m open to full-time roles and freelance work. The fastest
-                  way to reach me is email — tell me what you’re building and
-                  what you need help with.
-                </p>
-
-                <div className="mt-6 flex flex-wrap items-center gap-2.5">
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="group inline-flex items-center gap-2 rounded-full bg-ink px-4.5 py-2.5 text-sm font-medium text-canvas transition-all hover:-translate-y-0.5 hover:bg-ink/90"
-                  >
-                    Email me
-                    <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                  </a>
-
-                  <CopyEmail email={site.email} />
-                </div>
-
-                <a
-                  href={`mailto:${site.email}`}
-                  className="mt-6 inline-block border-b border-line pb-1 font-mono text-sm text-ink transition-colors hover:border-accent hover:text-accent"
-                >
-                  {site.email}
-                </a>
+            <div className="relative">
+              <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.2em] uppercase">
+                <span className="text-accent">05</span>
+                <span className="text-line-strong">/</span>
+                <span className="text-muted">Contact</span>
               </div>
 
-              <div className="space-y-2.5">
-                {details.map(({ label, value, href, Icon }) => {
-                  const content = (
-                    <>
-                      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-line bg-canvas/50 text-muted">
-                        <Icon className="size-4" />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block font-mono text-[10px] tracking-wider text-muted uppercase">
-                          {label}
-                        </span>
-                        <span className="mt-0.5 block truncate text-sm text-ink">
-                          {value}
-                        </span>
-                      </span>
-                      {href && (
-                        <ArrowUpRight className="ml-auto size-3.5 shrink-0 text-muted transition-colors group-hover:text-accent" />
-                      )}
-                    </>
-                  );
+              <h2 className="mt-6 max-w-4xl text-[clamp(2.1rem,4.6vw,3.6rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance">
+                {site.contact.heading}{" "}
+                <span className="serif-accent text-gradient">
+                  {site.contact.accent}
+                </span>
+              </h2>
 
-                  return href ? (
+              <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+                <div>
+                  <p className="max-w-lg text-sm leading-relaxed text-muted sm:text-base">
+                    {site.contact.body}
+                  </p>
+
+                  <div className="mt-6 flex flex-wrap items-center gap-2.5">
                     <a
-                      key={label}
-                      href={href}
-                      className="group flex items-center gap-3 rounded-xl border border-line bg-canvas/40 p-3.5 transition-colors hover:bg-elevated"
+                      href={`mailto:${site.email}`}
+                      className="group inline-flex items-center gap-2 rounded-full bg-accent-fill px-5 py-3 text-sm font-medium text-accent-fill-ink transition hover:brightness-110"
                     >
-                      {content}
+                      <Mail className="size-4" />
+                      Email me
+                      <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </a>
-                  ) : (
-                    <div
-                      key={label}
-                      className="flex items-center gap-3 rounded-xl border border-line bg-canvas/40 p-3.5"
-                    >
-                      {content}
-                    </div>
-                  );
-                })}
 
-                <div className="flex gap-2 pt-1">
+                    <CopyEmail email={site.email} />
+                  </div>
+
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="mt-6 inline-block border-b border-line-strong pb-1 font-mono text-sm text-ink transition-colors hover:border-accent hover:text-accent sm:text-base"
+                  >
+                    {site.email}
+                  </a>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 lg:flex-col lg:items-end">
                   <a
                     href={site.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-line bg-canvas/40 px-3 py-2.5 text-sm text-muted transition-colors hover:bg-elevated hover:text-ink"
+                    className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-[12px] text-muted transition-colors hover:border-accent/50 hover:text-ink"
                   >
-                    <Github className="size-4" />
+                    <Github className="size-3.5" />
                     GitHub
                   </a>
                   <a
                     href={site.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-line bg-canvas/40 px-3 py-2.5 text-sm text-muted transition-colors hover:bg-elevated hover:text-ink"
+                    className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-[12px] text-muted transition-colors hover:border-accent/50 hover:text-ink"
                   >
-                    <Linkedin className="size-4" />
+                    <Linkedin className="size-3.5" />
                     LinkedIn
                   </a>
                 </div>
+              </div>
+
+              <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-5 font-mono text-[10px] tracking-wide text-muted/70 uppercase">
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin className="size-3.5" />
+                  {site.location}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="size-1.5 rounded-full bg-accent" />
+                  Open to opportunities
+                </span>
+                <span className="ml-auto hidden sm:inline">
+                  Email is the best way to reach me
+                </span>
               </div>
             </div>
           </div>

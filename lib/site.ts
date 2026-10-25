@@ -1,11 +1,7 @@
 // ---------------------------------------------------------------------------
-// All site content lives here. Update this file to change copy, projects or
-// links — the components only handle layout and behaviour.
+// All portfolio content lives here. Update this file to change copy, projects,
+// links or skills — the components only handle layout and behaviour.
 // ---------------------------------------------------------------------------
-
-export const categories = ["All", "Healthcare", "CRM", "Events"] as const;
-
-export type Category = (typeof categories)[number];
 
 export const site = {
   name: "Jyoti",
@@ -14,21 +10,23 @@ export const site = {
   role: "Software Engineer",
   location: "Mohali, Punjab, India",
   email: "jyotibrar0927@gmail.com",
-  phone: "+91 7814467486",
   github: "https://github.com/Jyoti0902",
   linkedin: "https://linkedin.com/in/jyoti-8b7464242",
-  resume: "/resume.pdf",
+  resume: "/Jyoti-Resume.pdf",
   available: true,
 
   title: "Jyoti — Software Engineer",
   description:
-    "Software engineer with 2.5+ years of experience building production web applications with React, Next.js, TypeScript and Node.js.",
+    "Software Engineer with 2.5+ years of experience building production-ready web applications, responsive interfaces and reliable APIs.",
 
   hero: {
-    eyebrow: "Full-stack engineer",
-    heading: "I build web products that ship.",
+    status: "Open to opportunities",
+    eyebrow: "Software Engineer",
+    heading: "I build digital products that make an impact.",
     subheading:
-      "I’m Jyoti — a software engineer with 2.5+ years of experience turning complex requirements into fast, reliable interfaces and APIs.",
+      "I’m Jyoti, a Software Engineer with 2.5+ years of experience building production-ready web applications, responsive interfaces, and reliable APIs.",
+    primaryCta: "Explore My Work",
+    secondaryCta: "Get In Touch",
   },
 
   nav: [
@@ -40,13 +38,13 @@ export const site = {
   ],
 
   stats: [
-    { value: "2.5+", label: "Years shipping production software" },
+    { value: "2.5+", label: "Years in production engineering" },
     { value: "5", label: "Client products delivered" },
-    { value: "3", label: "Countries served" },
+    { value: "3", label: "Markets served" },
   ],
 
   marquee: [
-    "React",
+    "React.js",
     "Next.js",
     "TypeScript",
     "Node.js",
@@ -63,82 +61,97 @@ export const site = {
   projects: [
     {
       slug: "dialysisongo",
+      index: "01",
       title: "DialysisOnGo",
-      category: "Healthcare" as const,
+      category: "Healthcare booking",
+      client: "Global",
       description:
-        "A healthcare booking platform that helps patients find and book dialysis sessions while travelling. Built the multilingual patient, clinic and admin flows, plus CMS-managed content.",
-      highlights: [
-        "Multilingual patient, clinic and admin journeys",
-        "Session search and booking workflows",
-        "CMS-managed content and role-based access",
+        "A healthcare booking platform that helps patients arrange dialysis sessions while traveling.",
+      contribution: [
+        "Collaborated with a cross-functional team to build the platform.",
+        "Developed responsive, multilingual interfaces.",
+        "Integrated functionality across patient, clinic, and admin modules.",
       ],
-      tags: ["Next.js", "TypeScript", "PostgreSQL"],
+      stack: ["Next.js", "TypeScript", "PostgreSQL"],
       href: "https://dialysisongo.com/",
-      linkLabel: "View live site",
+      preview: "booking",
+      tone: "mint",
       featured: true,
     },
     {
       slug: "sunnyhomes-crm",
+      index: "02",
       title: "Sunny Homes Builders CRM",
-      category: "CRM" as const,
+      category: "Real-estate CRM",
+      client: "Australia",
       description:
-        "An Australia-based real-estate CRM covering lead tracking, property management and sales workflows. Built reusable UI, dashboards and API-driven forms with SWR.",
-      highlights: [
-        "Lead and property management",
-        "Sales workflows and dashboards",
-        "API-driven forms with validation",
+        "A CRM platform supporting lead tracking, property management, and sales workflows.",
+      contribution: [
+        "Developed reusable UI components and responsive CRM interfaces.",
+        "Integrated APIs using SWR.",
+        "Implemented forms, validation, and dashboard features.",
       ],
-      tags: ["React.js", ".NET", "SQL", "SWR", "Tailwind CSS"],
+      stack: ["React.js", ".NET", "SQL"],
       href: "https://crm.sunnyhomes.com.au/",
-      linkLabel: "View live site",
+      preview: "crm",
+      tone: "lime",
       featured: false,
     },
     {
       slug: "tracevenue",
+      index: "03",
       title: "TraceVenue",
-      category: "Events" as const,
+      category: "Event platform",
+      client: "Multi-role marketplace",
       description:
-        "A multi-role event platform connecting customers, vendors and service providers. Built booking and quotation APIs, contract workflows and real-time notifications.",
-      highlights: [
-        "Multi-role booking and quotation flows",
-        "Vendor and contract workflows",
-        "REST APIs and real-time notifications",
+        "A multi-role event planning platform connecting users, vendors, and service providers.",
+      contribution: [
+        "Developed features for bookings, quotations, users, and vendors.",
+        "Built and integrated REST APIs.",
+        "Supported quotation, contract, and real-time notification workflows.",
       ],
-      tags: ["React.js", "Node.js", "Express.js", "MongoDB", "AWS"],
+      stack: ["React.js", "Node.js", "Express.js", "MongoDB"],
       href: "https://tracevenue.com/",
-      linkLabel: "View live site",
+      preview: "venue",
+      tone: "mint",
       featured: false,
     },
     {
       slug: "vitalwatch365",
+      index: "04",
       title: "VitalWatch 365",
-      category: "Healthcare" as const,
+      category: "Digital healthcare",
+      client: "United States",
       description:
-        "A US telehealth platform for remote patient monitoring, personalised care plans and virtual physical therapy. Worked across patient progress, guided sessions and notifications.",
-      highlights: [
-        "Remote patient monitoring workflows",
-        "Personalised care plans and progress",
-        "Guided therapy sessions and alerts",
+        "A digital healthcare platform focused on remote patient monitoring, personalized care plans, and virtual physical therapy.",
+      contribution: [
+        "Developed and maintained platform features.",
+        "Integrated APIs and managed application state.",
+        "Improved reusable components and healthcare workflows.",
       ],
-      tags: ["React.js", ".NET", "SQL", "REST APIs"],
+      stack: ["React.js", ".NET", "SQL"],
       href: "https://vitalwatch365.com/",
-      linkLabel: "View live site",
+      preview: "vitals",
+      tone: "lime",
       featured: false,
     },
     {
       slug: "appy-saude",
+      index: "05",
       title: "Appy Saúde",
-      category: "Healthcare" as const,
+      category: "Healthcare discovery",
+      client: "Angola",
       description:
-        "A healthcare discovery platform for Angola covering pharmacy products, supplements and nearby clinics and hospitals. Focused on responsive browsing and reliable API state.",
-      highlights: [
-        "Product, supplement and category browsing",
-        "Pharmacy, clinic and hospital discovery",
-        "Responsive layouts and API synchronisation",
+        "A healthcare platform for discovering pharmaceutical products, wellness items, pharmacies, clinics, and hospitals.",
+      contribution: [
+        "Supported product browsing and category navigation.",
+        "Implemented and maintained responsive UI components.",
+        "Integrated APIs and improved application state management.",
       ],
-      tags: ["React.js", ".NET", "SQL", "REST APIs"],
+      stack: ["React.js", ".NET", "SQL"],
       href: "https://appysaude.co.ao/",
-      linkLabel: "View live site",
+      preview: "catalog",
+      tone: "mint",
       featured: false,
     },
   ],
@@ -147,17 +160,17 @@ export const site = {
     company: "Sensation Software Solutions Pvt. Ltd.",
     role: "Software Engineer",
     type: "Full-time",
-    period: "Jan 2024 — Present",
-    location: "Mohali, Punjab, India",
+    period: "January 2024 — Present",
+    location: "Mohali, Punjab",
     summary:
-      "Shipping production software for clients across healthcare, real estate and events — from reusable front-end systems to secure APIs and cloud deployments.",
+      "Building and maintaining production web applications for clients across healthcare, real estate and events — from reusable front-end systems to secure APIs and cloud deployments.",
     bullets: [
-      "Develop and maintain production web applications with React.js, Next.js, Node.js, Express.js and MongoDB.",
-      "Build responsive, reusable UI components and keep experiences consistent across devices.",
-      "Integrate REST APIs with TanStack Query and SWR for fetching, caching and synchronisation.",
-      "Implement JWT authentication and role-based access control for secure workflows.",
-      "Deploy and configure environments on AWS EC2, AWS S3 and Docker.",
-      "Work with cross-functional teams in an Agile setup to ship features and fix production issues.",
+      "Develop and maintain production web applications using React.js, Next.js, Node.js, Express.js, and MongoDB.",
+      "Build responsive and reusable UI components.",
+      "Integrate REST APIs using TanStack Query and SWR.",
+      "Implement JWT-based authentication and role-based access control.",
+      "Work with AWS EC2, AWS S3, Docker, and deployment configurations.",
+      "Collaborate with cross-functional teams to troubleshoot issues and improve application performance.",
     ],
     stack: [
       "React.js",
@@ -172,6 +185,78 @@ export const site = {
     ],
   },
 
+  skills: [
+    {
+      key: "frontend",
+      label: "Frontend",
+      caption: "Interfaces that hold up in production.",
+      items: [
+        "React.js",
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "Redux Toolkit",
+        "Tailwind CSS",
+        "SWR",
+        "TanStack Query",
+      ],
+    },
+    {
+      key: "backend",
+      label: "Backend",
+      caption: "APIs, auth and real-time flows.",
+      items: [
+        "Node.js",
+        "Express.js",
+        "REST APIs",
+        "JWT",
+        "RBAC",
+        "WebSockets",
+      ],
+    },
+    {
+      key: "data",
+      label: "Databases",
+      caption: "Modelling and querying application data.",
+      items: ["MongoDB", "PostgreSQL", "SQL"],
+    },
+    {
+      key: "cloud",
+      label: "Cloud & deployment",
+      caption: "Shipping and running the product.",
+      items: ["AWS EC2", "AWS S3", "Docker", "CI/CD", "Render", "Vercel"],
+    },
+    {
+      key: "tools",
+      label: "Tools",
+      caption: "The everyday workspace.",
+      items: [
+        "Git",
+        "GitHub",
+        "Postman",
+        "VS Code",
+        "MongoDB Compass",
+      ],
+    },
+  ],
+
+  about: [
+    "I’m a Software Engineer with 2.5+ years of professional experience building production web applications. My work sits across responsive frontend engineering, API integration and the delivery details that make a product dependable.",
+    "I’ve shipped client platforms across healthcare, real estate and events — working with React, Next.js, TypeScript, Node.js and Express, alongside SQL and NoSQL databases. I’m comfortable implementing authentication, managing application state and supporting deployments on AWS and Docker.",
+    "I care about clear interfaces, reliable data flows and code that stays easy to change. I’m continuously learning and focused on building products that hold up for real users.",
+  ],
+
+  strengths: [
+    "Production web application development",
+    "Responsive frontend engineering",
+    "REST API integration & state management",
+    "JWT authentication & role-based access",
+    "Cloud deployment with AWS & Docker",
+    "Cross-functional delivery",
+  ],
+
   education: [
     {
       degree: "Master of Computer Applications (MCA)",
@@ -179,70 +264,20 @@ export const site = {
       period: "Sep 2022 — Aug 2024",
     },
     {
-      degree: "B.Sc. in Computer Science",
+      degree: "Bachelor of Science in Computer Science (B.Sc.)",
       school: "SD College, Kurukshetra University",
       period: "Jul 2019 — Aug 2022",
     },
   ],
 
-  skills: [
-    {
-      label: "Frontend",
-      items: [
-        "React.js",
-        "Next.js",
-        "TypeScript",
-        "JavaScript (ES6+)",
-        "Redux Toolkit",
-        "TanStack Query",
-        "SWR",
-        "Tailwind CSS",
-        "React Bootstrap",
-        "HTML5",
-        "CSS3",
-      ],
-    },
-    {
-      label: "Backend",
-      items: [
-        "Node.js",
-        "Express.js",
-        "REST APIs",
-        "JWT",
-        "Role-based access control",
-        "WebSockets",
-      ],
-    },
-    {
-      label: "Data",
-      items: ["MongoDB", "PostgreSQL", "SQL"],
-    },
-    {
-      label: "Cloud & DevOps",
-      items: ["AWS EC2", "AWS S3", "Docker", "CI/CD", "Vercel", "Render"],
-    },
-    {
-      label: "Tools & practice",
-      items: [
-        "Git",
-        "GitHub",
-        "Postman",
-        "VS Code",
-        "MongoDB Compass",
-        "MVC",
-        "Responsive design",
-        "Performance optimisation",
-      ],
-    },
-  ],
-
-  about: [
-    "I’m a software engineer based in Mohali, Punjab, with 2.5+ years of experience building production web applications. Most of my work sits in the React and Node.js ecosystem — responsive interfaces on the front, secure APIs and data flows behind them.",
-    "I’ve worked with teams and clients across Australia, the USA and Angola on healthcare platforms, real-estate CRMs and event marketplaces. I like clear interfaces, dependable APIs and code that’s still easy to change a year later.",
-    "Outside of delivery work, I’m usually exploring better ways to structure front-end systems, improve performance and make complex workflows feel simple.",
-  ],
+  contact: {
+    heading: "Have an interesting problem to solve?",
+    accent: "Let’s build something meaningful.",
+    body: "I’m open to software engineering roles and product work. Email is the best way to reach me — tell me what you’re building and where you need help.",
+  },
 
   footerNote: "Designed and built with Next.js, TypeScript and Tailwind CSS.",
 } as const;
 
 export type Project = (typeof site.projects)[number];
+export type SkillGroup = (typeof site.skills)[number];

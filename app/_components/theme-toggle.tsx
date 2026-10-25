@@ -37,7 +37,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       title="Toggle colour theme"
       aria-label="Toggle colour theme"
-      className="inline-flex size-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent/50 hover:text-ink"
+      className="inline-flex size-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-line-strong hover:text-ink"
     >
       <Sun className="theme-sun size-4" />
       <Moon className="theme-moon size-4" />
