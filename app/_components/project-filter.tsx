@@ -34,15 +34,15 @@ export function ProjectFilter() {
               onClick={() => setActive(category)}
               className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-xs transition-all ${
                 active === category
-                  ? "border-accent/60 bg-accent-soft text-accent"
-                  : "border-line text-muted hover:border-accent/40 hover:text-ink"
+                  ? "border-ink bg-ink text-canvas"
+                  : "border-line text-muted hover:border-ink/25 hover:text-ink"
               }`}
             >
               {category}
               <span
                 className={`rounded-full px-1.5 py-0.5 text-[10px] ${
                   active === category
-                    ? "bg-accent/15 text-accent"
+                    ? "bg-canvas/15 text-canvas/80"
                     : "bg-elevated-2 text-muted"
                 }`}
               >

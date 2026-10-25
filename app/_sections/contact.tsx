@@ -35,40 +35,40 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="scroll-mt-24 border-t border-line py-20 sm:py-24"
+      className="scroll-mt-24 border-t border-line py-16 sm:py-20"
     >
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-line bg-elevated/60 p-7 sm:p-12">
+          <div className="relative overflow-hidden rounded-2xl border border-line bg-elevated/60 p-7 sm:p-10">
             <div
               aria-hidden
-              className="absolute -top-28 -right-20 size-80 rounded-full bg-accent/10 blur-[100px]"
+              className="absolute -top-32 -right-24 size-72 rounded-full bg-accent/5 blur-[110px]"
             />
             <div
               aria-hidden
-              className="absolute -bottom-32 -left-20 size-72 rounded-full bg-accent-2/10 blur-[100px]"
+              className="absolute -bottom-36 -left-24 size-64 rounded-full bg-accent-2/5 blur-[110px]"
             />
 
             <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-end">
               <div>
-                <p className="font-mono text-[11px] tracking-[0.22em] text-accent uppercase">
+                <p className="font-mono text-[10px] tracking-[0.22em] text-accent uppercase">
                   05 / Contact
                 </p>
 
-                <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+                <h2 className="mt-3 max-w-xl text-2xl font-semibold tracking-tight text-balance sm:text-[1.9rem]">
                   Have something worth building?
                 </h2>
 
-                <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted sm:text-base">
+                <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-muted">
                   I’m open to full-time roles and freelance work. The fastest
                   way to reach me is email — tell me what you’re building and
                   what you need help with.
                 </p>
 
-                <div className="mt-7 flex flex-wrap items-center gap-3">
+                <div className="mt-6 flex flex-wrap items-center gap-2.5">
                   <a
                     href={`mailto:${site.email}`}
-                    className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-canvas transition-all hover:-translate-y-0.5 hover:bg-ink/90"
+                    className="group inline-flex items-center gap-2 rounded-full bg-ink px-4.5 py-2.5 text-sm font-medium text-canvas transition-all hover:-translate-y-0.5 hover:bg-ink/90"
                   >
                     Email me
                     <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -79,7 +79,7 @@ export function Contact() {
 
                 <a
                   href={`mailto:${site.email}`}
-                  className="mt-6 inline-block border-b border-line pb-1 font-mono text-sm text-ink transition-colors hover:border-accent hover:text-accent sm:text-base"
+                  className="mt-6 inline-block border-b border-line pb-1 font-mono text-sm text-ink transition-colors hover:border-accent hover:text-accent"
                 >
                   {site.email}
                 </a>
@@ -89,7 +89,7 @@ export function Contact() {
                 {details.map(({ label, value, href, Icon }) => {
                   const content = (
                     <>
-                      <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-line bg-canvas/40 text-accent">
+                      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-line bg-canvas/50 text-muted">
                         <Icon className="size-4" />
                       </span>
                       <span className="min-w-0">
@@ -110,7 +110,7 @@ export function Contact() {
                     <a
                       key={label}
                       href={href}
-                      className="group flex items-center gap-3 rounded-xl border border-line bg-canvas/40 p-3.5 transition-colors hover:border-accent/40"
+                      className="group flex items-center gap-3 rounded-xl border border-line bg-canvas/40 p-3.5 transition-colors hover:bg-elevated"
                     >
                       {content}
                     </a>
@@ -129,7 +129,7 @@ export function Contact() {
                     href={site.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-line bg-canvas/40 px-3 py-2.5 text-sm text-muted transition-colors hover:border-accent/40 hover:text-ink"
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-line bg-canvas/40 px-3 py-2.5 text-sm text-muted transition-colors hover:bg-elevated hover:text-ink"
                   >
                     <Github className="size-4" />
                     GitHub
@@ -138,7 +138,7 @@ export function Contact() {
                     href={site.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-line bg-canvas/40 px-3 py-2.5 text-sm text-muted transition-colors hover:border-accent/40 hover:text-ink"
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-line bg-canvas/40 px-3 py-2.5 text-sm text-muted transition-colors hover:bg-elevated hover:text-ink"
                   >
                     <Linkedin className="size-4" />
                     LinkedIn

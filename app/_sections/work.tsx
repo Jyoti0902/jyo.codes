@@ -5,7 +5,7 @@ export function Work() {
   return (
     <section
       id="work"
-      className="scroll-mt-24 border-t border-line py-20 sm:py-24"
+      className="scroll-mt-24 border-t border-line py-16 sm:py-20"
     >
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         <SectionHeading
@@ -14,7 +14,7 @@ export function Work() {
           description="Five client products across healthcare, real estate and events — built, shipped and maintained with real users."
         />
 
-        <div className="mt-10">
+        <div className="mt-8">
           <ProjectFilter />
         </div>
 

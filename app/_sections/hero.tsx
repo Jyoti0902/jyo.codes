@@ -17,41 +17,41 @@ const socials = [
 export function Hero() {
   return (
     <section id="home" className="relative overflow-hidden">
-      <div className="mx-auto w-full max-w-6xl px-5 pt-16 pb-14 sm:px-8 sm:pt-24 sm:pb-20">
-        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
+      <div className="mx-auto w-full max-w-6xl px-5 pt-14 pb-12 sm:px-8 sm:pt-20 sm:pb-16">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-12">
           <div
             className="hero-rise lg:col-span-7"
             style={{ animationDelay: "60ms" }}
           >
             {site.available && (
-              <div className="inline-flex items-center gap-2.5 rounded-full border border-line bg-elevated/60 px-3 py-1.5">
-                <span className="relative flex size-2">
+              <div className="inline-flex items-center gap-2 rounded-full border border-line bg-elevated/70 px-3 py-1">
+                <span className="relative flex size-1.5">
                   <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60" />
-                  <span className="relative inline-flex size-2 rounded-full bg-accent" />
+                  <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
                 </span>
-                <span className="font-mono text-[10px] tracking-[0.18em] text-muted uppercase sm:text-[11px]">
-                  Open to new opportunities
+                <span className="font-mono text-[10px] tracking-[0.16em] text-muted uppercase">
+                  Open to work
                 </span>
               </div>
             )}
 
-            <p className="mt-7 font-mono text-xs tracking-[0.2em] text-muted uppercase">
-              {site.hero.eyebrow} · {site.location}
+            <p className="mt-6 font-mono text-[11px] tracking-[0.22em] text-muted uppercase">
+              {site.hero.eyebrow}
             </p>
 
-            <h1 className="mt-4 max-w-3xl text-[2.6rem] leading-[1.02] font-semibold tracking-[-0.035em] text-balance sm:text-6xl lg:text-[3.8rem] xl:text-[4.8rem]">
+            <h1 className="mt-3 max-w-2xl text-[2.35rem] leading-[1.06] font-semibold tracking-[-0.03em] text-balance sm:text-5xl lg:text-[3.5rem]">
               I build web products{" "}
               <span className="text-gradient">that ship.</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted sm:text-base">
               {site.hero.subheading}
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-7 flex flex-wrap items-center gap-2.5">
               <a
                 href="#work"
-                className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-canvas transition-all hover:-translate-y-0.5 hover:bg-ink/90"
+                className="group inline-flex items-center gap-2 rounded-full bg-ink px-4.5 py-2.5 text-sm font-medium text-canvas transition-all hover:-translate-y-0.5 hover:bg-ink/90"
               >
                 View selected work
                 <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
@@ -62,14 +62,14 @@ export function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 download="Jyoti-Resume.pdf"
-                className="group inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm text-ink transition-all hover:-translate-y-0.5 hover:border-accent/60 hover:bg-accent-soft"
+                className="group inline-flex items-center gap-2 rounded-full border border-line px-4.5 py-2.5 text-sm text-ink transition-all hover:-translate-y-0.5 hover:border-accent/60 hover:bg-accent-soft"
               >
                 <Download className="size-4 text-accent" />
                 Download résumé
               </a>
             </div>
 
-            <div className="mt-8 flex items-center gap-3">
+            <div className="mt-7 flex items-center gap-3">
               {socials.map(({ label, href, Icon }) => (
                 <a
                   key={label}
@@ -96,7 +96,7 @@ export function Hero() {
           >
             <div
               aria-hidden
-              className="absolute -inset-8 rounded-[2.5rem] bg-accent/10 blur-3xl"
+              className="absolute -inset-6 rounded-[2rem] bg-accent/5 blur-3xl"
             />
 
             <div className="relative">
@@ -117,7 +117,7 @@ export function Hero() {
               </div>
 
               <div
-                className="relative overflow-hidden rounded-2xl border border-line bg-elevated/90 shadow-[0_30px_90px_-40px_var(--glow)] backdrop-blur"
+                className="relative overflow-hidden rounded-2xl border border-line bg-elevated/90 shadow-[0_24px_70px_-45px_var(--glow)] backdrop-blur"
                 aria-label="Terminal-style introduction"
               >
                 <div className="flex items-center gap-2 border-b border-line px-4 py-3">
@@ -177,12 +177,12 @@ export function Hero() {
         </div>
 
         <div
-          className="hero-rise mt-14 grid grid-cols-3 gap-4 border-t border-line pt-7 sm:mt-20"
+          className="hero-rise mt-12 grid grid-cols-3 gap-4 border-t border-line pt-6 sm:mt-16"
           style={{ animationDelay: "320ms" }}
         >
           {site.stats.map((stat) => (
             <div key={stat.label}>
-              <p className="font-mono text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+              <p className="font-mono text-xl font-semibold tracking-tight text-ink sm:text-2xl">
                 {stat.value}
               </p>
               <p className="mt-1 max-w-[10rem] text-[11px] leading-relaxed text-muted sm:text-xs">

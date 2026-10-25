@@ -41,7 +41,7 @@ export function SiteHeader() {
           className="group flex items-center gap-2.5 font-mono text-sm tracking-tight"
           aria-label="jyoti.codes — back to top"
         >
-          <span className="size-1.5 rounded-full bg-accent shadow-[0_0_10px_var(--accent)]" />
+          <span className="size-1.5 rounded-full bg-accent" />
           <span>
             jyo<span className="text-accent">.</span>codes
           </span>
@@ -66,7 +66,7 @@ export function SiteHeader() {
             href={site.resume}
             target="_blank"
             rel="noreferrer"
-            className="hidden items-center gap-1.5 rounded-full border border-line px-3.5 py-1.5 font-mono text-xs text-muted transition-colors hover:border-accent/50 hover:text-ink sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-full border border-line px-3.5 py-1.5 font-mono text-xs text-muted transition-colors hover:border-ink/25 hover:text-ink sm:inline-flex"
           >
             Résumé
             <ArrowUpRight className="size-3" />

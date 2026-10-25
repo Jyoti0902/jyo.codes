@@ -92,9 +92,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           aria-hidden
           className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
         >
-          <div className="dot-grid absolute inset-x-0 top-0 h-[680px] opacity-70" />
-          <div className="absolute -top-48 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-[130px]" />
-          <div className="absolute top-56 right-0 h-[380px] w-[380px] rounded-full bg-accent-2/10 blur-[130px]" />
+          <div className="dot-grid absolute inset-x-0 top-0 h-[620px] opacity-50" />
+          <div className="absolute -top-48 left-1/2 h-[460px] w-[760px] -translate-x-1/2 rounded-full bg-accent/5 blur-[140px]" />
+          <div className="absolute top-56 right-0 h-[320px] w-[320px] rounded-full bg-accent-2/5 blur-[120px]" />
         </div>
       </body>
     </html>
