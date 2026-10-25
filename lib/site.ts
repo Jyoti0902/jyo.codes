@@ -1,82 +1,248 @@
 // ---------------------------------------------------------------------------
-// EDIT ME: every piece of text on the site lives here. Change these values
-// instead of digging through the components.
+// All site content lives here. Update this file to change copy, projects or
+// links — the components only handle layout and behaviour.
 // ---------------------------------------------------------------------------
+
+export const categories = ["All", "Healthcare", "CRM", "Events"] as const;
+
+export type Category = (typeof categories)[number];
 
 export const site = {
   name: "Jyoti",
   domain: "jyo.codes",
   url: "https://jyo.codes",
-  role: "Full-stack developer",
-  location: "India",
-  email: "hello@jyo.codes",
+  role: "Software Engineer",
+  location: "Mohali, Punjab, India",
+  email: "jyotibrar0927@gmail.com",
+  phone: "+91 7814467486",
   github: "https://github.com/Jyoti0902",
+  linkedin: "https://linkedin.com/in/jyoti-8b7464242",
+  resume: "/resume.pdf",
   available: true,
 
-  title: "Jyoti — Full-stack developer",
+  title: "Jyoti — Software Engineer",
   description:
-    "Full-stack developer building fast, accessible products for the web. TypeScript, React, Node.js and everything in between.",
+    "Software engineer with 2.5+ years of experience building production web applications with React, Next.js, TypeScript and Node.js.",
 
   hero: {
-    eyebrow: "Full-stack developer",
-    heading: "Building thoughtful software for the web.",
+    eyebrow: "Full-stack engineer",
+    heading: "I build web products that ship.",
     subheading:
-      "I design and ship product-focused web applications — from the first sketch to the deploy that sticks. Currently focused on TypeScript, React and developer tooling.",
+      "I’m Jyoti — a software engineer with 2.5+ years of experience turning complex requirements into fast, reliable interfaces and APIs.",
   },
-
-  about: [
-    "I'm Jyoti, a full-stack developer who cares about the details users feel but rarely notice: fast loads, honest interfaces, and code that stays readable a year later.",
-    "Most of my work lives in the TypeScript ecosystem — React and Next.js on the front end, Node.js services behind them. I like small teams, short feedback loops, and shipping things that people actually use.",
-  ],
 
   nav: [
     { label: "Work", href: "#work" },
+    { label: "Experience", href: "#experience" },
+    { label: "Skills", href: "#skills" },
     { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
   ],
 
-  // Sample projects — replace with your own work.
+  stats: [
+    { value: "2.5+", label: "Years shipping production software" },
+    { value: "5", label: "Client products delivered" },
+    { value: "3", label: "Countries served" },
+  ],
+
+  marquee: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "PostgreSQL",
+    "Tailwind CSS",
+    "AWS",
+    "Docker",
+    "TanStack Query",
+    "REST APIs",
+  ],
+
   projects: [
     {
-      title: "jyo.codes",
+      slug: "dialysisongo",
+      title: "DialysisOnGo",
+      category: "Healthcare" as const,
       description:
-        "The site you're reading. A statically rendered portfolio built on Next.js and Tailwind, with zero client-side JavaScript for the core experience.",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-      href: "https://github.com/Jyoti0902/jyo.codes",
-      linkLabel: "Source",
+        "A healthcare booking platform that helps patients find and book dialysis sessions while travelling. Built the multilingual patient, clinic and admin flows, plus CMS-managed content.",
+      highlights: [
+        "Multilingual patient, clinic and admin journeys",
+        "Session search and booking workflows",
+        "CMS-managed content and role-based access",
+      ],
+      tags: ["Next.js", "TypeScript", "PostgreSQL"],
+      href: "https://dialysisongo.com/",
+      linkLabel: "View live site",
+      featured: true,
     },
     {
-      title: "Pulse",
+      slug: "sunnyhomes-crm",
+      title: "Sunny Homes Builders CRM",
+      category: "CRM" as const,
       description:
-        "A lightweight analytics dashboard that turns raw event streams into readable product metrics, with a query builder built for non-technical teammates.",
-      tags: ["React", "Node.js", "PostgreSQL"],
-      href: "#work",
-      linkLabel: "Case study",
+        "An Australia-based real-estate CRM covering lead tracking, property management and sales workflows. Built reusable UI, dashboards and API-driven forms with SWR.",
+      highlights: [
+        "Lead and property management",
+        "Sales workflows and dashboards",
+        "API-driven forms with validation",
+      ],
+      tags: ["React.js", ".NET", "SQL", "SWR", "Tailwind CSS"],
+      href: "https://crm.sunnyhomes.com.au/",
+      linkLabel: "View live site",
+      featured: false,
     },
     {
-      title: "Relay",
+      slug: "tracevenue",
+      title: "TraceVenue",
+      category: "Events" as const,
       description:
-        "A real-time collaboration toolkit — presence, shared cursors and conflict-free documents in a small, typed SDK you can drop into any app.",
-      tags: ["TypeScript", "WebSockets", "CRDTs"],
-      href: "#work",
-      linkLabel: "Case study",
+        "A multi-role event platform connecting customers, vendors and service providers. Built booking and quotation APIs, contract workflows and real-time notifications.",
+      highlights: [
+        "Multi-role booking and quotation flows",
+        "Vendor and contract workflows",
+        "REST APIs and real-time notifications",
+      ],
+      tags: ["React.js", "Node.js", "Express.js", "MongoDB", "AWS"],
+      href: "https://tracevenue.com/",
+      linkLabel: "View live site",
+      featured: false,
+    },
+    {
+      slug: "vitalwatch365",
+      title: "VitalWatch 365",
+      category: "Healthcare" as const,
+      description:
+        "A US telehealth platform for remote patient monitoring, personalised care plans and virtual physical therapy. Worked across patient progress, guided sessions and notifications.",
+      highlights: [
+        "Remote patient monitoring workflows",
+        "Personalised care plans and progress",
+        "Guided therapy sessions and alerts",
+      ],
+      tags: ["React.js", ".NET", "SQL", "REST APIs"],
+      href: "https://vitalwatch365.com/",
+      linkLabel: "View live site",
+      featured: false,
+    },
+    {
+      slug: "appy-saude",
+      title: "Appy Saúde",
+      category: "Healthcare" as const,
+      description:
+        "A healthcare discovery platform for Angola covering pharmacy products, supplements and nearby clinics and hospitals. Focused on responsive browsing and reliable API state.",
+      highlights: [
+        "Product, supplement and category browsing",
+        "Pharmacy, clinic and hospital discovery",
+        "Responsive layouts and API synchronisation",
+      ],
+      tags: ["React.js", ".NET", "SQL", "REST APIs"],
+      href: "https://appysaude.co.ao/",
+      linkLabel: "View live site",
+      featured: false,
     },
   ],
 
-  stack: [
+  experience: {
+    company: "Sensation Software Solutions Pvt. Ltd.",
+    role: "Software Engineer",
+    type: "Full-time",
+    period: "Jan 2024 — Present",
+    location: "Mohali, Punjab, India",
+    summary:
+      "Shipping production software for clients across healthcare, real estate and events — from reusable front-end systems to secure APIs and cloud deployments.",
+    bullets: [
+      "Develop and maintain production web applications with React.js, Next.js, Node.js, Express.js and MongoDB.",
+      "Build responsive, reusable UI components and keep experiences consistent across devices.",
+      "Integrate REST APIs with TanStack Query and SWR for fetching, caching and synchronisation.",
+      "Implement JWT authentication and role-based access control for secure workflows.",
+      "Deploy and configure environments on AWS EC2, AWS S3 and Docker.",
+      "Work with cross-functional teams in an Agile setup to ship features and fix production issues.",
+    ],
+    stack: [
+      "React.js",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "PostgreSQL",
+      "AWS",
+      "Docker",
+    ],
+  },
+
+  education: [
     {
-      label: "Build",
-      items: ["TypeScript", "React", "Next.js", "Tailwind CSS", "Vite"],
+      degree: "Master of Computer Applications (MCA)",
+      school: "Panjab University, SSG Regional Centre",
+      period: "Sep 2022 — Aug 2024",
     },
     {
-      label: "Serve",
-      items: ["Node.js", "PostgreSQL", "Redis", "REST", "GraphQL"],
-    },
-    {
-      label: "Ship",
-      items: ["Git", "GitHub Actions", "Docker", "Vercel", "Playwright"],
+      degree: "B.Sc. in Computer Science",
+      school: "SD College, Kurukshetra University",
+      period: "Jul 2019 — Aug 2022",
     },
   ],
 
-  footerNote: "Designed and built in the open.",
+  skills: [
+    {
+      label: "Frontend",
+      items: [
+        "React.js",
+        "Next.js",
+        "TypeScript",
+        "JavaScript (ES6+)",
+        "Redux Toolkit",
+        "TanStack Query",
+        "SWR",
+        "Tailwind CSS",
+        "React Bootstrap",
+        "HTML5",
+        "CSS3",
+      ],
+    },
+    {
+      label: "Backend",
+      items: [
+        "Node.js",
+        "Express.js",
+        "REST APIs",
+        "JWT",
+        "Role-based access control",
+        "WebSockets",
+      ],
+    },
+    {
+      label: "Data",
+      items: ["MongoDB", "PostgreSQL", "SQL"],
+    },
+    {
+      label: "Cloud & DevOps",
+      items: ["AWS EC2", "AWS S3", "Docker", "CI/CD", "Vercel", "Render"],
+    },
+    {
+      label: "Tools & practice",
+      items: [
+        "Git",
+        "GitHub",
+        "Postman",
+        "VS Code",
+        "MongoDB Compass",
+        "MVC",
+        "Responsive design",
+        "Performance optimisation",
+      ],
+    },
+  ],
+
+  about: [
+    "I’m a software engineer based in Mohali, Punjab, with 2.5+ years of experience building production web applications. Most of my work sits in the React and Node.js ecosystem — responsive interfaces on the front, secure APIs and data flows behind them.",
+    "I’ve worked with teams and clients across Australia, the USA and Angola on healthcare platforms, real-estate CRMs and event marketplaces. I like clear interfaces, dependable APIs and code that’s still easy to change a year later.",
+    "Outside of delivery work, I’m usually exploring better ways to structure front-end systems, improve performance and make complex workflows feel simple.",
+  ],
+
+  footerNote: "Designed and built with Next.js, TypeScript and Tailwind CSS.",
 } as const;
+
+export type Project = (typeof site.projects)[number];
