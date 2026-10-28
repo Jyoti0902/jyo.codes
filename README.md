@@ -3,18 +3,19 @@
 Personal portfolio for [Jyoti](https://github.com/Jyoti0902) — a software
 engineer building production web applications.
 
-A single-page, statically rendered portfolio built with **Next.js 16**,
-**React 19**, **TypeScript** and **Tailwind CSS v4**, with an interactive
-React Three Fiber hero, scroll-reveal motion and a dark/light theme.
+The site is a single-page, statically exported portfolio dressed as a
+**terminal**: prompt lines instead of section eyebrows, a working shell in the
+hero, `⌘K` command palette, an `ls`-style project explorer, `git log`
+experience and a `tree` of the toolkit — with dark and light themes, both
+built from the same token set.
 
 ## Stack
 
-- **Next.js 16** (App Router, Turbopack, Cache Components)
+- **Next.js 16** (App Router, Turbopack, static export to `out/`)
 - **React 19** + **TypeScript**
 - **Tailwind CSS v4** with a token-based design system
-- **React Three Fiber / Three.js / Drei** — procedural 3D hero, no external models
-- **Framer Motion** — reveals, magnetic buttons, layout-aware indicators
-- **next/font** — Geist Sans, Geist Mono, Instrument Serif
+- **Framer Motion** — reveals, palette, tab transitions
+- **next/font** — Geist Sans for prose, Geist Mono for the shell UI
 
 ## Getting started
 
@@ -26,98 +27,119 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
-npm run build   # production build
-npm run start   # serve the production build
+npm run build   # static export to out/
 npm run lint    # eslint
 ```
+
+## The shell
+
+The hero is a real input, not a mock. It boots with `whoami`, `pwd` and
+`cat focus.txt`, then hands the prompt over.
+
+| Command             | What it does                                                 |
+| ------------------- | ------------------------------------------------------------ |
+| `help`              | List every command                                           |
+| `whoami`            | Role, experience and location                                |
+| `ls`                | List sections                                                |
+| `cd <section>`      | Scroll to work / experience / skills / about / contact        |
+| `open <target>`     | Open a project slug, github, linkedin, resume or email       |
+| `projects`          | List shipped products                                        |
+| `stack`             | Print the toolkit                                            |
+| `theme [light\|dark]` | Switch appearance (no argument toggles)                    |
+| `clear`             | Clear the pane (`⌘L` / `Ctrl+L` also works)                  |
+| `date`, `neofetch`, `echo`, `sudo`, `exit` | The usual             |
+
+`↑` / `↓` walk the history, `Tab` completes a command, and `Esc` / `Ctrl+C`
+clear the current line. Under `prefers-reduced-motion` the boot typing is
+skipped and the full transcript appears immediately.
+
+Outside the hero, `⌘K` / `Ctrl+K` (or `/` when not typing) opens the command
+palette: jump to a section, open a project, copy the email address, switch the
+theme.
 
 ## Editing content
 
 Every string on the site — hero copy, projects, experience, skills, education,
 links and the contact email — lives in [`lib/site.ts`](lib/site.ts). Update that
-file first; the components only handle layout and behaviour.
+file first; the components only handle layout and behaviour. The section nav
+and the shell identity (`jyoti@codes`) also come from there.
 
 ```
 app/
-  _components/           Header, footer, icons, 3D hero, previews, motion primitives
-  _sections/             Hero, work, experience, skills, about, contact
-  globals.css            Theme tokens, surfaces, animation utilities
-  layout.tsx             Fonts, metadata, dark-first theme bootstrap
-  page.tsx               Section composition + Person JSON-LD
-  icon.svg               Favicon
-lib/site.ts              All site content and links
+  _components/
+    terminal.tsx          Prompt, window chrome, kbd primitives
+    hero-shell.tsx        The interactive hero terminal
+    command-palette.tsx   ⌘K palette + provider
+    project-explorer.tsx  Project table + screenshot pane
+    site-header.tsx       Sticky chrome, active section, mobile nav
+    site-footer.tsx       Links + editor status bar
+  _sections/              Hero, ticker, work, experience, skills, about, contact
+  globals.css             Theme tokens, surfaces, CRT texture, motion utilities
+  layout.tsx              Fonts, metadata, theme bootstrap, palette provider
+  page.tsx                Section composition + Person JSON-LD
+lib/site.ts               All site content and links
+lib/theme.ts              Theme read/write + section scrolling helpers
 public/
-  Jyoti-Resume.pdf       Downloadable résumé (phone number removed)
-  og.png                 Social sharing image
+  projects/<slug>/        Real screenshots, three per project
+  Jyoti-Resume.pdf        Downloadable résumé (phone number removed)
+  og.png                  Social sharing image
 ```
 
 ## Design system
 
-| Token         | Dark      | Light     |
-| ------------- | --------- | --------- |
-| `canvas`      | `#0B0F14` | `#F6F2E9` |
-| `surface`     | `#0F151B` | `#FAF7F0` |
-| `elevated`    | `#151D25` | `#FFFDF8` |
-| `ink`         | `#F3F5F4` | `#10201B` |
-| `muted`       | `#98A3AD` | `#56655F` |
-| `accent`      | `#16C7A0` | `#0A6F5B` |
-| `accent-2`    | `#A3F66B` | `#4F6F1E` |
+| Token      | Dark      | Light     |
+| ---------- | --------- | --------- |
+| `canvas`   | `#070b09` | `#f2f0e7` |
+| `surface`  | `#0b100d` | `#faf8f0` |
+| `elevated` | `#101713` | `#fffdf6` |
+| `ink`      | `#e2f1e7` | `#10241a` |
+| `muted`    | `#8ba295` | `#4d6156` |
+| `faint`    | `#5d7166` | `#7c8c82` |
+| `accent`   | `#48f09a` | `#087a49` |
+| `accent-2` | `#ffcd6b` | `#92560a` |
 
-`accent` doubles as the text/interaction colour, so it darkens in the light
-theme to keep contrast. `accent-fill` is the solid button colour in both themes.
-All tokens live in `app/globals.css` and are exposed to Tailwind through
-`@theme inline`.
+Dark is phosphor green on near-black; light is a warm "paper terminal". All
+tokens live in `app/globals.css` and are exposed to Tailwind through
+`@theme inline`, so components never hardcode a colour. `accent-fill` is the
+solid button colour in both themes, paired with `accent-fill-ink`.
 
-## 3D hero
+Atmosphere is two fixed overlays: `.crt` (scanlines plus vignette) and `.noise`.
+Both are `pointer-events: none`, sit above the page and drop to a barely-there
+opacity so they never interfere with text or buttons.
 
-`app/_components/hero-visual.tsx` renders a procedural faceted core with orbital
-rings, glowing nodes and floating interface fragments. It:
+## Motion
 
-- detects WebGL before mounting and falls back to a CSS composition
-  (`hero-fallback.tsx`) on unsupported devices,
-- is loaded with `next/dynamic` (`ssr: false`) so it never blocks first paint,
-- honours `prefers-reduced-motion` by rendering a single static frame,
-- re-colours itself when the theme changes.
-
-## Project previews
-
-All five project visuals in `app/_components/project-visual.tsx` are real
-screenshots of the live products — three per project, cross-fading every ~5 s
-while the frame is in view, pausing on hover and held static under
-`prefers-reduced-motion`. Each frame is labelled **Live product screenshot** with
-its domain in the title bar.
-
-Every frame also has manual controls in the bottom-right: previous/next arrows
-and one dot per screenshot, so you can page through at your own pace. Picking a
-shot restarts the 5.2 s dwell. The image itself links to the live site; the
-controls sit above that link, so they never navigate.
-
-Images live in `public/projects/<slug>/01.jpg`–`03.jpg` (1600 px wide, JPEG
-q80–82). Replace a file to update a shot. Setting `images: []` in `lib/site.ts`
-falls back to the CSS **interface study** frame (`CrmPreview`) and is labelled
-as such.
-
-The work rows animate against their own scroll progress: a hairline accent bar
-fills across the top edge, the preview lifts and flattens from a slight tilt and
-drifts against the page, and each title assembles word by word on first view.
-Sunny Homes uses the full-bleed 21/9 layout because its CRM screens are
-ultra-wide.
-
-## Theme
-
-The theme is applied by a small inline script in `app/layout.tsx` before the
-first paint, so there is no flash. **Dark is the default**; a stored preference
-wins. The toggle swaps icons from the `data-theme` attribute, so it stays in
-sync without a hydration mismatch.
+- Section content fades and lifts in on first view (`Reveal`), staggered where
+  it reads as one block.
+- The hero boot types command by command; the block caret blinks with
+  `steps(1)` so it stays crisp.
+- Project rows are a `tablist`: `↑` `↓` `Home` `End` move between them, the
+  detail pane cross-fades, and the screenshot pane is manually pageable.
+- The stack ticker scrolls continuously and pauses on hover/focus.
+- `prefers-reduced-motion` disables typing, the caret, the marquee and every
+  long transition in both CSS and Framer Motion.
 
 ## Accessibility
 
-Semantic landmarks, a skip link, visible focus rings, `aria-label`/`aria-pressed`
-on controls, Escape-to-close and scroll locking for the mobile menu, and
-`prefers-reduced-motion` support across both CSS and Framer Motion.
+Semantic landmarks, a skip link, `aria-current` on the active section, a
+proper `tablist`/`tabpanel` for projects, `role="log"` for the shell output,
+`aria-live` for copy confirmations, Escape-to-close and focus return for both
+the palette and the mobile menu, visible focus rings, and a full
+`prefers-reduced-motion` path.
 
 ## Deployment
 
-The site builds to fully static output (`/`, `/robots.txt`, `/sitemap.xml`), so
-it can be hosted anywhere. On Vercel, import the repo and deploy — no
-environment variables required. Then point the `jyo.codes` domain at it.
+`next.config.ts` sets `output: "export"`, so `npm run build` writes plain HTML,
+CSS and JS to `out/`. The GitHub Actions workflow in
+`.github/workflows/deploy.yml` builds on every push to `main` and deploys to
+GitHub Pages.
+
+Pages serves project sites from a sub-path, so the workflow injects:
+
+```yaml
+NEXT_PUBLIC_BASE_PATH: /jyo.codes
+NEXT_PUBLIC_SITE_URL: https://jyoti0902.github.io/jyo.codes
+```
+
+Moving to the `jyo.codes` custom domain is two values in that workflow:
+`NEXT_PUBLIC_BASE_PATH: ""` and `NEXT_PUBLIC_SITE_URL: https://jyo.codes`.
