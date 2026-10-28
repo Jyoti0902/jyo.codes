@@ -1,4 +1,5 @@
 import { CopyEmail } from "@/app/_components/copy-email";
+import { Reveal } from "@/app/_components/reveal";
 import {
   ArrowUpRight,
   Github,
@@ -6,104 +7,147 @@ import {
   Mail,
   MapPin,
 } from "@/app/_components/icons";
-import { Reveal } from "@/app/_components/reveal";
+import {
+  CommandPrompt,
+  TerminalWindow,
+  WindowBar,
+} from "@/app/_components/terminal";
 import { site } from "@/lib/site";
+
+const elsewhere = [
+  {
+    label: "github.com/Jyoti0902",
+    href: site.github,
+    Icon: Github,
+  },
+  {
+    label: "linkedin.com/in/jyoti",
+    href: site.linkedin,
+    Icon: Linkedin,
+  },
+  {
+    label: site.email,
+    href: `mailto:${site.email}`,
+    Icon: Mail,
+  },
+];
 
 export function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 border-t border-line py-20 sm:py-28"
+      className="relative scroll-mt-20 border-t border-line py-16 sm:py-24"
     >
-      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-line bg-surface/70 px-6 py-12 sm:px-10 sm:py-16 lg:px-14">
-            <div className="dot-grid pointer-events-none absolute inset-0 opacity-25" />
-            <div className="pointer-events-none absolute -top-40 -right-24 size-[420px] rounded-full bg-accent/10 blur-[120px]" />
-            <div className="pointer-events-none absolute -bottom-48 -left-32 size-[380px] rounded-full bg-accent-2/8 blur-[120px]" />
-
-            <div className="orbit-spin pointer-events-none absolute top-1/2 -right-24 hidden size-[360px] -translate-y-1/2 rounded-full border border-dashed border-line-strong lg:block">
-              <span className="absolute top-8 left-10 size-1.5 rounded-full bg-accent" />
+          <TerminalWindow
+            title="~/contact"
+            meta="zsh — last login: today"
+            bodyClassName="relative"
+          >
+            <div className="border-b border-line bg-canvas/50 px-4 py-2.5">
+              <CommandPrompt
+                command={`mail -s "hello" ${site.email}`}
+              />
             </div>
 
-            <div className="relative">
-              <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.2em] uppercase">
-                <span className="text-accent">05</span>
-                <span className="text-line-strong">/</span>
-                <span className="text-muted">Contact</span>
-              </div>
+            <div className="dot-grid pointer-events-none absolute inset-0 opacity-30" />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-24 right-0 size-[320px] rounded-full bg-accent/8 blur-[100px]"
+            />
 
-              <h2 className="mt-6 max-w-4xl text-[clamp(2.1rem,4.6vw,3.6rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance">
-                {site.contact.heading}{" "}
-                <span className="serif-accent text-gradient">
-                  {site.contact.accent}
-                </span>
-              </h2>
+            <div className="relative grid gap-8 p-5 sm:p-8 lg:grid-cols-[1.18fr_0.82fr] lg:gap-12 lg:p-10">
+              <div>
+                <p className="font-mono text-[10px] tracking-[0.2em] text-faint uppercase">
+                  {"// 05 — contact"}
+                </p>
 
-              <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-                <div>
-                  <p className="max-w-lg text-sm leading-relaxed text-muted sm:text-base">
-                    {site.contact.body}
-                  </p>
+                <h2 className="mt-4 text-[clamp(1.85rem,4vw,2.9rem)] leading-[1.05] font-semibold tracking-[-0.04em] text-balance">
+                  {site.contact.heading}{" "}
+                  <span className="text-accent">{site.contact.accent}</span>
+                </h2>
 
-                  <div className="mt-6 flex flex-wrap items-center gap-2.5">
-                    <a
-                      href={`mailto:${site.email}`}
-                      className="group inline-flex items-center gap-2 rounded-full bg-accent-fill px-5 py-3 text-sm font-medium text-accent-fill-ink transition hover:brightness-110"
-                    >
-                      <Mail className="size-4" />
-                      Email me
-                      <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </a>
+                <p className="mt-4 max-w-lg text-[14px] leading-relaxed text-muted sm:text-[15px]">
+                  {site.contact.body}
+                </p>
 
-                    <CopyEmail email={site.email} />
-                  </div>
-
+                <div className="mt-6 flex flex-wrap items-center gap-2">
                   <a
                     href={`mailto:${site.email}`}
-                    className="mt-6 inline-block border-b border-line-strong pb-1 font-mono text-sm text-ink transition-colors hover:border-accent hover:text-accent sm:text-base"
+                    className="group inline-flex items-center gap-2 rounded bg-accent-fill px-4 py-2.5 font-mono text-[12px] font-medium text-accent-fill-ink transition hover:brightness-110"
                   >
-                    {site.email}
+                    <Mail className="size-3.5" />
+                    email me
+                    <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </a>
+
+                  <CopyEmail email={site.email} />
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2 lg:flex-col lg:items-end">
-                  <a
-                    href={site.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-[12px] text-muted transition-colors hover:border-accent/50 hover:text-ink"
-                  >
-                    <Github className="size-3.5" />
-                    GitHub
-                  </a>
-                  <a
-                    href={site.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-[12px] text-muted transition-colors hover:border-accent/50 hover:text-ink"
-                  >
-                    <Linkedin className="size-3.5" />
-                    LinkedIn
-                  </a>
+                <div className="mt-7 rounded border border-line-strong bg-elevated/50">
+                  <WindowBar title="to: jyoti" meta="re: work" />
+                  <div className="flex flex-wrap items-center gap-2 px-3 py-2.5 font-mono text-[11.5px]">
+                    <span className="text-accent">→</span>
+                    <a
+                      href={`mailto:${site.email}`}
+                      className="text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent"
+                    >
+                      {site.email}
+                    </a>
+                    <span className="ml-auto hidden text-faint sm:inline">
+                      email is the fastest route
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-5 font-mono text-[10px] tracking-wide text-muted/70 uppercase">
-                <span className="inline-flex items-center gap-1.5">
-                  <MapPin className="size-3.5" />
-                  {site.location}
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="size-1.5 rounded-full bg-accent" />
-                  Open to opportunities
-                </span>
-                <span className="ml-auto hidden sm:inline">
-                  Email is the best way to reach me
-                </span>
+              <div className="flex flex-col justify-between gap-6">
+                <div>
+                  <p className="font-mono text-[10px] tracking-[0.16em] text-faint uppercase">
+                    # elsewhere
+                  </p>
+
+                  <ul className="mt-3 space-y-1.5">
+                    {elsewhere.map(({ label, href, Icon }) => (
+                      <li key={label}>
+                        <a
+                          href={href}
+                          target={href.startsWith("http") ? "_blank" : undefined}
+                          rel={href.startsWith("http") ? "noreferrer" : undefined}
+                          className="group flex items-center gap-2 rounded px-2 py-1.5 font-mono text-[11.5px] text-muted transition-colors hover:bg-elevated hover:text-ink"
+                        >
+                          <Icon className="size-3.5 text-faint transition-colors group-hover:text-accent" />
+                          <span className="truncate">{label}</span>
+                          <ArrowUpRight className="ml-auto size-3 shrink-0 text-faint transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded border border-line bg-elevated/50 p-3">
+                  <p className="flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-accent uppercase">
+                    <span className="status-dot size-1.5 rounded-full bg-accent" />
+                    open to opportunities
+                  </p>
+
+                  <p className="mt-2 flex items-center gap-1.5 font-mono text-[10.5px] text-faint">
+                    <MapPin className="size-3" />
+                    {site.location}
+                  </p>
+
+                  <p className="mt-2 font-mono text-[10.5px] text-faint">
+                    full-time roles · product work · interesting problems
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+
+            <p className="border-t border-line bg-elevated/50 px-5 py-2 font-mono text-[9px] tracking-[0.16em] text-faint uppercase sm:px-8 lg:px-10">
+              -- end of transmission --
+            </p>
+          </TerminalWindow>
         </Reveal>
       </div>
     </section>

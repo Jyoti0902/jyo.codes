@@ -1,38 +1,41 @@
+import type { ReactNode } from "react";
+import { CommandPrompt } from "./terminal";
+
+/**
+ * Section intro: a shell command, then the human-readable heading. The command
+ * is decoration with meaning — it tells you how the section is built.
+ */
 export function SectionHeading({
   index,
-  eyebrow,
+  command,
   title,
   description,
 }: {
   index: string;
-  eyebrow: string;
-  title: string;
-  description?: string;
+  command: string;
+  title: ReactNode;
+  description?: ReactNode;
 }) {
   return (
-    <div className="border-t border-line pt-5">
-      <div className="flex items-center justify-between gap-4 font-mono text-[10px] tracking-[0.18em] uppercase">
-        <span className="flex items-center gap-3 text-muted">
-          <span className="text-accent">{index}</span>
-          <span className="text-line-strong">/</span>
-          {eyebrow}
+    <header className="max-w-3xl">
+      <div className="flex items-center gap-3">
+        <span className="font-mono text-[10px] tracking-[0.2em] text-faint uppercase">
+          {`// ${index}`}
         </span>
-        <span className="hidden text-muted/60 sm:block">
-          {String(Number(index) + 1).padStart(2, "0")} — 06
-        </span>
+        <span className="h-px w-10 bg-line-strong" aria-hidden />
       </div>
 
-      <div className="mt-6 grid gap-5 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-end md:gap-10">
-        <h2 className="max-w-2xl text-[clamp(1.9rem,3vw,2.75rem)] leading-[1.06] font-semibold tracking-[-0.035em] text-balance">
-          {title}
-        </h2>
+      <CommandPrompt command={command} className="mt-4 text-muted" />
 
-        {description && (
-          <p className="max-w-md text-sm leading-relaxed text-muted md:justify-self-end">
-            {description}
-          </p>
-        )}
-      </div>
-    </div>
+      <h2 className="mt-4 text-[clamp(1.85rem,4vw,2.85rem)] leading-[1.06] font-semibold tracking-[-0.035em] text-balance">
+        {title}
+      </h2>
+
+      {description ? (
+        <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted sm:text-[15px]">
+          {description}
+        </p>
+      ) : null}
+    </header>
   );
 }

@@ -1,141 +1,132 @@
-"use client";
-
-import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SectionHeading } from "@/app/_components/section-heading";
+import { Reveal } from "@/app/_components/reveal";
+import {
+  CommandPrompt,
+  TerminalWindow,
+} from "@/app/_components/terminal";
 import { site } from "@/lib/site";
 
-export function Skills() {
-  const [active, setActive] = useState(0);
-  const reduceMotion = useReducedMotion();
-  const group = site.skills[active];
+const MAX_ITEMS = Math.max(...site.skills.map((group) => group.items.length));
 
+export function Skills() {
   return (
     <section
       id="skills"
-      className="relative scroll-mt-24 border-t border-line py-20 sm:py-28"
+      className="relative scroll-mt-20 border-t border-line py-16 sm:py-24"
     >
-      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <SectionHeading
           index="03"
-          eyebrow="Technical toolkit"
-          title="A practical stack, used in production."
-          description="Grouped by how I use them — from responsive interfaces to APIs, data and deployment."
+          command="tree ~/skills -L 2"
+          title="The toolkit behind the work."
+          description="Grouped the way I actually use it — interfaces, APIs, data, delivery, and the everyday tools around them."
         />
 
-        <div className="mt-12 grid gap-7 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-12">
-          <div className="flex flex-col">
-            {site.skills.map((skill, index) => {
-              const isActive = index === active;
+        <div className="mt-10 grid gap-5 lg:grid-cols-[1.4fr_0.6fr] lg:gap-6">
+          <Reveal>
+            <TerminalWindow
+              title="~/skills"
+              meta={`${site.skills.reduce((total, group) => total + group.items.length, 0)} items`}
+              bodyClassName="p-4 sm:p-5"
+            >
+              <CommandPrompt command="tree ~/skills -L 2" />
 
-              return (
-                <button
-                  key={skill.key}
-                  type="button"
-                  onClick={() => setActive(index)}
-                  aria-pressed={isActive}
-                  className={`group relative flex items-center gap-5 border-t border-line py-5 text-left transition-colors ${
-                    isActive ? "text-ink" : "text-muted hover:text-ink"
-                  }`}
-                >
-                  <span
-                    className={`font-mono text-[10px] tracking-[0.14em] ${
-                      isActive ? "text-accent" : "text-muted/60"
-                    }`}
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-lg tracking-[-0.02em] sm:text-xl">
-                    {skill.label}
-                  </span>
-                  <span className="ml-auto font-mono text-[10px] text-muted/60">
-                    {String(skill.items.length).padStart(2, "0")}
-                  </span>
-                  {isActive && (
-                    <motion.span
-                      layoutId="skill-active"
-                      className="absolute inset-x-0 top-0 h-px bg-accent"
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 32,
-                      }}
-                    />
-                  )}
-                </button>
-              );
-            })}
+              <div className="mt-4 font-mono text-[11.5px] leading-[1.95]">
+                <p className="text-ink">~/skills</p>
 
-            <p className="mt-6 max-w-xs text-[11px] leading-relaxed text-muted/70">
-              No proficiency scores — just the tools I use to design, build and
-              ship production software.
-            </p>
-          </div>
+                {site.skills.map((group, groupIndex) => {
+                  const last = groupIndex === site.skills.length - 1;
 
-          <div className="relative overflow-hidden rounded-2xl border border-line bg-elevated/40 p-6 backdrop-blur sm:p-9">
-            <div className="dot-grid pointer-events-none absolute inset-0 opacity-25" />
-            <div className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-accent/10 blur-[80px]" />
-            <div className="pointer-events-none absolute -bottom-28 -left-20 size-64 rounded-full bg-accent-2/8 blur-[90px]" />
+                  return (
+                    <div key={group.key}>
+                      {/* Hanging indent keeps wrapped captions and long item
+                          lists aligned under the tree branch. */}
+                      <p className="pl-[4ch] -indent-[4ch]">
+                        <span aria-hidden className="whitespace-pre text-faint">
+                          {last ? "└── " : "├── "}
+                        </span>
+                        <span className="text-accent">
+                          {group.label.toLowerCase()}/
+                        </span>{" "}
+                        <span className="text-faint">
+                          ({group.items.length})
+                        </span>
+                        <span className="hidden text-[10.5px] text-faint/80 sm:inline">
+                          {" "}
+                          — {group.caption.toLowerCase()}
+                        </span>
+                      </p>
 
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+                      <p className="pl-[4ch] -indent-[4ch] text-[11px] text-muted">
+                        <span aria-hidden className="whitespace-pre text-faint">
+                          {last ? "    " : "│   "}
+                        </span>
+                        {group.items.map((item, itemIndex) => (
+                          <span key={item}>
+                            {item}
+                            {itemIndex < group.items.length - 1 ? (
+                              <span aria-hidden className="text-faint/70">
+                                {" · "}
+                              </span>
+                            ) : null}
+                          </span>
+                        ))}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </TerminalWindow>
+          </Reveal>
 
-            <div className="relative flex h-full flex-col">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={group.key}
-                  initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={reduceMotion ? undefined : { opacity: 0, y: -10 }}
-                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-1 flex-col"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-[10px] tracking-[0.18em] text-accent uppercase">
-                      {String(active + 1).padStart(2, "0")} /{" "}
-                      {group.label}
-                    </span>
-                    <span className="hairline hidden w-14 sm:block" />
-                  </div>
+          <Reveal delay={0.06}>
+            <div className="window flex h-full flex-col p-4 sm:p-5">
+              <CommandPrompt command="wc -l ~/skills/*" />
 
-                  <div className="flex flex-1 flex-col justify-center py-7">
-                    <p className="max-w-md font-serif text-[1.6rem] leading-tight text-ink italic sm:text-[1.9rem]">
-                      {group.caption}
-                    </p>
+              <div className="mt-4 space-y-2.5">
+                {site.skills.map((group) => (
+                  <div key={group.key}>
+                    <div className="flex items-baseline justify-between gap-2 font-mono text-[10.5px]">
+                      <span className="text-muted">
+                        {group.label.toLowerCase()}
+                      </span>
+                      <span className="text-faint">
+                        {String(group.items.length).padStart(2, "0")}
+                      </span>
+                    </div>
 
-                    <div className="mt-7 flex flex-wrap gap-2">
-                      {group.items.map((item, index) => (
-                        <motion.span
-                          key={item}
-                          initial={
-                            reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }
-                          }
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            duration: 0.4,
-                            delay: index * 0.035,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
-                          className="cursor-default rounded-full border border-line bg-canvas/60 px-3.5 py-2 font-mono text-[11.5px] text-muted transition-colors hover:border-accent/50 hover:bg-accent-soft hover:text-ink"
-                        >
-                          {item}
-                        </motion.span>
-                      ))}
+                    <div
+                      className="mt-1 h-1.5 overflow-hidden rounded-sm bg-elevated-2"
+                      aria-hidden
+                    >
+                      <div
+                        className="h-full rounded-sm bg-accent/80"
+                        style={{
+                          width: `${Math.round(
+                            (group.items.length / MAX_ITEMS) * 100,
+                          )}%`,
+                        }}
+                      />
                     </div>
                   </div>
+                ))}
+              </div>
 
-                  <div className="flex items-center gap-3 border-t border-line pt-5">
-                    <span className="size-1.5 rounded-full bg-accent" />
-                    <span className="font-mono text-[10px] tracking-[0.14em] text-muted/70 uppercase">
-                      Used across production projects
-                    </span>
-                    <span className="ml-auto font-mono text-[10px] text-muted/50">
-                      {String(group.items.length).padStart(2, "0")} tools
-                    </span>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+              <div className="mt-4 flex items-baseline justify-between gap-2 border-t border-line pt-2.5 font-mono text-[10.5px]">
+                <span className="text-faint">total</span>
+                <span className="text-accent">
+                  {site.skills.reduce(
+                    (total, group) => total + group.items.length,
+                    0,
+                  )}
+                </span>
+              </div>
+
+              <p className="mt-auto pt-5 font-mono text-[10px] leading-relaxed text-faint">
+                {"// breadth of the toolkit, counted from the tree"}
+              </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
