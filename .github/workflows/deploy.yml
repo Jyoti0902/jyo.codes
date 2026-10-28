@@ -37,12 +37,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      
       - name: Build static site
+        run: npm run build
+
+      - name: Verify static export
+        if: always()
         run: |
-          npm run build
-          echo "Checking build output..."
+          echo "Current directory:"
+          pwd
+          echo "Project files:"
           ls -la
-          ls -la out
+          echo "Next.js build output:"
+          ls -la .next || true
+          echo "Static export output:"
+          ls -la out || true
+
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
