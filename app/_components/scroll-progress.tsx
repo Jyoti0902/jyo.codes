@@ -31,7 +31,7 @@ export function ScrollProgress() {
   }, []);
 
   return (
-    <div aria-hidden className="fixed inset-x-0 top-0 z-[60] h-px">
+    <div aria-hidden className="fixed inset-x-0 top-0 z-[55] h-[2px]">
       <div
         className="scroll-progress h-full"
         style={{ transform: `scaleX(${progress})` }}

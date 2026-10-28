@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import { CommandPaletteProvider } from "./_components/command-palette";
 import { ScrollProgress } from "./_components/scroll-progress";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
@@ -14,13 +15,6 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
 });
 
 export const metadata: Metadata = {
@@ -65,8 +59,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f6f2e9" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0f14" },
+    { media: "(prefers-color-scheme: light)", color: "#f2f0e7" },
+    { media: "(prefers-color-scheme: dark)", color: "#070b09" },
   ],
 };
 
@@ -77,12 +71,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-theme="dark"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="light"){document.documentElement.setAttribute("data-theme","light")}}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}})()`,
           }}
         />
       </head>
@@ -90,31 +84,29 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[90] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-canvas"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[95] focus:rounded focus:bg-accent-fill focus:px-3 focus:py-2 focus:font-mono focus:text-xs focus:text-accent-fill-ink"
         >
-          Skip to content
+          skip to content
         </a>
 
-        <ScrollProgress />
-        <SiteHeader />
+        <CommandPaletteProvider>
+          <ScrollProgress />
+          <SiteHeader />
 
-        <main id="main" className="flex-1">
-          {children}
-        </main>
+          <main id="main" className="flex-1">
+            {children}
+          </main>
 
-        <SiteFooter />
+          <SiteFooter />
+        </CommandPaletteProvider>
 
+        <div aria-hidden className="crt" />
         <div aria-hidden className="noise" />
 
         <div
           aria-hidden
-          className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-        >
-          <div className="grid-lines absolute inset-x-0 top-0 h-[860px] opacity-70" />
-          <div className="absolute -top-56 left-1/2 h-[560px] w-[920px] -translate-x-1/2 rounded-full bg-accent/8 blur-[150px]" />
-          <div className="absolute top-[42%] -right-48 size-[420px] rounded-full bg-accent-2/6 blur-[150px]" />
-          <div className="absolute bottom-0 left-0 h-[380px] w-[380px] rounded-full bg-accent/5 blur-[140px]" />
-        </div>
+          className="page-glow pointer-events-none fixed inset-0 -z-10"
+        />
       </body>
     </html>
   );
