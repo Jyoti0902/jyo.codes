@@ -192,19 +192,20 @@ export function Hero() {
                 </div>
               </motion.div>
 
-              <div className="absolute -bottom-5 -left-3 hidden rounded-xl border border-line bg-surface px-4 py-3 shadow-lg sm:block">
-                <p className="text-[9.5px] font-medium tracking-[0.18em] text-faint uppercase">
-                  Shipped
-                </p>
-                <p className="mt-1 text-[13px] font-medium">
-                  {site.projects.length} client products
-                </p>
-              </div>
             </div>
 
-            <p className="mt-5 text-center text-[11.5px] text-faint">
-              {featured.category} · {featured.client}
-            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-2.5 px-1">
+              <p className="text-[11.5px] text-faint">
+                {featured.category} · {featured.client}
+              </p>
+
+              <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5 shadow-sm">
+                <span aria-hidden className="size-1.5 rounded-full bg-accent-fill" />
+                <span className="text-[11.5px] font-medium text-muted">
+                  {site.projects.length} client products shipped
+                </span>
+              </p>
+            </div>
           </motion.div>
         </div>
 
