@@ -3,7 +3,7 @@ import { Contact } from "@/app/_sections/contact";
 import { Experience } from "@/app/_sections/experience";
 import { Hero } from "@/app/_sections/hero";
 import { Skills } from "@/app/_sections/skills";
-import { TechMarquee } from "@/app/_sections/tech-marquee";
+import { Ticker } from "@/app/_sections/ticker";
 import { Work } from "@/app/_sections/work";
 import { site } from "@/lib/site";
 
@@ -52,7 +52,7 @@ export default function Home() {
       />
 
       <Hero />
-      <TechMarquee />
+      <Ticker />
       <Work />
       <Experience />
       <Skills />
