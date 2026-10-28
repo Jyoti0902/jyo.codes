@@ -25,6 +25,15 @@ export const site = {
   resume: asset("/Jyoti-Resume.pdf"),
   available: true,
 
+  // Identity used by the prompt lines (`jyoti@codes:~$`).
+  shell: {
+    user: "jyoti",
+    host: "codes",
+    path: "~",
+  },
+
+  focus: ["Frontend systems", "Reliable APIs", "Cloud delivery"],
+
   title: "Jyoti — Software Engineer",
   description:
     "Software Engineer with 2.5+ years of experience building production-ready web applications, responsive interfaces and reliable APIs.",
@@ -33,6 +42,8 @@ export const site = {
     status: "Open to opportunities",
     eyebrow: "Software Engineer",
     heading: "I build digital products that make an impact.",
+    headingLead: "I build digital products that",
+    headingAccent: "make an impact.",
     subheading:
       "I’m Jyoti, a Software Engineer with 2.5+ years of experience building production-ready web applications, responsive interfaces, and reliable APIs.",
     primaryCta: "Explore My Work",
@@ -40,11 +51,11 @@ export const site = {
   },
 
   nav: [
-    { label: "Work", href: "#work" },
-    { label: "Experience", href: "#experience" },
-    { label: "Skills", href: "#skills" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Work", href: "#work", command: "ls ~/work" },
+    { label: "Experience", href: "#experience", command: "git log" },
+    { label: "Skills", href: "#skills", command: "tree ~/skills" },
+    { label: "About", href: "#about", command: "cat about.md" },
+    { label: "Contact", href: "#contact", command: "mail -s hi" },
   ],
 
   stats: [
@@ -311,7 +322,7 @@ export const site = {
     body: "I’m open to software engineering roles and product work. Email is the best way to reach me — tell me what you’re building and where you need help.",
   },
 
-  footerNote: "Designed and built with Next.js, TypeScript and Tailwind CSS.",
+  footerNote: "Built with Next.js, TypeScript and Tailwind CSS. No templates harmed.",
 } as const;
 
 export type Project = (typeof site.projects)[number];

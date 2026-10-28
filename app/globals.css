@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Terminal design tokens.
+   Everything in the UI is built from these values, so a theme is just a
+   different set of variables — components never hardcode a colour.
+   --------------------------------------------------------------------------- */
+
 @theme inline {
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
@@ -9,63 +15,78 @@
   --color-line-strong: var(--line-strong);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
+  --color-faint: var(--faint);
   --color-accent: var(--accent);
   --color-accent-2: var(--accent-2);
   --color-accent-soft: var(--accent-soft);
   --color-accent-fill: var(--accent-fill);
   --color-accent-fill-ink: var(--accent-fill-ink);
+  --color-warn: var(--warn);
+  --color-info: var(--info);
+  --color-danger: var(--danger);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
-  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
 }
 
 :root,
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --canvas: #0b0f14;
-  --surface: #0f151b;
-  --elevated: #151d25;
-  --elevated-2: #1b242e;
-  --line: #ffffff12;
-  --line-strong: #ffffff26;
-  --ink: #f3f5f4;
-  --muted: #98a3ad;
-  --accent: #16c7a0;
-  --accent-2: #a3f66b;
-  --accent-soft: #16c7a014;
-  --accent-fill: #16c7a0;
-  --accent-fill-ink: #04130f;
-  --accent-grad-a: #16c7a0;
-  --accent-grad-b: #a3f66b;
-  --glow: #16c7a038;
+  --canvas: #070b09;
+  --surface: #0b100d;
+  --elevated: #101713;
+  --elevated-2: #17211b;
+  --line: #b9ffd810;
+  --line-strong: #b9ffd822;
+  --ink: #e2f1e7;
+  --muted: #8ba295;
+  --faint: #5d7166;
+  --accent: #48f09a;
+  --accent-2: #ffcd6b;
+  --accent-soft: #48f09a14;
+  --accent-fill: #48f09a;
+  --accent-fill-ink: #04130b;
+  --warn: #ffcd6b;
+  --info: #7ddcf5;
+  --danger: #ff7b72;
+  --glow: #48f09a2e;
+  --scanline: #000000;
+  --scanline-opacity: 0.1;
+  --noise-opacity: 0.05;
 }
 
 [data-theme="light"] {
   color-scheme: light;
 
-  --canvas: #f6f2e9;
-  --surface: #faf7f0;
-  --elevated: #fffdf8;
-  --elevated-2: #efeadd;
-  --line: #10201b1f;
-  --line-strong: #10201b33;
-  --ink: #10201b;
-  --muted: #56655f;
-  --accent: #0a6f5b;
-  --accent-2: #4f6f1e;
-  --accent-soft: #0a6f5b14;
-  --accent-fill: #14b892;
-  --accent-fill-ink: #04130f;
-  --accent-grad-a: #0a8f74;
-  --accent-grad-b: #577f1d;
-  --glow: #0e9f8226;
+  /* A "paper terminal": warm stock instead of pure white, ink-green text. */
+  --canvas: #f2f0e7;
+  --surface: #faf8f0;
+  --elevated: #fffdf6;
+  --elevated-2: #e8e5d8;
+  --line: #10281c1f;
+  --line-strong: #10281c33;
+  --ink: #10241a;
+  --muted: #4d6156;
+  --faint: #7c8c82;
+  --accent: #087a49;
+  --accent-2: #92560a;
+  --accent-soft: #087a4914;
+  --accent-fill: #087a49;
+  --accent-fill-ink: #f5fff9;
+  --warn: #8a5500;
+  --info: #0b5e78;
+  --danger: #a3231b;
+  --glow: #0a7f4c1f;
+  --scanline: #10241a;
+  --scanline-opacity: 0.045;
+  --noise-opacity: 0.06;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -75,23 +96,24 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   transition:
-    background-color 0.4s ease,
-    color 0.4s ease;
+    background-color 0.35s ease,
+    color 0.35s ease;
 }
 
 ::selection {
-  background-color: color-mix(in oklab, var(--accent) 32%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 30%, transparent);
   color: var(--ink);
 }
 
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -99,139 +121,248 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: color-mix(in oklab, var(--muted) 28%, transparent);
+  background: color-mix(in oklab, var(--muted) 34%, transparent);
   border-radius: 999px;
   border: 3px solid var(--canvas);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in oklab, var(--accent) 55%, transparent);
+  background: color-mix(in oklab, var(--accent) 60%, transparent);
 }
 
-/* Film grain across the whole page. */
-.noise {
-  position: fixed;
-  inset: 0;
-  z-index: 80;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+/* ---------------------------------------------------------------------------
+   Surfaces
+   --------------------------------------------------------------------------- */
+
+/* A terminal window: dark panel, hairline border, faint inner highlight. */
+.window {
+  position: relative;
+  background-color: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, var(--ink) 6%, transparent) inset,
+    0 30px 80px -60px var(--glow);
 }
 
-[data-theme="light"] .noise {
-  opacity: 0.05;
+.window-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--line);
+  background-color: var(--elevated);
 }
 
-/* Fine architectural grid. */
+/* Traffic lights. Decorative, but they carry the terminal metaphor. */
+.dot-red,
+.dot-amber,
+.dot-green {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  opacity: 0.85;
+}
+
+.dot-red {
+  background: color-mix(in oklab, var(--danger) 82%, transparent);
+}
+
+.dot-amber {
+  background: color-mix(in oklab, var(--warn) 82%, transparent);
+}
+
+.dot-green {
+  background: color-mix(in oklab, var(--accent) 82%, transparent);
+}
+
+/* Radial glow behind the top of the page. */
+.page-glow {
+  background:
+    radial-gradient(
+      ellipse 70% 46% at 50% -12%,
+      color-mix(in oklab, var(--accent) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 40% 34% at 88% 8%,
+      color-mix(in oklab, var(--accent-2) 7%, transparent),
+      transparent 70%
+    );
+}
+
+/* Faint dot grid, masked so it fades out instead of ending abruptly. */
+.dot-grid {
+  background-image: radial-gradient(var(--line-strong) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 74% 62% at 50% 0%, #000 10%, transparent 78%);
+}
+
 .grid-lines {
   background-image:
     linear-gradient(to right, var(--line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 78%);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 15%, transparent 75%);
 }
 
-.dot-grid {
-  background-image: radial-gradient(var(--line-strong) 1px, transparent 1px);
-  background-size: 26px 26px;
-}
+/* ---------------------------------------------------------------------------
+   CRT atmosphere
+   --------------------------------------------------------------------------- */
 
-/* Editorial italic accent. */
-.serif-accent {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-
-.text-gradient {
-  background-image: linear-gradient(
-    100deg,
-    var(--accent-grad-a) 0%,
-    var(--accent-grad-b) 52%,
-    var(--accent-grad-a) 100%
+/* Scanlines + a soft vignette. Pointer-events none, below focusable content.
+   The period is 4px so the lines read as texture instead of banding across
+   solid fills like the accent buttons. */
+.crt {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--scanline) 0px,
+    var(--scanline) 1px,
+    transparent 1px,
+    transparent 4px
   );
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-pan 10s linear infinite;
+  opacity: var(--scanline-opacity);
 }
 
-/* Thin animated rule used under section labels. */
-.hairline {
-  height: 1px;
-  background: linear-gradient(
+.crt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 120% 90% at 50% 40%,
+    transparent 55%,
+    color-mix(in oklab, var(--canvas) 65%, transparent) 100%
+  );
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 61;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------------------
+   Prompt + code typography
+   --------------------------------------------------------------------------- */
+
+.prompt {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.prompt-user {
+  color: var(--accent);
+}
+
+.prompt-host {
+  color: var(--info);
+}
+
+.prompt-path {
+  color: var(--accent-2);
+}
+
+.prompt-symbol {
+  color: var(--muted);
+}
+
+.prompt-dim {
+  color: var(--faint);
+}
+
+.prompt-cmd {
+  color: var(--ink);
+}
+
+/* Blinking block cursor. `steps(1)` keeps it crisp rather than fading. */
+.caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.1em;
+  vertical-align: -0.16em;
+  background-color: var(--accent);
+  animation: blink 1.1s steps(1, end) infinite;
+}
+
+.caret-soft {
+  animation: blink-soft 1.2s ease-in-out infinite;
+}
+
+/* Slightly glowing text, used sparingly on the hero name. */
+.text-glow {
+  text-shadow: 0 0 24px color-mix(in oklab, var(--accent) 34%, transparent);
+}
+
+/* The shell input signals focus with its caret; the global ring would draw a
+   box inside the terminal pane. */
+.shell-input:focus-visible {
+  outline: none;
+}
+
+/* Code block that scrolls instead of breaking the layout. */
+.code-scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+/* ---------------------------------------------------------------------------
+   Motion
+   --------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* The fade covers the container's horizontal padding, so items scroll in and
+   out of the fade instead of being clipped mid-word at the first character. */
+.marquee-mask {
+  padding-inline: 2rem;
+  mask-image: linear-gradient(
     to right,
-    var(--accent),
-    color-mix(in oklab, var(--accent) 20%, transparent)
+    transparent 0,
+    #000 2rem,
+    #000 calc(100% - 2rem),
+    transparent 100%
   );
 }
 
-/* Scroll progress bar. */
+.marquee-track {
+  animation: marquee 44s linear infinite;
+}
+
+.marquee-track:hover,
+.marquee-track:focus-within {
+  animation-play-state: paused;
+}
+
 .scroll-progress {
   transform-origin: 0 50%;
   background: linear-gradient(to right, var(--accent), var(--accent-2));
 }
 
-/* Reveal used where framer-motion is not needed. */
-.reveal.reveal-pending {
-  opacity: 0;
-  transform: translateY(22px);
-  transition:
-    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal.reveal-pending.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-.hero-rise {
-  opacity: 0;
-  animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.card-enter {
-  animation: card-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* Infinite technology strip. */
-.marquee-mask {
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
-}
-
-.marquee-track {
-  animation: marquee 42s linear infinite;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-.animate-float {
-  animation: float 7s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-  animation: float 8.5s ease-in-out 1.4s infinite;
-}
-
-.orbit-spin {
-  animation: orbit-spin 22s linear infinite;
-}
-
-/* Theme toggle swaps icons from the data-theme attribute, so there is no
-   hydration mismatch and the correct icon paints immediately. */
+/* Theme icons swap from the document attribute, so the right glyph paints
+   before hydration and there is no flash. */
 .theme-sun {
   display: none;
 }
@@ -248,41 +379,24 @@ body {
   display: none;
 }
 
-/* Preview shimmer used in project interface studies. */
-.preview-sheen {
-  background: linear-gradient(
-    115deg,
-    transparent 20%,
-    color-mix(in oklab, var(--accent) 8%, transparent) 45%,
-    transparent 70%
-  );
-}
-
-@keyframes gradient-pan {
-  to {
-    background-position: 200% center;
-  }
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-  to {
+@keyframes blink {
+  0%,
+  49% {
     opacity: 1;
-    transform: none;
+  }
+  50%,
+  100% {
+    opacity: 0;
   }
 }
 
-@keyframes card-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.99);
-  }
-  to {
+@keyframes blink-soft {
+  0%,
+  100% {
     opacity: 1;
-    transform: none;
+  }
+  50% {
+    opacity: 0.35;
   }
 }
 
@@ -295,48 +409,40 @@ body {
   }
 }
 
-@keyframes float {
+@keyframes pulse-dot {
   0%,
   100% {
-    transform: translateY(0);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 45%, transparent);
   }
   50% {
-    transform: translateY(-9px);
+    box-shadow: 0 0 0 5px transparent;
   }
 }
 
-@keyframes orbit-spin {
+.status-dot {
+  animation: pulse-dot 2.6s ease-out infinite;
+}
+
+@keyframes sheen {
+  from {
+    transform: translateX(-120%);
+  }
   to {
-    transform: rotate(360deg);
+    transform: translateX(220%);
   }
 }
 
-@keyframes scroll-cue {
-  0% {
-    transform: translateY(-110%);
-    opacity: 0;
-  }
-  35% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(320%);
-    opacity: 0;
-  }
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.7;
-  }
-  70% {
-    transform: scale(1.6);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
+.sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in oklab, var(--accent) 12%, transparent) 48%,
+    transparent 76%
+  );
+  animation: sheen 1.4s ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -353,20 +459,16 @@ body {
     scroll-behavior: auto !important;
   }
 
-  .reveal,
-  .hero-rise {
+  .reveal {
     opacity: 1;
     transform: none;
   }
 
   .marquee-track,
-  .orbit-spin,
-  .animate-float,
-  .animate-float-delayed {
-    animation: none;
-  }
-
-  .text-gradient {
-    animation: none;
+  .caret,
+  .caret-soft,
+  .status-dot,
+  .sheen::after {
+    animation: none !important;
   }
 }

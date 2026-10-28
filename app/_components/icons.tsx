@@ -199,6 +199,25 @@ export function ChevronRight(props: IconProps) {
   );
 }
 
+export function Search(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </svg>
+  );
+}
+
+export function Terminal(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="m7 9 3 3-3 3M13 15h4" />
+    </svg>
+  );
+}
+
+
 export function GraduationCap(props: IconProps) {
   return (
     <svg {...base(props)}>
