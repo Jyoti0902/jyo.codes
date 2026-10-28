@@ -3,19 +3,18 @@
 Personal portfolio for [Jyoti](https://github.com/Jyoti0902) — a software
 engineer building production web applications.
 
-The site is a single-page, statically exported portfolio dressed as a
-**terminal**: prompt lines instead of section eyebrows, a working shell in the
-hero, `⌘K` command palette, an `ls`-style project explorer, `git log`
-experience and a `tree` of the toolkit — with dark and light themes, both
-built from the same token set.
+The site is a single-page, statically exported portfolio with a light-first,
+editorial layout: white and zinc surfaces, a soft rose accent, and a strong
+focus on selected work, experience and the tech stack. Dark mode is a full
+counterpart built from the same token set.
 
 ## Stack
 
 - **Next.js 16** (App Router, Turbopack, static export to `out/`)
 - **React 19** + **TypeScript**
 - **Tailwind CSS v4** with a token-based design system
-- **Framer Motion** — reveals, palette, tab transitions
-- **next/font** — Geist Sans for prose, Geist Mono for the shell UI
+- **Framer Motion** — reveals, tab transitions, hero motion
+- **next/font** — Geist Sans
 
 ## Getting started
 
@@ -31,54 +30,46 @@ npm run build   # static export to out/
 npm run lint    # eslint
 ```
 
-## The shell
+## The page
 
-The hero is a real input, not a mock. It boots with `whoami`, `pwd` and
-`cat focus.txt`, then hands the prompt over.
+- **Hero** — availability, positioning, primary actions, a featured project
+  preview and headline numbers.
+- **Selected work** — five shipped products in a `tablist`. On desktop the
+  project list sits beside a detailed, pageable screenshot; on smaller screens
+  it becomes a horizontal chip strip above the detail panel.
+- **Experience** — current role, impact bullets, the toolkit in use, headline
+  numbers and education.
+- **Tech stack** — grouped skill cards covering frontend, backend, data,
+  cloud/deployment and everyday tools.
+- **About** — a short narrative, at-a-glance facts and strengths.
+- **Contact** — email call to action, copy-to-clipboard, social links and
+  availability.
 
-| Command             | What it does                                                 |
-| ------------------- | ------------------------------------------------------------ |
-| `help`              | List every command                                           |
-| `whoami`            | Role, experience and location                                |
-| `ls`                | List sections                                                |
-| `cd <section>`      | Scroll to work / experience / skills / about / contact        |
-| `open <target>`     | Open a project slug, github, linkedin, resume or email       |
-| `projects`          | List shipped products                                        |
-| `stack`             | Print the toolkit                                            |
-| `theme [light\|dark]` | Switch appearance (no argument toggles)                    |
-| `clear`             | Clear the pane (`⌘L` / `Ctrl+L` also works)                  |
-| `date`, `neofetch`, `echo`, `sudo`, `exit` | The usual             |
-
-`↑` / `↓` walk the history, `Tab` completes a command, and `Esc` / `Ctrl+C`
-clear the current line. Under `prefers-reduced-motion` the boot typing is
-skipped and the full transcript appears immediately.
-
-Outside the hero, `⌘K` / `Ctrl+K` (or `/` when not typing) opens the command
-palette: jump to a section, open a project, copy the email address, switch the
-theme.
+The technology ticker between the hero and work scrolls continuously and pauses
+on hover or focus.
 
 ## Editing content
 
 Every string on the site — hero copy, projects, experience, skills, education,
 links and the contact email — lives in [`lib/site.ts`](lib/site.ts). Update that
-file first; the components only handle layout and behaviour. The section nav
-and the shell identity (`jyoti@codes`) also come from there.
+file first; the components only handle layout and behaviour. Section navigation
+also comes from there.
 
 ```
 app/
   _components/
-    terminal.tsx          Prompt, window chrome, kbd primitives
-    hero-shell.tsx        The interactive hero terminal
-    command-palette.tsx   ⌘K palette + provider
-    project-explorer.tsx  Project table + screenshot pane
-    site-header.tsx       Sticky chrome, active section, mobile nav
-    site-footer.tsx       Links + editor status bar
+    project-explorer.tsx  Project tabs + screenshot pane
+    section-heading.tsx   Numbered section intro
+    reveal.tsx            Scroll-reveal helpers
+    site-header.tsx       Sticky header, active section, mobile nav
+    site-footer.tsx       Footer navigation + links
+    theme-toggle.tsx      Light/dark switch
   _sections/              Hero, ticker, work, experience, skills, about, contact
-  globals.css             Theme tokens, surfaces, CRT texture, motion utilities
-  layout.tsx              Fonts, metadata, theme bootstrap, palette provider
+  globals.css             Theme tokens, surfaces, motion utilities
+  layout.tsx              Fonts, metadata, theme bootstrap
   page.tsx                Section composition + Person JSON-LD
 lib/site.ts               All site content and links
-lib/theme.ts              Theme read/write + section scrolling helpers
+lib/theme.ts              Theme read/write helpers
 public/
   projects/<slug>/        Real screenshots, three per project
   Jyoti-Resume.pdf        Downloadable résumé (phone number removed)
@@ -87,45 +78,47 @@ public/
 
 ## Design system
 
-| Token      | Dark      | Light     |
-| ---------- | --------- | --------- |
-| `canvas`   | `#070b09` | `#f2f0e7` |
-| `surface`  | `#0b100d` | `#faf8f0` |
-| `elevated` | `#101713` | `#fffdf6` |
-| `ink`      | `#e2f1e7` | `#10241a` |
-| `muted`    | `#8ba295` | `#4d6156` |
-| `faint`    | `#5d7166` | `#7c8c82` |
-| `accent`   | `#48f09a` | `#087a49` |
-| `accent-2` | `#ffcd6b` | `#92560a` |
+| Token             | Light     | Dark      |
+| ----------------- | --------- | --------- |
+| `canvas`          | `#fafafa` | `#0a0a0a` |
+| `surface`         | `#ffffff` | `#101012` |
+| `elevated`        | `#f4f4f5` | `#161618` |
+| `line`            | `#e4e4e7` | `#27272a` |
+| `ink`             | `#18181b` | `#ededed` |
+| `muted`           | `#52525b` | `#a1a1aa` |
+| `faint`           | `#71717a` | `#7e7e8a` |
+| `accent`          | `#b02c4d` | `#fe9bae` |
+| `accent-fill`     | `#fe9bae` | `#fe9bae` |
+| `accent-fill-ink` | `#2a0a12` | `#2a0a12` |
 
-Dark is phosphor green on near-black; light is a warm "paper terminal". All
-tokens live in `app/globals.css` and are exposed to Tailwind through
-`@theme inline`, so components never hardcode a colour. `accent-fill` is the
-solid button colour in both themes, paired with `accent-fill-ink`.
+Light is the default; a stored preference overrides it on load. All tokens live
+in `app/globals.css` and are exposed to Tailwind through `@theme inline`, so
+components never hardcode a colour. `accent-fill` is the solid button colour in
+both themes, paired with `accent-fill-ink`.
 
-Atmosphere is two fixed overlays: `.crt` (scanlines plus vignette) and `.noise`.
-Both are `pointer-events: none`, sit above the page and drop to a barely-there
-opacity so they never interfere with text or buttons.
+Cards use `.card` (surface, hairline border, soft elevation) and `.card-hover`
+for the shared lift-on-hover treatment. The only ambient decoration is the soft
+rose `.aurora` wash behind the hero and contact panels.
 
 ## Motion
 
 - Section content fades and lifts in on first view (`Reveal`), staggered where
   it reads as one block.
-- The hero boot types command by command; the block caret blinks with
-  `steps(1)` so it stays crisp.
-- Project rows are a `tablist`: `↑` `↓` `Home` `End` move between them, the
-  detail pane cross-fades, and the screenshot pane is manually pageable.
+- The hero copy and stats enter in sequence; the featured project card drifts
+  gently.
+- Project tabs cross-fade the detail pane and the screenshot pane is manually
+  pageable with arrow controls.
 - The stack ticker scrolls continuously and pauses on hover/focus.
-- `prefers-reduced-motion` disables typing, the caret, the marquee and every
-  long transition in both CSS and Framer Motion.
+- Hover states lift cards and shift arrows without moving layout.
+- `prefers-reduced-motion` disables the marquee, the status pulse, the hero
+  drift and every long transition in both CSS and Framer Motion.
 
 ## Accessibility
 
-Semantic landmarks, a skip link, `aria-current` on the active section, a
-proper `tablist`/`tabpanel` for projects, `role="log"` for the shell output,
-`aria-live` for copy confirmations, Escape-to-close and focus return for both
-the palette and the mobile menu, visible focus rings, and a full
-`prefers-reduced-motion` path.
+Semantic landmarks, a skip link, `aria-current` on the active section, a proper
+`tablist`/`tabpanel` for projects with arrow/Home/End keys, `aria-live` for copy
+confirmations, Escape-to-close for the mobile menu, visible focus rings, and a
+full `prefers-reduced-motion` path.
 
 ## Deployment
 

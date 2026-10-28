@@ -25,13 +25,6 @@ export const site = {
   resume: asset("/Jyoti-Resume.pdf"),
   available: true,
 
-  // Identity used by the prompt lines (`jyoti@codes:~$`).
-  shell: {
-    user: "jyoti",
-    host: "codes",
-    path: "~",
-  },
-
   focus: ["Frontend systems", "Reliable APIs", "Cloud delivery"],
 
   title: "Jyoti — Software Engineer",
@@ -51,11 +44,11 @@ export const site = {
   },
 
   nav: [
-    { label: "Work", href: "#work", command: "ls ~/work" },
-    { label: "Experience", href: "#experience", command: "git log" },
-    { label: "Skills", href: "#skills", command: "tree ~/skills" },
-    { label: "About", href: "#about", command: "cat about.md" },
-    { label: "Contact", href: "#contact", command: "mail -s hi" },
+    { label: "Work", href: "#work" },
+    { label: "Experience", href: "#experience" },
+    { label: "Skills", href: "#skills" },
+    { label: "About", href: "#about" },
+    { label: "Contact", href: "#contact" },
   ],
 
   stats: [

@@ -6,22 +6,12 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { Project } from "@/lib/site";
 import { asset } from "@/lib/site";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "./icons";
-import { CommandPrompt, WindowBar, WindowDots } from "./terminal";
-
-function domainOf(url: string) {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
-}
 
 function ShotFrame({ project }: { project: Project }) {
-  const images = project.images.length > 0 ? project.images : [];
+  const images = project.images;
   const [index, setIndex] = useState(0);
   const reduceMotion = useReducedMotion();
-  const count = images.length;
-  const domain = domainOf(project.href);
+  const count: number = images.length;
   const current = images[index];
 
   function step(delta: number) {
@@ -30,13 +20,7 @@ function ShotFrame({ project }: { project: Project }) {
   }
 
   return (
-    <figure className="overflow-hidden rounded border border-line-strong bg-canvas">
-      <WindowBar
-        title={`${domain} — ${String(index + 1).padStart(2, "0")}.jpg`}
-        meta="live screenshot"
-        right={<WindowDots />}
-      />
-
+    <figure className="relative overflow-hidden border-b border-line bg-elevated">
       <div className="relative aspect-[16/10] w-full overflow-hidden sm:aspect-[16/9]">
         {current ? (
           <AnimatePresence initial={false} mode="popLayout">
@@ -52,9 +36,8 @@ function ShotFrame({ project }: { project: Project }) {
                 src={asset(current)}
                 alt={`${project.title} interface screenshot ${index + 1}`}
                 fill
-                sizes="(min-width: 1024px) 46vw, 100vw"
+                sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-cover object-left-top"
-                priority={false}
               />
             </motion.div>
           </AnimatePresence>
@@ -68,79 +51,78 @@ function ShotFrame({ project }: { project: Project }) {
           className="absolute inset-0 z-10"
         />
 
-        <span className="pointer-events-none absolute top-3 left-3 z-20 rounded border border-white/20 bg-black/55 px-2 py-0.5 font-mono text-[9px] tracking-[0.12em] text-white/85 uppercase backdrop-blur">
-          live
-        </span>
-      </div>
-
-      <figcaption className="flex items-center justify-between gap-3 border-t border-line bg-elevated/60 px-2.5 py-1.5">
-        <span className="hidden font-mono text-[9px] tracking-[0.12em] text-faint uppercase sm:inline">
-          {project.title}
+        <span className="pointer-events-none absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-black/40 px-2.5 py-1 text-[9.5px] font-medium tracking-[0.14em] text-white uppercase backdrop-blur">
+          <span className="size-1.5 rounded-full bg-accent-fill" />
+          Live
         </span>
 
-        <div className="ml-auto flex items-center gap-1">
-          <button
-            type="button"
-            onClick={() => step(-1)}
-            disabled={count < 2}
-            aria-label={`Previous ${project.title} screenshot`}
-            className="grid size-6 place-items-center rounded text-muted transition hover:bg-elevated-2 hover:text-ink disabled:opacity-30"
-          >
-            <ChevronLeft className="size-3.5" />
-          </button>
-
-          {images.map((src, i) => (
-            <button
-              key={src}
-              type="button"
-              onClick={() => setIndex(i)}
-              aria-label={`Show screenshot ${i + 1} of ${count}`}
-              aria-current={i === index ? "true" : undefined}
-              className={`h-1.5 rounded-full transition-all ${
-                i === index
-                  ? "w-5 bg-accent"
-                  : "w-1.5 bg-line-strong hover:bg-muted"
-              }`}
-            />
-          ))}
-
-          <button
-            type="button"
-            onClick={() => step(1)}
-            disabled={count < 2}
-            aria-label={`Next ${project.title} screenshot`}
-            className="grid size-6 place-items-center rounded text-muted transition hover:bg-elevated-2 hover:text-ink disabled:opacity-30"
-          >
-            <ChevronRight className="size-3.5" />
-          </button>
-
-          <span className="ml-1 font-mono text-[9px] text-faint">
-            {String(index + 1).padStart(2, "0")}/
-            {String(count).padStart(2, "0")}
+        <div className="absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-3 bg-gradient-to-t from-black/60 via-black/10 to-transparent px-3 pt-10 pb-3">
+          <span className="truncate text-[10px] font-medium tracking-[0.14em] text-white/75 uppercase">
+            {project.category}
           </span>
+
+          <div className="flex shrink-0 items-center gap-1 rounded-full border border-white/20 bg-black/30 px-1.5 py-1 backdrop-blur">
+            <button
+              type="button"
+              onClick={() => step(-1)}
+              disabled={count < 2}
+              aria-label={`Previous ${project.title} screenshot`}
+              className="grid size-6 place-items-center rounded-full text-white/80 transition hover:bg-white/15 hover:text-white disabled:opacity-30"
+            >
+              <ChevronLeft className="size-3.5" />
+            </button>
+
+            {images.map((src, i) => (
+              <button
+                key={src}
+                type="button"
+                onClick={() => setIndex(i)}
+                aria-label={`Show screenshot ${i + 1} of ${count}`}
+                aria-current={i === index ? "true" : undefined}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === index
+                    ? "w-5 bg-accent-fill"
+                    : "w-1.5 bg-white/45 hover:bg-white/70"
+                }`}
+              />
+            ))}
+
+            <button
+              type="button"
+              onClick={() => step(1)}
+              disabled={count < 2}
+              aria-label={`Next ${project.title} screenshot`}
+              className="grid size-6 place-items-center rounded-full text-white/80 transition hover:bg-white/15 hover:text-white disabled:opacity-30"
+            >
+              <ChevronRight className="size-3.5" />
+            </button>
+
+            <span className="ml-0.5 text-[9.5px] text-white/70 tabular-nums">
+              {String(index + 1).padStart(2, "0")}/
+              {String(count).padStart(2, "0")}
+            </span>
+          </div>
         </div>
-      </figcaption>
+      </div>
     </figure>
   );
 }
 
 function Detail({ project }: { project: Project }) {
   return (
-    <div className="grid gap-6 p-4 sm:p-6 lg:grid-cols-[1.22fr_1fr] lg:gap-8">
-      <div className="order-2 lg:order-1">
-        <ShotFrame project={project} />
-      </div>
+    <>
+      <ShotFrame project={project} />
 
-      <div className="order-1 flex flex-col lg:order-2">
-        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[10px] tracking-[0.14em] uppercase">
-          <span className="text-accent">#{project.index}</span>
-          <span className="text-faint">·</span>
-          <span className="text-muted">{project.category}</span>
-          <span className="text-faint">·</span>
-          <span className="text-muted">{project.client}</span>
+      <div className="p-5 sm:p-7">
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10.5px] font-medium tracking-[0.16em] text-accent uppercase">
+          <span>{project.category}</span>
+          <span aria-hidden className="text-line-strong">
+            /
+          </span>
+          <span className="text-faint">{project.client}</span>
         </p>
 
-        <h3 className="mt-2.5 text-2xl font-semibold tracking-[-0.03em] sm:text-[1.75rem]">
+        <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] sm:text-[1.7rem]">
           {project.title}
         </h3>
 
@@ -148,53 +130,48 @@ function Detail({ project }: { project: Project }) {
           {project.description}
         </p>
 
-        <div className="mt-5">
-          <p className="font-mono text-[10px] tracking-[0.14em] text-faint uppercase">
-            # contribution
+        <div className="mt-6">
+          <p className="text-[10px] font-medium tracking-[0.18em] text-faint uppercase">
+            What I built
           </p>
-          <ul className="mt-2 space-y-1.5">
+          <ul className="mt-3 space-y-2">
             {project.contribution.map((line) => (
               <li
                 key={line}
-                className="flex items-start gap-2 font-mono text-[11.5px] leading-relaxed text-muted"
+                className="flex items-start gap-2.5 text-[13px] leading-relaxed text-muted"
               >
-                <span aria-hidden className="mt-px text-accent">
-                  +
-                </span>
+                <span
+                  aria-hidden
+                  className="mt-[7px] size-1.5 shrink-0 rounded-full bg-accent-fill"
+                />
                 {line}
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="mt-5">
-          <p className="font-mono text-[10px] tracking-[0.14em] text-faint uppercase">
-            # stack
-          </p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {project.stack.map((tech) => (
-              <span
-                key={tech}
-                className="rounded border border-line px-2 py-0.5 font-mono text-[10px] text-muted"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+        <div className="mt-6 flex flex-wrap gap-1.5">
+          {project.stack.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-line bg-elevated px-2.5 py-1 text-[11px] text-muted"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
 
         <a
           href={project.href}
           target="_blank"
           rel="noreferrer"
-          className="group mt-auto inline-flex w-fit items-center gap-2 pt-5 font-mono text-[12px] text-ink transition-colors hover:text-accent"
+          className="group mt-6 inline-flex items-center gap-2 rounded-full bg-accent-fill px-4 py-2.5 text-[12.5px] font-medium text-accent-fill-ink transition hover:brightness-105"
         >
-          <span className="text-accent">$</span>
-          open {domainOf(project.href)}
+          Visit live site
           <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </a>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -243,140 +220,97 @@ export function ProjectExplorer({
   }
 
   return (
-    <div className="mt-10">
-      <div className="window overflow-hidden">
-        <div className="window-bar px-3 py-2 sm:px-3.5">
-          <WindowDots />
-          <span className="ml-2 truncate font-mono text-[11px] text-muted">
-            ~/work
+    <div className="mt-12 grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-8">
+      <div
+        role="tablist"
+        aria-label="Projects"
+        className="no-scrollbar -mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:px-6 lg:sticky lg:top-24 lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0"
+      >
+        <div className="mb-1 hidden items-center justify-between px-1 lg:flex">
+          <span className="text-[10px] font-medium tracking-[0.18em] text-faint uppercase">
+            Projects
           </span>
-          <span className="ml-auto shrink-0 font-mono text-[9px] tracking-[0.14em] text-faint uppercase">
-            {projects.length} entries · drwxr-xr-x
+          <span className="text-[10px] text-faint tabular-nums">
+            {String(projects.length).padStart(2, "0")}
           </span>
         </div>
 
-        <div className="border-b border-line bg-canvas/50 px-3.5 py-2.5">
-          <CommandPrompt command="ls -la ~/work --sort=impact" />
-        </div>
+        {projects.map((entry, index) => {
+          const selected = index === active;
 
-        <div
-          role="tablist"
-          aria-label="Projects"
-          aria-orientation="vertical"
-          className="select-none"
-        >
-          <div className="hidden grid-cols-[2.5rem_minmax(0,1.5fr)_minmax(0,0.9fr)_minmax(0,1fr)_4rem] gap-3 border-b border-line bg-elevated/40 px-3.5 py-1.5 font-mono text-[9px] tracking-[0.14em] text-faint uppercase sm:grid">
-            <span>#</span>
-            <span>project</span>
-            <span>sector</span>
-            <span>stack</span>
-            <span className="text-right">link</span>
-          </div>
-
-          {projects.map((entry, index) => {
-            const selected = index === active;
-
-            return (
-              <button
-                key={entry.slug}
-                ref={(node) => {
-                  tabRefs.current[index] = node;
-                }}
-                type="button"
-                role="tab"
-                id={`tab-${entry.slug}`}
-                aria-selected={selected}
-                aria-controls="project-panel"
-                tabIndex={selected ? 0 : -1}
-                onClick={() => setActive(index)}
-                onKeyDown={(event) => onTabKeyDown(event, index)}
-                className={`relative grid w-full grid-cols-[1.75rem_minmax(0,1fr)_auto] items-center gap-2.5 border-b border-line px-3.5 py-3 text-left transition-colors last:border-b-0 sm:grid-cols-[2.5rem_minmax(0,1.5fr)_minmax(0,0.9fr)_minmax(0,1fr)_4rem] sm:gap-3 ${
+          return (
+            <button
+              key={entry.slug}
+              ref={(node) => {
+                tabRefs.current[index] = node;
+              }}
+              type="button"
+              role="tab"
+              id={`tab-${entry.slug}`}
+              aria-selected={selected}
+              aria-controls="project-panel"
+              tabIndex={selected ? 0 : -1}
+              onClick={() => setActive(index)}
+              onKeyDown={(event) => onTabKeyDown(event, index)}
+              className={`group relative flex shrink-0 snap-start items-center gap-2 rounded-full border px-3 py-2 text-left transition-all duration-300 lg:w-full lg:items-start lg:gap-3 lg:rounded-xl lg:px-3.5 lg:py-3 ${
+                selected
+                  ? "border-line bg-surface shadow-sm"
+                  : "border-transparent hover:bg-surface/70"
+              }`}
+            >
+              <span
+                className={`grid size-6 shrink-0 place-items-center rounded-full border text-[9.5px] font-medium transition-colors lg:mt-0.5 lg:size-7 lg:text-[10px] ${
                   selected
-                    ? "bg-accent-soft"
-                    : "hover:bg-elevated/70"
+                    ? "border-accent-fill bg-accent-fill text-accent-fill-ink"
+                    : "border-line text-faint"
                 }`}
               >
-                <span
-                  aria-hidden
-                  className={`absolute inset-y-0 left-0 w-0.5 transition-colors ${
-                    selected ? "bg-accent" : "bg-transparent"
-                  }`}
-                />
+                {entry.index}
+              </span>
 
+              <span className="min-w-0 flex-1">
                 <span
-                  className={`font-mono text-[11px] ${
-                    selected ? "text-accent" : "text-faint"
+                  className={`block truncate text-[13px] font-medium transition-colors lg:text-[14px] ${
+                    selected ? "text-ink" : "text-muted group-hover:text-ink"
                   }`}
                 >
-                  {selected ? "▸" : entry.index}
+                  {entry.title}
                 </span>
-
-                <span className="min-w-0">
-                  <span
-                    className={`block truncate text-[13.5px] ${
-                      selected ? "text-ink" : "text-muted"
-                    }`}
-                  >
-                    {entry.title}
-                  </span>
-                  <span className="mt-0.5 block truncate font-mono text-[9.5px] text-faint sm:hidden">
-                    {entry.category} · {entry.stack.join(" / ")}
-                  </span>
-                </span>
-
-                <span className="hidden truncate font-mono text-[10.5px] text-faint sm:block">
+                <span className="mt-0.5 hidden truncate text-[11.5px] text-faint lg:block">
                   {entry.category}
                 </span>
+              </span>
 
-                <span className="hidden truncate font-mono text-[10.5px] text-faint sm:block">
-                  {entry.stack.join(" · ")}
-                </span>
-
-                <span
-                  className={`hidden justify-self-end font-mono text-[10px] sm:block ${
-                    selected ? "text-accent" : "text-faint"
-                  }`}
-                >
-                  live ↗
-                </span>
-
-                <ArrowUpRight
-                  className={`size-3.5 justify-self-end sm:hidden ${
-                    selected ? "text-accent" : "text-faint"
-                  }`}
-                />
-              </button>
-            );
-          })}
-        </div>
-
-        <div
-          id="project-panel"
-          role="tabpanel"
-          aria-labelledby={`tab-${project.slug}`}
-          className="border-t border-line"
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={project.slug}
-              initial={reduceMotion ? false : { opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: -4 }}
-              transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <Detail project={project} />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+              <ArrowUpRight
+                className={`hidden size-4 shrink-0 transition-all duration-300 lg:block ${
+                  selected
+                    ? "text-accent"
+                    : "text-faint opacity-0 group-hover:opacity-100"
+                }`}
+              />
+            </button>
+          );
+        })}
       </div>
 
-      <p className="mt-3 flex flex-wrap items-center justify-between gap-2 px-1 font-mono text-[10px] text-faint">
-        <span>{"// click a row — or use ↑ ↓ to move through the list"}</span>
-        <span>
-          {String(active + 1).padStart(2, "0")} /{" "}
-          {String(projects.length).padStart(2, "0")}
-        </span>
-      </p>
+      <div
+        id="project-panel"
+        role="tabpanel"
+        aria-labelledby={`tab-${project.slug}`}
+        className="card overflow-hidden"
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={project.slug}
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+            transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Detail project={project} />
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

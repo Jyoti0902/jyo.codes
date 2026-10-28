@@ -6,11 +6,11 @@ export function Ticker() {
   return (
     <section
       aria-label="Technology stack"
-      className="border-y border-line bg-surface/40"
+      className="border-y border-line bg-surface"
     >
-      <div className="mx-auto flex w-full max-w-6xl items-center gap-3 px-4 py-2.5 sm:px-6">
-        <span className="shrink-0 font-mono text-[10px] tracking-[0.16em] text-faint uppercase">
-          {"// stack"}
+      <div className="mx-auto flex w-full max-w-6xl items-center gap-4 px-4 py-3 sm:px-6">
+        <span className="shrink-0 text-[10px] font-medium tracking-[0.18em] text-faint uppercase">
+          Toolkit
         </span>
 
         <div className="marquee-mask min-w-0 flex-1 overflow-hidden">
@@ -18,16 +18,16 @@ export function Ticker() {
             {items.map((tech, index) => (
               <span
                 key={`${tech}-${index}`}
-                className="flex items-center font-mono text-[11px] whitespace-nowrap text-muted"
+                className="flex items-center text-[11.5px] whitespace-nowrap text-muted"
               >
                 {tech}
-                <span className="mx-4 text-faint/70">/</span>
+                <span className="mx-4 text-line-strong">•</span>
               </span>
             ))}
           </div>
         </div>
 
-        <span className="hidden shrink-0 font-mono text-[10px] text-faint sm:inline">
+        <span className="hidden shrink-0 text-[10px] text-faint sm:inline">
           {site.marquee.length} tools
         </span>
 

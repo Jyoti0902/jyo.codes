@@ -1,41 +1,41 @@
 import type { ReactNode } from "react";
-import { CommandPrompt } from "./terminal";
+import { Reveal } from "./reveal";
 
 /**
- * Section intro: a shell command, then the human-readable heading. The command
- * is decoration with meaning — it tells you how the section is built.
+ * Section intro: a quiet numbered eyebrow, then the human-readable heading.
  */
 export function SectionHeading({
   index,
-  command,
+  label,
   title,
   description,
 }: {
   index: string;
-  command: string;
+  label: string;
   title: ReactNode;
   description?: ReactNode;
 }) {
   return (
-    <header className="max-w-3xl">
-      <div className="flex items-center gap-3">
-        <span className="font-mono text-[10px] tracking-[0.2em] text-faint uppercase">
-          {`// ${index}`}
-        </span>
-        <span className="h-px w-10 bg-line-strong" aria-hidden />
-      </div>
+    <Reveal>
+      <header className="max-w-3xl">
+        <div className="flex items-center gap-3">
+          <span className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.18em] text-accent uppercase">
+            <span aria-hidden className="size-1.5 rounded-full bg-accent-fill" />
+            {index} — {label}
+          </span>
+          <span aria-hidden className="h-px flex-1 bg-line" />
+        </div>
 
-      <CommandPrompt command={command} className="mt-4 text-muted" />
+        <h2 className="mt-4 text-[clamp(1.9rem,4.2vw,3rem)] leading-[1.04] font-semibold tracking-[-0.045em] text-balance">
+          {title}
+        </h2>
 
-      <h2 className="mt-4 text-[clamp(1.85rem,4vw,2.85rem)] leading-[1.06] font-semibold tracking-[-0.035em] text-balance">
-        {title}
-      </h2>
-
-      {description ? (
-        <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted sm:text-[15px]">
-          {description}
-        </p>
-      ) : null}
-    </header>
+        {description ? (
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted sm:text-[15px]">
+            {description}
+          </p>
+        ) : null}
+      </header>
+    </Reveal>
   );
 }

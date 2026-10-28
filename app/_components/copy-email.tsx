@@ -29,18 +29,18 @@ export function CopyEmail({ email }: { email: string }) {
     <button
       type="button"
       onClick={copyEmail}
-      className="group inline-flex items-center gap-1.5 rounded border border-line px-2 py-1 font-mono text-[10px] text-faint transition-colors hover:border-accent/50 hover:text-accent"
+      className="group inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface px-5 py-2.5 text-[13px] font-medium text-ink transition-colors hover:border-accent/50 hover:text-accent"
       aria-live="polite"
     >
       {copied ? (
         <>
-          <Check className="size-3 text-accent" />
-          copied
+          <Check className="size-3.5 text-accent" />
+          Copied
         </>
       ) : (
         <>
-          <Copy className="size-3 transition-colors group-hover:text-accent" />
-          cp
+          <Copy className="size-3.5 transition-colors group-hover:text-accent" />
+          Copy email
         </>
       )}
     </button>

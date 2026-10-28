@@ -1,108 +1,106 @@
 import { SectionHeading } from "@/app/_components/section-heading";
 import { Reveal } from "@/app/_components/reveal";
-import {
-  CommandPrompt,
-  TerminalWindow,
-} from "@/app/_components/terminal";
+import { Check } from "@/app/_components/icons";
 import { site } from "@/lib/site";
 
 const facts = [
-  ["role", site.role],
-  ["location", site.location.toLowerCase()],
-  ["company", site.experience.company],
-  ["focus", "react · next.js · node.js"],
-  ["status", "open to opportunities"],
-];
+  ["Role", site.role],
+  ["Location", site.location],
+  ["Company", site.experience.company],
+  ["Focus", "React · Next.js · Node.js"],
+  ["Status", "Open to opportunities"],
+] as const;
 
 export function About() {
   return (
     <section
       id="about"
-      className="relative scroll-mt-20 border-t border-line py-16 sm:py-24"
+      className="relative scroll-mt-20 border-t border-line bg-canvas py-20 sm:py-28"
     >
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <SectionHeading
           index="04"
-          command="cat about.md"
+          label="About"
           title="Clear interfaces, reliable data flows, code that stays easy to change."
           description="The short version of how I work — and what I care about when a product goes live."
         />
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-[1.32fr_0.68fr] lg:gap-6">
+        <div className="mt-12 grid gap-6 lg:grid-cols-[1.25fr_0.75fr] lg:gap-8">
           <Reveal>
-            <TerminalWindow
-              title="~/about.md"
-              meta="markdown · read-only"
-              bodyClassName="flex h-full flex-col"
-            >
-              <div className="border-b border-line bg-canvas/50 px-3.5 py-2.5">
-                <CommandPrompt command="cat about.md" />
-              </div>
+            <div className="card h-full p-6 sm:p-8">
+              <p className="text-[10px] font-medium tracking-[0.18em] text-accent uppercase">
+                A little context
+              </p>
 
-              <div className="flex-1 px-4 py-2 sm:px-6">
+              <div className="mt-5 space-y-4">
                 {site.about.map((paragraph, index) => (
-                  <div
+                  <p
                     key={paragraph}
-                    className="grid grid-cols-[2rem_1fr] gap-3 border-b border-line/70 py-4 last:border-b-0 sm:grid-cols-[2.4rem_1fr] sm:gap-4"
+                    className={
+                      index === 0
+                        ? "text-[15.5px] leading-relaxed text-ink sm:text-base"
+                        : "text-[13.5px] leading-relaxed text-muted sm:text-sm"
+                    }
                   >
-                    <span className="pt-0.5 font-mono text-[10px] text-faint/70">
-                      {String(index + 1).padStart(3, "0")}
-                    </span>
-                    <p className="text-[13.5px] leading-relaxed text-muted sm:text-[14px]">
-                      {paragraph}
-                    </p>
-                  </div>
+                    {paragraph}
+                  </p>
                 ))}
               </div>
 
-              <p className="border-t border-line bg-elevated/50 px-4 py-1.5 font-mono text-[9px] tracking-[0.14em] text-faint uppercase sm:px-6">
-                -- EOF --
-              </p>
-            </TerminalWindow>
+              <div className="mt-7 flex flex-wrap gap-2 border-t border-line pt-5">
+                {site.focus.map((focus) => (
+                  <span
+                    key={focus}
+                    className="rounded-full border border-line bg-elevated px-3 py-1 text-[11.5px] text-muted"
+                  >
+                    {focus}
+                  </span>
+                ))}
+              </div>
+            </div>
           </Reveal>
 
-          <div className="space-y-5 lg:space-y-6">
+          <div className="flex flex-col gap-6">
             <Reveal delay={0.05}>
-              <TerminalWindow
-                title="~/facts"
-                meta="key: value"
-                bodyClassName="p-4 sm:p-5"
-              >
-                <CommandPrompt command="cat facts.txt" />
+              <div className="card p-6">
+                <p className="text-[10px] font-medium tracking-[0.18em] text-faint uppercase">
+                  At a glance
+                </p>
 
-                <dl className="mt-3 space-y-1.5 font-mono text-[11px]">
+                <dl className="mt-4 space-y-3">
                   {facts.map(([key, value]) => (
-                    <div key={key} className="flex gap-3">
-                      <dt className="w-16 shrink-0 text-faint">{key}</dt>
-                      <dd className="min-w-0 text-muted">{value}</dd>
+                    <div
+                      key={key}
+                      className="flex items-start justify-between gap-4 border-b border-line pb-3 last:border-b-0 last:pb-0"
+                    >
+                      <dt className="text-[11.5px] text-faint">{key}</dt>
+                      <dd className="text-right text-[12.5px] font-medium text-ink">
+                        {value}
+                      </dd>
                     </div>
                   ))}
                 </dl>
-              </TerminalWindow>
+              </div>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <TerminalWindow
-                title="~/strengths"
-                meta="checklist"
-                bodyClassName="p-4 sm:p-5"
-              >
-                <CommandPrompt command="cat strengths.txt" />
+              <div className="card p-6">
+                <p className="text-[10px] font-medium tracking-[0.18em] text-faint uppercase">
+                  Strengths
+                </p>
 
-                <ul className="mt-3 space-y-1.5">
+                <ul className="mt-4 space-y-2.5">
                   {site.strengths.map((strength) => (
                     <li
                       key={strength}
-                      className="flex items-start gap-2 font-mono text-[11px] leading-relaxed text-muted"
+                      className="flex items-start gap-2.5 text-[12.5px] leading-relaxed text-muted"
                     >
-                      <span aria-hidden className="text-accent">
-                        [x]
-                      </span>
+                      <Check className="mt-0.5 size-3.5 shrink-0 text-accent" />
                       {strength}
                     </li>
                   ))}
                 </ul>
-              </TerminalWindow>
+              </div>
             </Reveal>
           </div>
         </div>

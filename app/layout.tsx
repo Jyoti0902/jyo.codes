@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { CommandPaletteProvider } from "./_components/command-palette";
+import { Geist } from "next/font/google";
 import { ScrollProgress } from "./_components/scroll-progress";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
@@ -9,11 +8,6 @@ import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -58,20 +52,17 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2f0e7" },
-    { media: "(prefers-color-scheme: dark)", color: "#070b09" },
-  ],
+  themeColor: "#fafafa",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      data-theme="dark"
+      data-theme="light"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} h-full antialiased`}
     >
       <head>
         <script
@@ -84,29 +75,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[95] focus:rounded focus:bg-accent-fill focus:px-3 focus:py-2 focus:font-mono focus:text-xs focus:text-accent-fill-ink"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[95] focus:rounded-full focus:bg-accent-fill focus:px-4 focus:py-2 focus:text-xs focus:font-medium focus:text-accent-fill-ink"
         >
           skip to content
         </a>
 
-        <CommandPaletteProvider>
-          <ScrollProgress />
-          <SiteHeader />
+        <ScrollProgress />
+        <SiteHeader />
 
-          <main id="main" className="flex-1">
-            {children}
-          </main>
+        <main id="main" className="flex-1">
+          {children}
+        </main>
 
-          <SiteFooter />
-        </CommandPaletteProvider>
-
-        <div aria-hidden className="crt" />
-        <div aria-hidden className="noise" />
-
-        <div
-          aria-hidden
-          className="page-glow pointer-events-none fixed inset-0 -z-10"
-        />
+        <SiteFooter />
       </body>
     </html>
   );

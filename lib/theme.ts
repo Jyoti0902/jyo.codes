@@ -1,6 +1,5 @@
-// Theme helpers shared by the toggle and the command palette. The initial
-// attribute is set by the inline script in the document head, so these only
-// run after mount.
+// Theme helpers shared by the toggle. The initial attribute is set by the
+// inline script in the document head, so these only run after mount.
 
 export type Theme = "dark" | "light";
 
@@ -39,17 +38,4 @@ export function restoreStoredTheme() {
   } catch {
     // Default theme is fine.
   }
-}
-
-/** Scrolls to a section, respecting the reduced-motion preference. */
-export function scrollToSection(id: string) {
-  const target = document.getElementById(id);
-  if (!target) return;
-
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  target.scrollIntoView({
-    behavior: reduce ? "auto" : "smooth",
-    block: "start",
-  });
 }
