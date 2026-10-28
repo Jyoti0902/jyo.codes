@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 import type { Project } from "@/lib/site";
+import { asset } from "@/lib/site";
 import { ChevronLeft, ChevronRight } from "./icons";
 
 /**
@@ -116,7 +117,7 @@ function ShotGallery({ project, wide }: { project: Project; wide: boolean }) {
         {images.map((src, i) => (
           <Image
             key={src}
-            src={src}
+            src={asset(src)}
             alt={`${project.title} interface screenshot ${i + 1}`}
             fill
             sizes={wide ? "(min-width: 1024px) 92vw, 100vw" : "(min-width: 1024px) 58vw, 100vw"}

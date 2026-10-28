@@ -3,16 +3,26 @@
 // links or skills — the components only handle layout and behaviour.
 // ---------------------------------------------------------------------------
 
+// GitHub Pages serves project sites from a sub-path, so files in `public/` are
+// only reachable behind the build-time base path. `asset()` prefixes a public
+// path with it; on a root domain the prefix is empty and nothing changes.
+export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+export function asset(path: string) {
+  return `${basePath}${path}`;
+}
+
 export const site = {
   name: "Jyoti",
   domain: "jyo.codes",
-  url: "https://jyo.codes",
+  // Absolute URL of the deployed site — set by the deploy workflow.
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://jyo.codes",
   role: "Software Engineer",
   location: "Mohali, Punjab, India",
   email: "jyotibrar0927@gmail.com",
   github: "https://github.com/Jyoti0902",
   linkedin: "https://linkedin.com/in/jyoti-8b7464242",
-  resume: "/Jyoti-Resume.pdf",
+  resume: asset("/Jyoti-Resume.pdf"),
   available: true,
 
   title: "Jyoti — Software Engineer",

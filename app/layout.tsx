@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   alternates: {
-    canonical: "/",
+    canonical: site.url,
   },
   openGraph: {
     type: "website",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/og.png",
+        url: `${site.url}/og.png`,
         width: 1200,
         height: 630,
         alt: "Jyoti — Software Engineer",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
-    images: ["/og.png"],
+    images: [`${site.url}/og.png`],
   },
   robots: {
     index: true,
