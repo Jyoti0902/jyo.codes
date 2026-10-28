@@ -42,17 +42,15 @@ jobs:
         run: npm run build
 
       - name: Verify static export
-        if: always()
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Project files:"
-          ls -la
-          echo "Next.js build output:"
-          ls -la .next || true
-          echo "Static export output:"
-          ls -la out || true
-
+          if [ ! -d "out" ]; then
+            echo "Error: 'out' directory was not generated."
+            exit 1
+          fi
+          test -f out/index.html || { echo "Error: out/index.html is missing"; exit 1; }
+          test -f out/robots.txt || { echo "Error: out/robots.txt is missing"; exit 1; }
+          test -f out/sitemap.xml || { echo "Error: out/sitemap.xml is missing"; exit 1; }
+          echo "Static export verified successfully."
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
