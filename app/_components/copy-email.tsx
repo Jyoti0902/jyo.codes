@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { rabbitLines } from "@/lib/rabbit";
 import { Check, Copy } from "./icons";
+import { useRabbit } from "./rabbit";
 
 export function CopyEmail({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
   const timeout = useRef<number | null>(null);
+  const rabbit = useRabbit();
 
   useEffect(() => {
     return () => {
@@ -17,6 +20,11 @@ export function CopyEmail({ email }: { email: string }) {
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
+      rabbit.say(rabbitLines.contact.copy[0], {
+        mood: "happy",
+        hold: 3000,
+        source: "hover",
+      });
 
       if (timeout.current) window.clearTimeout(timeout.current);
       timeout.current = window.setTimeout(() => setCopied(false), 2000);

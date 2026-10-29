@@ -5,40 +5,84 @@ import { useRef, useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { Project } from "@/lib/site";
 import { asset } from "@/lib/site";
+import { pick, rabbitLines } from "@/lib/rabbit";
+import { Tilt } from "./tilt";
+import { useRabbit } from "./rabbit";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "./icons";
+
+const projectLines = rabbitLines.project as Record<string, readonly string[]>;
 
 function ShotFrame({ project }: { project: Project }) {
   const images = project.images;
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const reduceMotion = useReducedMotion();
+  const rabbit = useRabbit();
   const count: number = images.length;
   const current = images[index];
 
   function step(delta: number) {
     if (count === 0) return;
+    setDirection(delta);
     setIndex((value) => (value + delta + count) % count);
   }
 
+  function goTo(next: number) {
+    setDirection(next >= index ? 1 : -1);
+    setIndex(next);
+  }
+
   return (
-    <figure className="relative overflow-hidden border-b border-line bg-elevated">
-      <div className="relative aspect-[16/10] w-full overflow-hidden sm:aspect-[16/9]">
+    <figure
+      className="group/shot relative overflow-hidden border-b border-line bg-elevated"
+      onMouseEnter={() =>
+        rabbit.say(pick(rabbitLines.shot), {
+          mood: "curious",
+          hold: 4400,
+          source: "hover",
+        })
+      }
+    >
+      <Tilt
+        max={3}
+        hoverScale={1.015}
+        className="aspect-[16/10] w-full overflow-hidden sm:aspect-[16/9]"
+      >
         {current ? (
-          <AnimatePresence initial={false} mode="popLayout">
+          <AnimatePresence initial={false} mode="wait" custom={direction}>
             <motion.div
               key={current}
-              initial={reduceMotion ? false : { opacity: 0, scale: 1.01 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
+              custom={direction}
+              initial={
+                reduceMotion
+                  ? false
+                  : { opacity: 0, x: direction * 26, scale: 1.02 }
+              }
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={
+                reduceMotion ? undefined : { opacity: 0, x: direction * -18 }
+              }
+              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-0"
             >
-              <Image
-                src={asset(current)}
-                alt={`${project.title} interface screenshot ${index + 1}`}
-                fill
-                sizes="(min-width: 1024px) 58vw, 100vw"
-                className="object-cover object-left-top"
-              />
+              <motion.div
+                className="relative h-full w-full"
+                animate={reduceMotion ? undefined : { scale: [1, 1.045] }}
+                transition={{
+                  duration: 14,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                }}
+              >
+                <Image
+                  src={asset(current)}
+                  alt={`${project.title} interface screenshot ${index + 1}`}
+                  fill
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  className="object-cover object-left-top transition-transform duration-[1200ms] group-hover/shot:scale-[1.03]"
+                />
+              </motion.div>
             </motion.div>
           </AnimatePresence>
         ) : null}
@@ -76,7 +120,7 @@ function ShotFrame({ project }: { project: Project }) {
               <button
                 key={src}
                 type="button"
-                onClick={() => setIndex(i)}
+                onClick={() => goTo(i)}
                 aria-label={`Show screenshot ${i + 1} of ${count}`}
                 aria-current={i === index ? "true" : undefined}
                 className={`h-1.5 rounded-full transition-all ${
@@ -103,7 +147,7 @@ function ShotFrame({ project }: { project: Project }) {
             </span>
           </div>
         </div>
-      </div>
+      </Tilt>
     </figure>
   );
 }
@@ -183,7 +227,14 @@ export function ProjectExplorer({
   const [active, setActive] = useState(0);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const reduceMotion = useReducedMotion();
+  const rabbit = useRabbit();
   const project = projects[active];
+
+  function hintProject(slug: string) {
+    const lines = projectLines[slug];
+    if (!lines) return;
+    rabbit.say(pick(lines), { mood: "curious", hold: 4000, source: "hover" });
+  }
 
   function select(index: number) {
     const next = (index + projects.length) % projects.length;
@@ -252,6 +303,8 @@ export function ProjectExplorer({
               tabIndex={selected ? 0 : -1}
               onClick={() => setActive(index)}
               onKeyDown={(event) => onTabKeyDown(event, index)}
+              onMouseEnter={() => hintProject(entry.slug)}
+              onFocus={() => hintProject(entry.slug)}
               className={`group relative flex shrink-0 snap-start items-center gap-2 rounded-full border px-3 py-2 text-left transition-all duration-300 lg:w-full lg:items-start lg:gap-3 lg:rounded-xl lg:px-3.5 lg:py-3 ${
                 selected
                   ? "border-line bg-surface shadow-sm"

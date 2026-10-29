@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/lib/site";
+import { pick, rabbitLines } from "@/lib/rabbit";
 import {
   ArrowUpRight,
   Close,
@@ -12,12 +13,22 @@ import {
   Mail,
   Menu,
 } from "./icons";
+import { useRabbit } from "./rabbit";
 import { ThemeToggle } from "./theme-toggle";
+
+const navLines = rabbitLines.nav as Record<string, readonly string[]>;
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("home");
+  const rabbit = useRabbit();
+
+  function hintNav(id: string) {
+    const lines = navLines[id];
+    if (!lines) return;
+    rabbit.say(pick(lines), { mood: "curious", hold: 4200, source: "hover" });
+  }
 
   useEffect(() => {
     const sections = [
@@ -80,6 +91,8 @@ export function SiteHeader() {
           href="#home"
           className="group flex shrink-0 items-center gap-2.5"
           aria-label="jyo.codes — back to top"
+          onMouseEnter={() => hintNav("home")}
+          onFocus={() => hintNav("home")}
         >
           <span className="grid size-8 place-items-center rounded-lg bg-accent-fill text-[13px] font-semibold text-accent-fill-ink transition-transform duration-300 group-hover:-rotate-6">
             j
@@ -102,6 +115,8 @@ export function SiteHeader() {
                 key={navItem.href}
                 href={navItem.href}
                 aria-current={isActive ? "true" : undefined}
+                onMouseEnter={() => hintNav(id)}
+                onFocus={() => hintNav(id)}
                 className={`relative rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors ${
                   isActive ? "text-ink" : "text-muted hover:text-ink"
                 }`}
@@ -163,6 +178,7 @@ export function SiteHeader() {
                   key={navItem.href}
                   href={navItem.href}
                   onClick={() => setOpen(false)}
+                  onMouseEnter={() => hintNav(navItem.href.replace("#", ""))}
                   className="group flex items-center justify-between border-b border-line py-3.5"
                 >
                   <span className="text-[15px] font-medium text-ink">

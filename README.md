@@ -48,6 +48,32 @@ npm run lint    # eslint
 The technology ticker between the hero and work scrolls continuously and pauses
 on hover or focus.
 
+## Momo, the site bunny
+
+A small pink rabbit called **Momo** lives in the bottom-right corner. She wears
+the logo pink (`#fe9bae`) in the light theme and the softer rose at night; both
+palettes live in the `.rabbit-sprite` block in
+[`app/globals.css`](app/globals.css). She reads
+along as you browse: hovering a nav item, project tab, skill card or contact
+panel makes her say a short, contextual tip, and each section introduces itself
+the first time it reaches the middle of the screen. The whole line catalogue
+lives in [`lib/rabbit.ts`](lib/rabbit.ts), so the copy can be edited in one
+place.
+
+After roughly four seconds without pointer, keyboard or scroll activity she
+climbs into a little bed — head on the pillow, ears flopped over the headboard,
+blanket breathing up and down — and says *"Wake me up when you need me"*. Any
+interaction wakes her, and clicking her directly always produces a line. Her
+bubble is announced through `aria-live="polite"`, and everything — the drift,
+the ear sway, the blink, the breathing, the sleep state — is switched off for
+`prefers-reduced-motion`.
+
+Components can opt in with `useRabbit().say(...)` from
+[`app/_components/rabbit.tsx`](app/_components/rabbit.tsx), or — for
+server-rendered cards — by wrapping them in
+[`Hint`](app/_components/hint.tsx) and passing a list of lines. Lines are picked
+at event time, which keeps server and client markup identical.
+
 ## Editing content
 
 Every string on the site — hero copy, projects, experience, skills, education,
@@ -63,12 +89,16 @@ app/
     reveal.tsx            Scroll-reveal helpers
     site-header.tsx       Sticky header, active section, mobile nav
     site-footer.tsx       Footer navigation + links
+    rabbit.tsx            Momo the bunny: provider, mascot, sleep/wake state
+    hint.tsx              Hover/focus wrapper that makes Momo speak
+    tilt.tsx              Pointer-following 3D tilt + glare
     theme-toggle.tsx      Light/dark switch
   _sections/              Hero, ticker, work, experience, skills, about, contact
   globals.css             Theme tokens, surfaces, motion utilities
   layout.tsx              Fonts, metadata, theme bootstrap
   page.tsx                Section composition + Person JSON-LD
 lib/site.ts               All site content and links
+lib/rabbit.ts             Every line Momo can say
 lib/theme.ts              Theme read/write helpers
 public/
   projects/<slug>/        Real screenshots, three per project
@@ -105,20 +135,26 @@ rose `.aurora` wash behind the hero and contact panels.
 - Section content fades and lifts in on first view (`Reveal`), staggered where
   it reads as one block.
 - The hero copy and stats enter in sequence; the featured project card drifts
-  gently.
-- Project tabs cross-fade the detail pane and the screenshot pane is manually
-  pageable with arrow controls.
+  gently inside a pointer-tracking 3D tilt, its screenshots slide on a timer and
+  can be paged with the dots overlaid on the image.
+- Project tabs slide the detail pane in the direction you moved, and each
+  screenshot pane tilts under the pointer, slowly pans (Ken Burns) and slides
+  between frames with the arrow controls.
+- Momo bobs, blinks, twitches her ears and hops when she speaks; she climbs into
+  a little bed and naps with drifting `z`s after a few idle seconds.
 - The stack ticker scrolls continuously and pauses on hover/focus.
 - Hover states lift cards and shift arrows without moving layout.
 - `prefers-reduced-motion` disables the marquee, the status pulse, the hero
-  drift and every long transition in both CSS and Framer Motion.
+  drift, the tilts, the ear sway and every long transition in both CSS and
+  Framer Motion.
 
 ## Accessibility
 
 Semantic landmarks, a skip link, `aria-current` on the active section, a proper
 `tablist`/`tabpanel` for projects with arrow/Home/End keys, `aria-live` for copy
-confirmations, Escape-to-close for the mobile menu, visible focus rings, and a
-full `prefers-reduced-motion` path.
+confirmations and Momo's lines, a labelled button for the mascot, Escape-to-close
+for the mobile menu, visible focus rings, and a full `prefers-reduced-motion`
+path.
 
 ## Deployment
 

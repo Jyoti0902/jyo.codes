@@ -6,6 +6,7 @@ export function Work() {
   return (
     <section
       id="work"
+      data-rabbit-section="work"
       className="relative scroll-mt-20 border-t border-line bg-surface py-20 sm:py-28"
     >
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">

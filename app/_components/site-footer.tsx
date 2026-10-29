@@ -73,7 +73,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-line pt-5 sm:flex-row sm:items-center sm:justify-between">
+        {/* Right padding keeps the last row clear of the fixed mascot. */}
+        <div className="mt-12 flex flex-col gap-3 border-t border-line pt-5 sm:flex-row sm:items-center sm:justify-between sm:pr-28 lg:pr-32">
           <p className="text-[11.5px] text-faint">{site.footerNote}</p>
 
           <div className="flex items-center gap-4 text-[11.5px] text-faint">

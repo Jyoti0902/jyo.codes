@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
+import { RabbitProvider } from "./_components/rabbit";
 import { ScrollProgress } from "./_components/scroll-progress";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
@@ -73,21 +74,23 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
 
       <body className="flex min-h-full flex-col">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[95] focus:rounded-full focus:bg-accent-fill focus:px-4 focus:py-2 focus:text-xs focus:font-medium focus:text-accent-fill-ink"
-        >
-          skip to content
-        </a>
+        <RabbitProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[95] focus:rounded-full focus:bg-accent-fill focus:px-4 focus:py-2 focus:text-xs focus:font-medium focus:text-accent-fill-ink"
+          >
+            skip to content
+          </a>
 
-        <ScrollProgress />
-        <SiteHeader />
+          <ScrollProgress />
+          <SiteHeader />
 
-        <main id="main" className="flex-1">
-          {children}
-        </main>
+          <main id="main" className="flex-1">
+            {children}
+          </main>
 
-        <SiteFooter />
+          <SiteFooter />
+        </RabbitProvider>
       </body>
     </html>
   );
