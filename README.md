@@ -50,9 +50,10 @@ on hover or focus.
 
 ## Momo, the site bunny
 
-A small pink rabbit called **Momo** lives in the bottom-right corner. She wears
-the logo pink (`#fe9bae`) in the light theme and the softer rose at night; both
-palettes live in the `.rabbit-sprite` block in
+A small pink rabbit called **Momo** lives in the bottom-right corner, drawn as a
+round badge: tall splayed ears, big glossy eyes and a cream muzzle. She wears
+the logo pink (`#fe9bae`) and the same pale badge in both themes — the palette
+lives in the `.rabbit-sprite` block in
 [`app/globals.css`](app/globals.css). She reads
 along as you browse: hovering a nav item, project tab, skill card or contact
 panel makes her say a short, contextual tip, and each section introduces itself
@@ -60,12 +61,12 @@ the first time it reaches the middle of the screen. The whole line catalogue
 lives in [`lib/rabbit.ts`](lib/rabbit.ts), so the copy can be edited in one
 place.
 
-After roughly four seconds without pointer, keyboard or scroll activity she
-climbs into a little bed — head on the pillow, ears flopped over the headboard,
-blanket breathing up and down — and says *"Wake me up when you need me"*. Any
-interaction wakes her, and clicking her directly always produces a line. Her
-bubble is announced through `aria-live="polite"`, and everything — the drift,
-the ear sway, the blink, the breathing, the sleep state — is switched off for
+After roughly four seconds without pointer, keyboard or scroll activity her eyes
+flatten into sleepy lines, drifting `z`s appear and she says *"Wake me up when
+you need me"* — she stays in the same round badge, no bed. Any interaction sends
+her back to her glossy-eyed self, and clicking her directly always produces a
+line. Her bubble is announced through `aria-live="polite"`, and everything — the
+drift, the ear sway, the blink, the sleep state — is switched off for
 `prefers-reduced-motion`.
 
 Components can opt in with `useRabbit().say(...)` from
@@ -140,8 +141,8 @@ rose `.aurora` wash behind the hero and contact panels.
 - Project tabs slide the detail pane in the direction you moved, and each
   screenshot pane tilts under the pointer, slowly pans (Ken Burns) and slides
   between frames with the arrow controls.
-- Momo bobs, blinks, twitches her ears and hops when she speaks; she climbs into
-  a little bed and naps with drifting `z`s after a few idle seconds.
+- Momo bobs, blinks, twitches her ears and hops when she speaks; her eyes flatten
+  and drifting `z`s appear after a few idle seconds.
 - The stack ticker scrolls continuously and pauses on hover/focus.
 - Hover states lift cards and shift arrows without moving layout.
 - `prefers-reduced-motion` disables the marquee, the status pulse, the hero

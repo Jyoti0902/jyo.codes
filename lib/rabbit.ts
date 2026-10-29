@@ -16,7 +16,7 @@ export const rabbitLines = {
 
   sleep: [
     "Wake me up when you need me… 💤",
-    "Napping on my little bed! Move around to wake me 🐰",
+    "Napping right here in my circle! Move around to wake me 🐰",
   ],
 
   click: [

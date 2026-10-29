@@ -262,31 +262,34 @@ body {
 
 /* ---------------------------------------------------------------------------
    Momo's palette
-   In daylight she wears the logo pink so she reads against the white canvas;
-   after dark she keeps the softer rose that was drawn for the night theme.
+   One set of colours for both themes: the logo pink and a pale pink badge, so
+   she looks the same after dark.
    --------------------------------------------------------------------------- */
 .rabbit-sprite {
-  --momo-fur-a: #ffc3d0;
+  --momo-fur-a: #ffb2c1;
   --momo-fur-b: #fe9bae;
-  --momo-ear: #f4728e;
-  --momo-line: #ee7d94;
-  --momo-whisker: #c94c67;
+  --momo-bg: #f9d8dd;
+  --momo-ear: #ffd3dd;
   --momo-blush: #e25676;
-  --momo-nose: #bf2f4c;
-  --momo-paw: #fff2f5;
-  --momo-paw-line: #f19cae;
+  --momo-nose: #6b4451;
+  --momo-muzzle: #fff3ef;
+  --momo-dash: #ffd6df;
 }
 
-[data-theme="dark"] .rabbit-sprite {
-  --momo-fur-a: #fdf1f5;
-  --momo-fur-b: #f8dbe5;
-  --momo-ear: #f8b6c5;
-  --momo-line: #f4d1db;
-  --momo-whisker: #edd2da;
-  --momo-blush: #f7aabd;
-  --momo-nose: #f2809a;
-  --momo-paw: #fdf4f7;
-  --momo-paw-line: #f2cbd6;
+.momo-bg {
+  fill: var(--momo-bg);
+}
+
+.momo-muzzle {
+  fill: var(--momo-muzzle);
+}
+
+.momo-dash {
+  stroke: var(--momo-dash);
+}
+
+.momo-blush-line {
+  stroke: var(--momo-blush);
 }
 
 .momo-fur-a {
@@ -305,26 +308,24 @@ body {
   fill: var(--momo-ear);
 }
 
-.momo-line {
-  stroke: var(--momo-line);
-}
-
-.momo-whisker {
-  stroke: var(--momo-whisker);
-}
-
 .momo-nose {
   fill: var(--momo-nose);
 }
 
-/* Paws use a light fill and a rose outline, so the class sets both. */
-.momo-paw {
-  fill: var(--momo-paw);
-  stroke: var(--momo-paw-line);
+/* The speech bubble borrows Momo's colours, in both themes. */
+.mascot-bubble {
+  --mascot-bubble-bg: #fdebf1;
+  --mascot-bubble-line: #f7c9d6;
+  --mascot-bubble-ink: #37242b;
+  --accent: #a82746;
+  background-color: var(--mascot-bubble-bg);
+  border-color: var(--mascot-bubble-line);
+  color: var(--mascot-bubble-ink);
 }
 
-.momo-paw-line {
-  stroke: var(--momo-paw-line);
+.mascot-bubble-tail {
+  background-color: var(--mascot-bubble-bg);
+  border-color: var(--mascot-bubble-line);
 }
 
 /* Momo's ears twitch now and then, like she is listening to the page. */
@@ -351,23 +352,6 @@ body {
   }
 }
 
-/* When she naps, the blanket rises and falls with her breathing. */
-.rabbit-breathe {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: rabbit-breathe 5.2s ease-in-out infinite;
-}
-
-@keyframes rabbit-breathe {
-  0%,
-  100% {
-    transform: translateY(0) scaleY(1);
-  }
-  50% {
-    transform: translateY(-1.4px) scaleY(1.015);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -384,8 +368,7 @@ body {
 
   .marquee-track,
   .status-dot,
-  .rabbit-ear,
-  .rabbit-breathe {
+  .rabbit-ear {
     animation: none !important;
   }
 }
