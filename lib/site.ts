@@ -29,7 +29,7 @@ export const site = {
 
   title: "Jyoti — Software Engineer",
   description:
-    "Software Engineer with 2.5+ years of experience building production-ready web applications, responsive interfaces and reliable APIs.",
+    "Software Engineer with 2 years 10 months of experience building production-ready web applications, responsive interfaces and reliable APIs.",
 
   hero: {
     status: "Open to opportunities",
@@ -38,7 +38,7 @@ export const site = {
     headingLead: "I build digital products that",
     headingAccent: "make an impact.",
     subheading:
-      "I’m Jyoti, a Software Engineer with 2.5+ years of experience building production-ready web applications, responsive interfaces, and reliable APIs.",
+      "I’m Jyoti, a Software Engineer with 2 years 10 months of experience building production-ready web applications, responsive interfaces, and reliable APIs.",
     primaryCta: "Explore My Work",
     secondaryCta: "Get In Touch",
   },
@@ -52,7 +52,7 @@ export const site = {
   ],
 
   stats: [
-    { value: "2.5+", label: "Years in production engineering" },
+    { value: "2 yrs 10 mos", label: "Years in production engineering" },
     { value: "5", label: "Client products delivered" },
     { value: "3", label: "Markets served" },
   ],
@@ -297,7 +297,7 @@ export const site = {
   ],
 
   about: [
-    "I’m a Software Engineer with 2.5+ years of professional experience building production web applications. My work sits across responsive frontend engineering, API integration and the delivery details that make a product dependable.",
+    "I’m a Software Engineer with 2 years 10 months of professional experience building production web applications. My work sits across responsive frontend engineering, API integration and the delivery details that make a product dependable.",
     "I’ve shipped client platforms across healthcare, real estate, events and e-commerce — working with React, Next.js, TypeScript, Node.js and Express, alongside SQL and NoSQL databases. I’m comfortable building real-time booking flows, custom CMS tooling, authentication and role-based access, and supporting deployments on AWS and Docker.",
     "I care about clear interfaces, reliable data flows and code that stays easy to change. I’m continuously learning and focused on building products that hold up for real users.",
   ],

@@ -70,7 +70,7 @@ export const rabbitLines = {
 
   nav: {
     home: [
-      "Back to the top: 2.5+ years, 5 products, 3 markets 🎈",
+      "Back to the top: 2 yrs 10 mos, 5 products, 3 markets 🎈",
       "Hero bit — featured project is DialysisOnGo ✨",
     ],
     work: [
@@ -121,14 +121,14 @@ export const rabbitLines = {
   hero: {
     primary: ["Explore My Work — five live client products inside ✨"],
     secondary: ["Get In Touch — email is jyotibrar0927@gmail.com 💗"],
-    resume: ["One click: MCA, 2.5+ years, React / Next / Node — page one 📄"],
+    resume: ["One click: MCA, 2 yrs 10 mos, React / Next / Node — page one 📄"],
     shot: [
       "DialysisOnGo — real clinics in Bangalore, Chennai and Mumbai 🩺",
       "Featured project: three screenshots, paged by the dots above 👀",
     ],
     social: ["GitHub @Jyoti0902 · LinkedIn /in/jyoti-8b7464242 ✨"],
     stats: [
-      "2.5+ years in production · 5 client products · 3 markets 📦",
+      "2 yrs 10 mos in production · 5 client products · 3 markets 📦",
       "Markets: Australia, the United States and Angola 🌍",
     ],
   },
@@ -189,7 +189,7 @@ export const rabbitLines = {
     ],
     toolkit: ["React, Next, TypeScript, Node, Express, MongoDB, Postgres, AWS, Docker 🧰"],
     numbers: [
-      "2.5+ years · 5 products · clients in India, Australia, the US, Angola 🔢",
+      "2 yrs 10 mos · 5 products · clients in India, Australia, the US, Angola 🔢",
       "Healthcare twice, real estate, events and a pharmacy marketplace 📦",
     ],
     education: [
@@ -200,7 +200,7 @@ export const rabbitLines = {
 
   about: {
     story: [
-      "2.5+ years across healthcare, real estate and events — front end to deploys ☕",
+      "2 yrs 10 mos across healthcare, real estate and events — front end to deploys ☕",
       "React, Next, TypeScript, Node — plus auth, state and AWS delivery 🌸",
     ],
     glance: [
