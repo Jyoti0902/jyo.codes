@@ -19,7 +19,7 @@ export function ThemeToggle() {
     const next = toggleTheme();
     rabbit.say(
       pick(next === "light" ? rabbitLines.theme.light : rabbitLines.theme.dark),
-      { mood: "happy", hold: 2800, source: "hover" },
+      { mood: "happy", expression: "finger_heart", hold: 2800, source: "hover" },
     );
   }
 

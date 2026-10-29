@@ -1,0 +1,11 @@
+﻿import fs from "node:fs";
+const f = "D:/Me/2026-Projects/jyo.codes/tmp-toon.mjs";
+let s = fs.readFileSync(f, "utf8");
+s = s.replace(`      out[p] = sr / sw;
+      out[p * 3 + 1] = sg / sw;
+      out[p * 3 + 2] = sb / sw;`, `      out[p] = sr / sw;
+      out[p + 1] = sg / sw;
+      out[p + 2] = sb / sw;`);
+s = s.replace("81-smooth.png", "84-smooth.png");
+fs.writeFileSync(f, s);
+console.log("ok");

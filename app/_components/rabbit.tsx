@@ -10,6 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import Image from "next/image";
 import {
   AnimatePresence,
   animate,
@@ -17,23 +18,33 @@ import {
   useMotionValue,
   useReducedMotion,
 } from "framer-motion";
-import { pick, rabbitLines, type RabbitMood } from "@/lib/rabbit";
+import {
+  MOMO_STICKERS,
+  pick,
+  rabbitLines,
+  type MomoExpression,
+  type RabbitMood,
+} from "@/lib/rabbit";
+import { asset } from "@/lib/site";
 import { Sparkles } from "./icons";
 
 // ---------------------------------------------------------------------------
-// Momo is a tiny site guide: she comments on nav items, cards and sections,
-// and curls up to sleep whenever the page goes quiet. The provider below owns
-// the "who is talking" state so any component can call `useRabbit().say(...)`.
+// Momo is a tiny site guide: her portrait sits in the corner, she comments on
+// nav items, cards and sections, and naps whenever the page goes quiet. The
+// provider below owns the "who is talking" state so any component can call
+// `useRabbit().say(...)`.
 // ---------------------------------------------------------------------------
 
 export type RabbitMessage = {
   id: number;
   text: string;
   mood: RabbitMood;
+  expression: MomoExpression;
 };
 
 type SayOptions = {
   mood?: RabbitMood;
+  expression?: MomoExpression;
   hold?: number;
   source?: "hover" | "section" | "system";
 };
@@ -46,6 +57,7 @@ type RabbitActions = {
 type RabbitState = {
   message: RabbitMessage | null;
   sleeping: boolean;
+  expression: MomoExpression;
 };
 
 const noop = () => {};
@@ -57,6 +69,7 @@ const RabbitActionsContext = createContext<RabbitActions>({
 const RabbitStateContext = createContext<RabbitState>({
   message: null,
   sleeping: false,
+  expression: "neutral",
 });
 
 /** Actions only — components using this do not re-render on every new line. */
@@ -70,6 +83,7 @@ const DEFAULT_HOLD = 4600;
 export function RabbitProvider({ children }: { children: ReactNode }) {
   const [message, setMessage] = useState<RabbitMessage | null>(null);
   const [sleeping, setSleeping] = useState(false);
+  const [expression, setExpression] = useState<MomoExpression>("neutral");
 
   const idRef = useRef(0);
   const messageTimer = useRef<number | null>(null);
@@ -96,12 +110,31 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
       lastSay.current = Date.now();
       if (options.source === "hover") lastHover.current = Date.now();
 
+      const expr: MomoExpression =
+        options.expression ??
+        (options.mood === "sleepy"
+          ? "sleepy"
+          : options.mood === "excited"
+            ? "celebrate"
+            : options.mood === "curious"
+              ? "thinking"
+              : options.mood === "happy"
+                ? "wink_thumbs"
+                : "neutral");
+
+      setExpression(expr);
       const id = ++idRef.current;
-      setMessage({ id, text, mood: options.mood ?? "happy" });
+      setMessage({
+        id,
+        text,
+        mood: options.mood ?? "happy",
+        expression: expr,
+      });
 
       clearMessageTimer();
       messageTimer.current = window.setTimeout(() => {
         setMessage((current) => (current?.id === id ? null : current));
+        setExpression((current) => (sleepingRef.current ? "sleepy" : "neutral"));
         messageTimer.current = null;
       }, options.hold ?? DEFAULT_HOLD);
     },
@@ -114,6 +147,7 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
 
     sleepingRef.current = false;
     setSleeping(false);
+    setExpression("neutral");
     setMessage((current) => (current?.mood === "sleepy" ? null : current));
   }, []);
 
@@ -125,9 +159,15 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
 
       sleepingRef.current = true;
       setSleeping(true);
+      setExpression("sleepy");
 
       const napId = ++idRef.current;
-      setMessage({ id: napId, text: pick(rabbitLines.sleep), mood: "sleepy" });
+      setMessage({
+        id: napId,
+        text: pick(rabbitLines.sleep),
+        mood: "sleepy",
+        expression: "sleepy",
+      });
 
       clearMessageTimer();
       messageTimer.current = window.setTimeout(() => {
@@ -159,6 +199,7 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
       if (sleepingRef.current) return;
       clearMessageTimer();
       setMessage(null);
+      setExpression("neutral");
     };
 
     const passive = { passive: true } as AddEventListenerOptions;
@@ -186,6 +227,7 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
       if (Date.now() - lastHover.current < 1400) return;
       say(pick(rabbitLines.greeting), {
         mood: "happy",
+        expression: "waving",
         hold: 5400,
         source: "system",
       });
@@ -198,6 +240,14 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
   // viewport. Hover tips always win; sections never talk over the user.
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return;
+
+    const sectionExpressionMap: Record<string, MomoExpression> = {
+      work: "pointing",
+      experience: "coding",
+      skills: "idea",
+      about: "coffee",
+      contact: "love",
+    };
 
     const nodes = Array.from(
       document.querySelectorAll<HTMLElement>("[data-rabbit-section]"),
@@ -223,8 +273,10 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
             if (Date.now() - lastHover.current < 2000) return;
             if (Date.now() - lastSay.current < 4200) return;
 
+            const expr = sectionExpressionMap[key] ?? "thinking";
             say(pick(lines), {
               mood: "curious",
+              expression: expr,
               hold: 5200,
               source: "section",
             });
@@ -239,7 +291,10 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
   }, [say]);
 
   const actions = useMemo(() => ({ say, wake }), [say, wake]);
-  const state = useMemo(() => ({ message, sleeping }), [message, sleeping]);
+  const state = useMemo(
+    () => ({ message, sleeping, expression }),
+    [message, sleeping, expression],
+  );
 
   return (
     <RabbitActionsContext.Provider value={actions}>
@@ -253,30 +308,18 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
 
 const MESSAGES = [
   "Momo is napping — tap to wake her",
-  "Momo the bunny — tap for a tip",
+  "Momo — tap for a tip",
 ] as const;
 
 function RabbitMascot() {
   const { say } = useContext(RabbitActionsContext);
-  const { message, sleeping } = useContext(RabbitStateContext);
+  const { message, sleeping, expression } = useContext(RabbitStateContext);
   const reduce = useReducedMotion();
-  const [blinking, setBlinking] = useState(false);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotate = useMotionValue(0);
   const messageId = message?.id ?? 0;
-
-  useEffect(() => {
-    if (reduce || sleeping) return;
-
-    const id = window.setInterval(() => {
-      setBlinking(true);
-      window.setTimeout(() => setBlinking(false), 140);
-    }, 4800);
-
-    return () => window.clearInterval(id);
-  }, [reduce, sleeping]);
 
   // Gentle drift so she feels alive rather than pinned to the corner.
   useEffect(() => {
@@ -320,8 +363,19 @@ function RabbitMascot() {
       });
     }
 
+    const pokeExpressions: MomoExpression[] = [
+      "wink_thumbs",
+      "celebrate",
+      "surprised",
+      "double_thumbs",
+      "idea",
+      "finger_heart",
+    ];
+    const nextExpr = pick(pokeExpressions);
+
     say(pick(rabbitLines.click), {
       mood: "excited",
+      expression: nextExpr,
       hold: 4200,
       source: "hover",
     });
@@ -380,11 +434,7 @@ function RabbitMascot() {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="block h-full w-full transition-transform duration-300 group-hover:scale-105 group-active:scale-95"
           >
-            <Bunny
-              sleeping={sleeping}
-              blinking={blinking}
-              mood={message?.mood ?? "idle"}
-            />
+            <Bunny sleeping={sleeping} expression={expression} />
           </motion.span>
         </motion.button>
       </div>
@@ -431,138 +481,31 @@ function Zzz({ still = false }: { still?: boolean }) {
 
 function Bunny({
   sleeping,
-  blinking,
-  mood,
+  expression = "neutral",
 }: {
   sleeping: boolean;
-  blinking: boolean;
-  mood: RabbitMood;
+  expression?: MomoExpression;
 }) {
-  const eyesClosed = blinking;
-  const cheerful = mood === "happy" || mood === "excited";
+  const stickerPath = sleeping
+    ? MOMO_STICKERS.sleepy
+    : MOMO_STICKERS[expression] || MOMO_STICKERS.neutral;
 
   return (
-    <svg
-      viewBox="0 0 220 220"
-      className="rabbit-sprite h-full w-full drop-shadow-[0_10px_18px_rgba(24,24,27,0.14)]"
-      aria-hidden
-      focusable="false"
+    <span
+      className={`mascot-badge relative block h-full w-full overflow-hidden rounded-full shadow-inner ${
+        sleeping ? "mascot-napping" : ""
+      }`}
     >
-      <defs>
-        <linearGradient id="momo-fur" x1="0" y1="0" x2="0.35" y2="1">
-          <stop offset="0%" className="momo-fur-a" />
-          <stop offset="100%" className="momo-fur-b" />
-        </linearGradient>
-        <radialGradient id="momo-cheek" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" className="momo-blush" stopOpacity="0.7" />
-          <stop offset="100%" className="momo-blush" stopOpacity="0" />
-        </radialGradient>
-        <clipPath id="momo-avatar">
-          <circle cx="110" cy="110" r="108" />
-        </clipPath>
-      </defs>
-
-      <circle cx="110" cy="110" r="108" className="momo-bg" />
-
-      <g clipPath="url(#momo-avatar)">
-        {/* Narrow shoulders with the little dashes from the reference */}
-        <rect x="76" y="140" width="60" height="100" rx="20" fill="url(#momo-fur)" />
-        <g className="momo-dash" strokeWidth="2.4" strokeLinecap="round">
-          <path d="M90 180v9M102 188v9M110 180v9M118 188v9M130 180v9" />
-        </g>
-
-        {/* Long ears splayed from the top corners of the head, like the reference */}
-        <g transform="rotate(-26 88 132)">
-          <rect x="66" y="22" width="36" height="110" rx="18" fill="url(#momo-fur)" />
-          <rect
-            className="rabbit-ear momo-ear"
-            x="75"
-            y="36"
-            width="18"
-            height="82"
-            rx="9"
-          />
-        </g>
-        <g transform="rotate(14 132 132)">
-          <rect x="120" y="24" width="36" height="108" rx="18" fill="url(#momo-fur)" />
-          <rect
-            className="rabbit-ear rabbit-ear-delay momo-ear"
-            x="129"
-            y="38"
-            width="18"
-            height="80"
-            rx="9"
-          />
-        </g>
-
-        {/* Head, sitting lower in the badge */}
-        <ellipse cx="106" cy="121" rx="57" ry="46" fill="url(#momo-fur)" />
-
-        {/* Soft cheeks */}
-        <ellipse cx="68" cy="140" rx="14" ry="8" fill="url(#momo-cheek)" />
-        <ellipse cx="144" cy="140" rx="14" ry="8" fill="url(#momo-cheek)" />
-
-        {/* Small round eyes with a light brow, closed while blinking/asleep */}
-        {sleeping ? (
-          <g stroke="#2f2126" strokeWidth="2.4" strokeLinecap="round" fill="none">
-            <path d="M75 119h10" />
-            <path d="M127 119h10" />
-          </g>
-        ) : blinking ? (
-          <g stroke="#2f2126" strokeWidth="2.6" strokeLinecap="round" fill="none">
-            <path d="M74 116q6 5 12 0" />
-            <path d="M126 116q6 5 12 0" />
-          </g>
-        ) : (
-          <g>
-            <ellipse cx="80" cy="116" rx="6.2" ry="7.2" fill="#3a2830" />
-            <ellipse cx="132" cy="116" rx="6.2" ry="7.2" fill="#3a2830" />
-            <circle cx="77.6" cy="113" r="2" fill="#ffffff" />
-            <circle cx="129.6" cy="113" r="2" fill="#ffffff" />
-            <circle cx="82.8" cy="119.8" r="0.9" fill="#ffffff" opacity="0.7" />
-            <circle cx="134.8" cy="119.8" r="0.9" fill="#ffffff" opacity="0.7" />
-          </g>
-        )}
-        <g
-          stroke="#2f2126"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          fill="none"
-          opacity="0.8"
-        >
-          <path d="M73 106q7-5 14-1" />
-          <path d="M125 106q7-5 14-1" />
-        </g>
-
-        {/* Big cream muzzle, a wide plum nose and a little mouth */}
-        <ellipse cx="106" cy="143" rx="26" ry="23" className="momo-muzzle" />
-        <path
-          d="M106 116c-7 0-12 3.5-12 8.5 0 6.5 7.5 11 12 15.5 4.5-4.5 12-9 12-15.5 0-5-5-8.5-12-8.5Z"
-          className="momo-nose"
-        />
-        <path
-          d="M106 140v4M106 144c0 4-5 6-7 2M106 144c0 4 5 6 7 2"
-          stroke="#2f2126"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          fill="none"
-        />
-        <g
-          className="momo-blush-line"
-          strokeWidth="2"
-          strokeLinecap="round"
-          opacity="0.8"
-        >
-          <path d="M91 152h-5M116 152h5M97 158h-5M110 158h5" />
-        </g>
-
-        {cheerful && !eyesClosed ? (
-          <g className="momo-ear" opacity="0.8">
-            <circle cx="58" cy="116" r="1.8" />
-            <circle cx="154" cy="116" r="1.8" />
-          </g>
-        ) : null}
-      </g>
-    </svg>
+      <Image
+        key={stickerPath}
+        src={asset(stickerPath)}
+        alt={`Momo expression: ${expression}`}
+        width={300}
+        height={350}
+        priority
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-[105%] w-full object-contain object-bottom transition-all duration-300 drop-shadow-sm"
+      />
+    </span>
   );
 }

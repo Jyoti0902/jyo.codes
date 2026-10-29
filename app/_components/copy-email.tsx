@@ -22,6 +22,7 @@ export function CopyEmail({ email }: { email: string }) {
       setCopied(true);
       rabbit.say(rabbitLines.contact.copy[0], {
         mood: "happy",
+        expression: "double_thumbs",
         hold: 3000,
         source: "hover",
       });

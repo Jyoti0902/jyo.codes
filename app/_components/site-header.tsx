@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/lib/site";
-import { pick, rabbitLines } from "@/lib/rabbit";
+import { pick, rabbitLines, type MomoExpression } from "@/lib/rabbit";
 import {
   ArrowUpRight,
   Close,
@@ -24,10 +24,25 @@ export function SiteHeader() {
   const [active, setActive] = useState("home");
   const rabbit = useRabbit();
 
+  const navExpressions: Record<string, MomoExpression> = {
+    home: "waving",
+    work: "pointing",
+    experience: "coding",
+    skills: "idea",
+    about: "coffee",
+    contact: "love",
+  };
+
   function hintNav(id: string) {
     const lines = navLines[id];
     if (!lines) return;
-    rabbit.say(pick(lines), { mood: "curious", hold: 4200, source: "hover" });
+    const expression = navExpressions[id] ?? "thinking";
+    rabbit.say(pick(lines), {
+      mood: "curious",
+      expression,
+      hold: 4200,
+      source: "hover",
+    });
   }
 
   useEffect(() => {

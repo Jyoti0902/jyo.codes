@@ -25,7 +25,11 @@ export function Experience() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
           <Reveal>
-            <Hint lines={rabbitLines.experience.role} className="h-full">
+            <Hint
+              lines={rabbitLines.experience.role}
+              expression="celebrate"
+              className="h-full"
+            >
               <div className="card relative h-full overflow-hidden p-6 sm:p-8">
                 <span
                   aria-hidden
@@ -84,7 +88,7 @@ export function Experience() {
 
           <div className="flex flex-col gap-6">
             <Reveal delay={0.05}>
-              <Hint lines={rabbitLines.experience.toolkit}>
+              <Hint lines={rabbitLines.experience.toolkit} expression="coding">
                 <div className="card p-6">
                   <p className="text-[10px] font-medium tracking-[0.18em] text-faint uppercase">
                     Toolkit in use
@@ -104,7 +108,10 @@ export function Experience() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <Hint lines={rabbitLines.experience.numbers}>
+              <Hint
+                lines={rabbitLines.experience.numbers}
+                expression="double_thumbs"
+              >
                 <div className="card p-6">
                   <p className="text-[10px] font-medium tracking-[0.18em] text-faint uppercase">
                     By the numbers
@@ -139,6 +146,7 @@ export function Experience() {
               <Hint
                 key={entry.degree}
                 lines={rabbitLines.experience.education}
+                expression="reading"
                 className="h-full"
               >
                 <div className="card card-hover h-full p-5">

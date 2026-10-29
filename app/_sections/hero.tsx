@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Tilt } from "@/app/_components/tilt";
 import { useRabbit } from "@/app/_components/rabbit";
 import { asset, site } from "@/lib/site";
-import { pick, rabbitLines, type RabbitMood } from "@/lib/rabbit";
+import { pick, rabbitLines, type MomoExpression, type RabbitMood } from "@/lib/rabbit";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -64,9 +64,11 @@ export function Hero() {
   function hint(
     key: keyof typeof rabbitLines.hero,
     mood: RabbitMood = "curious",
+    expression?: MomoExpression,
   ) {
     rabbit.say(pick(rabbitLines.hero[key]), {
       mood,
+      expression,
       hold: 4200,
       source: "hover",
     });
@@ -119,8 +121,8 @@ export function Hero() {
             >
               <a
                 href="#work"
-                onMouseEnter={() => hint("primary", "excited")}
-                onFocus={() => hint("primary", "excited")}
+                onMouseEnter={() => hint("primary", "curious", "pointing")}
+                onFocus={() => hint("primary", "curious", "pointing")}
                 className="group inline-flex items-center gap-2 rounded-full bg-accent-fill px-5 py-2.5 text-[13px] font-medium text-accent-fill-ink shadow-sm transition hover:brightness-105"
               >
                 {site.hero.primaryCta}
@@ -129,8 +131,8 @@ export function Hero() {
 
               <a
                 href="#contact"
-                onMouseEnter={() => hint("secondary")}
-                onFocus={() => hint("secondary")}
+                onMouseEnter={() => hint("secondary", "happy", "love")}
+                onFocus={() => hint("secondary", "happy", "love")}
                 className="group inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface px-5 py-2.5 text-[13px] font-medium text-ink transition-colors hover:border-accent/50 hover:text-accent"
               >
                 {site.hero.secondaryCta}
@@ -140,8 +142,8 @@ export function Hero() {
               <a
                 href={site.resume}
                 download="Jyoti-Resume.pdf"
-                onMouseEnter={() => hint("resume")}
-                onFocus={() => hint("resume")}
+                onMouseEnter={() => hint("resume", "idle", "reading")}
+                onFocus={() => hint("resume", "idle", "reading")}
                 className="inline-flex items-center gap-1.5 px-1.5 py-2.5 text-[12.5px] text-muted transition-colors hover:text-ink"
               >
                 <Download className="size-3.5" />
@@ -161,8 +163,8 @@ export function Hero() {
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel={href.startsWith("http") ? "noreferrer" : undefined}
                     aria-label={label}
-                    onMouseEnter={() => hint("social")}
-                    onFocus={() => hint("social")}
+                    onMouseEnter={() => hint("social", "happy", "wink_thumbs")}
+                    onFocus={() => hint("social", "happy", "wink_thumbs")}
                     className="inline-flex size-9 items-center justify-center rounded-full border border-line bg-surface text-muted transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent"
                   >
                     <Icon className="size-3.5" />
@@ -251,7 +253,7 @@ export function Hero() {
                   <div className="relative overflow-hidden rounded-xl">
                     <div
                       className="relative aspect-[16/11] overflow-hidden"
-                      onMouseEnter={() => hint("shot")}
+                      onMouseEnter={() => hint("shot", "curious", "pointing")}
                     >
                       <motion.div
                         className="flex h-full w-full"
@@ -354,7 +356,7 @@ export function Hero() {
                 delay: 0.5 + index * 0.08,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              onMouseEnter={() => hint("stats")}
+              onMouseEnter={() => hint("stats", "excited", "celebrate")}
               className="card card-hover px-5 py-5"
             >
               <p className="text-2xl font-semibold tracking-[-0.03em] tabular-nums sm:text-[1.7rem]">

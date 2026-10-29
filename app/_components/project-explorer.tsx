@@ -38,6 +38,7 @@ function ShotFrame({ project }: { project: Project }) {
       onMouseEnter={() =>
         rabbit.say(pick(rabbitLines.shot), {
           mood: "curious",
+          expression: "peeking",
           hold: 4400,
           source: "hover",
         })
@@ -233,7 +234,12 @@ export function ProjectExplorer({
   function hintProject(slug: string) {
     const lines = projectLines[slug];
     if (!lines) return;
-    rabbit.say(pick(lines), { mood: "curious", hold: 4000, source: "hover" });
+    rabbit.say(pick(lines), {
+      mood: "curious",
+      expression: "pointing",
+      hold: 4000,
+      source: "hover",
+    });
   }
 
   function select(index: number) {

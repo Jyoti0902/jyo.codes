@@ -30,7 +30,11 @@ export function About() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.25fr_0.75fr] lg:gap-8">
           <Reveal>
-            <Hint lines={rabbitLines.about.story} className="h-full">
+            <Hint
+              lines={rabbitLines.about.story}
+              expression="coffee"
+              className="h-full"
+            >
               <div className="card h-full p-6 sm:p-8">
                 <p className="text-[10px] font-medium tracking-[0.18em] text-accent uppercase">
                   A little context
@@ -67,7 +71,7 @@ export function About() {
 
           <div className="flex flex-col gap-6">
             <Reveal delay={0.05}>
-              <Hint lines={rabbitLines.about.glance}>
+              <Hint lines={rabbitLines.about.glance} expression="thinking">
                 <div className="card p-6">
                   <p className="text-[10px] font-medium tracking-[0.18em] text-faint uppercase">
                     At a glance
@@ -91,7 +95,7 @@ export function About() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <Hint lines={rabbitLines.about.strengths}>
+              <Hint lines={rabbitLines.about.strengths} expression="wink_thumbs">
                 <div className="card p-6">
                   <p className="text-[10px] font-medium tracking-[0.18em] text-faint uppercase">
                     Strengths

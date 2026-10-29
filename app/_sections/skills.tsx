@@ -2,7 +2,7 @@ import { SectionHeading } from "@/app/_components/section-heading";
 import { RevealGroup, RevealItem } from "@/app/_components/reveal";
 import { Hint } from "@/app/_components/hint";
 import { Cloud, Code, Database, Server, Wrench } from "@/app/_components/icons";
-import { rabbitLines } from "@/lib/rabbit";
+import { rabbitLines, type MomoExpression } from "@/lib/rabbit";
 import { site } from "@/lib/site";
 
 const groups = [
@@ -12,6 +12,14 @@ const groups = [
   { Icon: Cloud, span: "lg:col-span-2" },
   { Icon: Wrench, span: "lg:col-span-2" },
 ] as const;
+
+const skillExpressions: Record<string, MomoExpression> = {
+  frontend: "coding",
+  backend: "coding",
+  data: "thinking",
+  cloud: "idea",
+  tools: "wink_thumbs",
+};
 
 const skillLines = rabbitLines.skillGroup as Record<string, readonly string[]>;
 
@@ -38,6 +46,7 @@ export function Skills() {
               <RevealItem key={group.key} className={span}>
                 <Hint
                   lines={skillLines[group.key] ?? rabbitLines.skillGroup.tools}
+                  expression={skillExpressions[group.key] ?? "thinking"}
                   className="h-full"
                 >
                   <div className="card card-hover flex h-full flex-col p-5 sm:p-6">

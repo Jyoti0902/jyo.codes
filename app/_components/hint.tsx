@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { pick, type RabbitMood } from "@/lib/rabbit";
+import { pick, type MomoExpression, type RabbitMood } from "@/lib/rabbit";
 import { useRabbit } from "./rabbit";
 
 /**
@@ -11,12 +11,14 @@ import { useRabbit } from "./rabbit";
 export function Hint({
   lines,
   mood = "curious",
+  expression,
   hold = 4400,
   className = "",
   children,
 }: {
   lines: readonly string[];
   mood?: RabbitMood;
+  expression?: MomoExpression;
   hold?: number;
   className?: string;
   children: ReactNode;
@@ -24,7 +26,7 @@ export function Hint({
   const rabbit = useRabbit();
 
   const speak = () => {
-    rabbit.say(pick(lines), { mood, hold, source: "hover" });
+    rabbit.say(pick(lines), { mood, expression, hold, source: "hover" });
   };
 
   return (

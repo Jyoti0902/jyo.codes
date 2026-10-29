@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
-// Momo the bunny lives in every corner of the site. All of her lines live here
-// so the copy stays in one place — components only decide when to say them.
+// Momo the site guide lives in every corner of the page. All of her lines live
+// here so the copy stays in one place — components decide when to say them.
 // Keep lines short: the speech bubble is small and should never cover the page.
 // Lines should name the actual detail (product, stack, place) rather than just
 // react to it — she is a guide, not a cheerleader.
@@ -8,19 +8,82 @@
 
 export type RabbitMood = "idle" | "happy" | "curious" | "excited" | "sleepy";
 
+export type MomoExpression =
+  | "neutral"
+  | "wink_thumbs"
+  | "double_thumbs"
+  | "love"
+  | "thinking"
+  | "surprised"
+  | "waving"
+  | "coding"
+  | "pointing"
+  | "sleepy"
+  | "coffee"
+  | "peeking"
+  | "idea"
+  | "reading"
+  | "celebrate"
+  | "tired"
+  | "confused"
+  | "finger_heart";
+
+export const MOMO_STICKERS: Record<MomoExpression, string> = {
+  neutral: "/momo/stickers/momo-neutral.png",
+  wink_thumbs: "/momo/stickers/momo-wink-thumbs-up.png",
+  double_thumbs: "/momo/stickers/momo-double-thumbs-up.png",
+  love: "/momo/stickers/momo-love-chin.png",
+  thinking: "/momo/stickers/momo-thinking-question.png",
+  surprised: "/momo/stickers/momo-surprised-wow.png",
+  waving: "/momo/stickers/momo-waving-hello.png",
+  coding: "/momo/stickers/momo-laptop-coding.png",
+  pointing: "/momo/stickers/momo-pointing-right.png",
+  sleepy: "/momo/stickers/momo-sleepy-zzz.png",
+  coffee: "/momo/stickers/momo-coffee-tea.png",
+  peeking: "/momo/stickers/momo-peeking-side.png",
+  idea: "/momo/stickers/momo-idea-lightbulb.png",
+  reading: "/momo/stickers/momo-reading-book.png",
+  celebrate: "/momo/stickers/momo-celebrate-fists.png",
+  tired: "/momo/stickers/momo-tired-bored.png",
+  confused: "/momo/stickers/momo-confused-hmm.png",
+  finger_heart: "/momo/stickers/momo-finger-heart-wink.png",
+};
+
+export function getStickerForMood(
+  mood?: RabbitMood,
+  expression?: MomoExpression,
+): string {
+  if (expression && MOMO_STICKERS[expression]) {
+    return MOMO_STICKERS[expression];
+  }
+  switch (mood) {
+    case "sleepy":
+      return MOMO_STICKERS.sleepy;
+    case "excited":
+      return MOMO_STICKERS.celebrate;
+    case "curious":
+      return MOMO_STICKERS.thinking;
+    case "happy":
+      return MOMO_STICKERS.waving;
+    case "idle":
+    default:
+      return MOMO_STICKERS.neutral;
+  }
+}
+
 export const rabbitLines = {
   greeting: [
-    "Hi, I'm Momo! 🐰 Hover anything and I'll tell you what's inside.",
-    "Psst… I'm Momo. I know where every detail lives 🐾",
+    "Hi, I'm Momo! 👋 Hover anything and I'll tell you what's inside.",
+    "Psst… I'm Momo. I know where every detail lives ✨",
   ],
 
   sleep: [
     "Wake me up when you need me… 💤",
-    "Napping right here in my circle! Move around to wake me 🐰",
+    "Napping right here in my circle! Move around to wake me 😴",
   ],
 
   click: [
-    "Boop! Jyoti builds with React, Next.js and Node 🐾",
+    "Boop! Jyoti builds with React, Next.js and Node ✨",
     "DialysisOnGo is the flagship — clinic booking across India 🩺",
     "Five live client products live under Work 👀",
     "Since Jan 2024: Software Engineer at Sensation Software Solutions 💼",
@@ -57,7 +120,7 @@ export const rabbitLines = {
   section: {
     work: [
       "Five client platforms: healthcare, real estate, events. Pick one 👈",
-      "Each project has three real screenshots — arrows page through them 🐾",
+      "Each project has three real screenshots — arrows page through them ✨",
     ],
     experience: [
       "Sensation Software Solutions, Jan 2024 → now: six lines of real impact 💼",
@@ -73,7 +136,7 @@ export const rabbitLines = {
     ],
     contact: [
       "Email jyotibrar0927@gmail.com — or copy it with one click 💌",
-      "Open to full-time roles and product work, Mohali or remote 🐰",
+      "Open to full-time roles and product work, Mohali or remote 👋",
     ],
   },
 
@@ -85,7 +148,7 @@ export const rabbitLines = {
       "DialysisOnGo — real clinics in Bangalore, Chennai and Mumbai 🩺",
       "Featured project: three screenshots, paged by the dots above 👀",
     ],
-    social: ["GitHub @Jyoti0902 · LinkedIn /in/jyoti-8b7464242 🐾"],
+    social: ["GitHub @Jyoti0902 · LinkedIn /in/jyoti-8b7464242 ✨"],
     stats: [
       "2.5+ years in production · 5 client products · 3 markets 📦",
       "Markets: Australia, the United States and Angola 🌍",
@@ -117,7 +180,7 @@ export const rabbitLines = {
 
   shot: [
     "Click the shot to open the live site — three screens per project ↗",
-    "Each frame is the real product, not a mockup 🐾",
+    "Each frame is the real product, not a mockup ✨",
   ],
 
   skillGroup: {
@@ -132,7 +195,7 @@ export const rabbitLines = {
     data: ["MongoDB for documents, PostgreSQL and SQL for relational data 🗂️"],
     cloud: [
       "AWS EC2, S3, Docker and CI/CD — plus Render and Vercel deploys 🚀",
-      "Six ways to ship, and she has used all of them 🐾",
+      "Six ways to ship, and she has used all of them ✨",
     ],
     tools: ["Git, GitHub, Postman, VS Code, MongoDB Compass 🛠️"],
   },
@@ -164,7 +227,7 @@ export const rabbitLines = {
     ],
     strengths: [
       "Frontend systems, REST APIs, JWT/RBAC, AWS + Docker, delivery ✨",
-      "Six strengths, all used on client work — no filler 🐰",
+      "Six strengths, all used on client work — no filler 👋",
     ],
   },
 
@@ -174,18 +237,18 @@ export const rabbitLines = {
       "Email her, or copy the address straight from this panel 📋",
     ],
     copy: ["Copied jyotibrar0927@gmail.com — paste it somewhere nice 📋"],
-    links: ["GitHub @Jyoti0902 · LinkedIn /in/jyoti-8b7464242 · email 🐾"],
+    links: ["GitHub @Jyoti0902 · LinkedIn /in/jyoti-8b7464242 · email ✨"],
     status: ["Open to full-time roles and product work — Mohali or remote 🌷"],
   },
 
   ticker: [
     "React, Next, TypeScript, Node, Express, MongoDB, Postgres, Tailwind, AWS, Docker 🛠️",
-    "Twelve tools sliding by — TanStack Query and REST APIs included 🐰",
+    "Twelve tools sliding by — TanStack Query and REST APIs included 👋",
   ],
 
   theme: {
     light: ["Lights on! ☀️", "Bright and clean, just like the site ✨"],
-    dark: ["Lights off… spooky 🌙", "Dark mode? Excellent taste 🐰"],
+    dark: ["Lights off… spooky 🌙", "Dark mode? Excellent taste 👋"],
   },
 } as const;
 

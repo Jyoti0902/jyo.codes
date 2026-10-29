@@ -261,55 +261,11 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   Momo's palette
-   One set of colours for both themes: the logo pink and a pale pink badge, so
-   she looks the same after dark.
+   Momo's badge
+   The portrait sticker sits in a pale pink circle, the same in both themes.
    --------------------------------------------------------------------------- */
-.rabbit-sprite {
-  --momo-fur-a: #ffb2c1;
-  --momo-fur-b: #fe9bae;
-  --momo-bg: #f9d8dd;
-  --momo-ear: #ffd3dd;
-  --momo-blush: #e25676;
-  --momo-nose: #6b4451;
-  --momo-muzzle: #fff3ef;
-  --momo-dash: #ffd6df;
-}
-
-.momo-bg {
-  fill: var(--momo-bg);
-}
-
-.momo-muzzle {
-  fill: var(--momo-muzzle);
-}
-
-.momo-dash {
-  stroke: var(--momo-dash);
-}
-
-.momo-blush-line {
-  stroke: var(--momo-blush);
-}
-
-.momo-fur-a {
-  stop-color: var(--momo-fur-a);
-}
-
-.momo-fur-b {
-  stop-color: var(--momo-fur-b);
-}
-
-.momo-blush {
-  stop-color: var(--momo-blush);
-}
-
-.momo-ear {
-  fill: var(--momo-ear);
-}
-
-.momo-nose {
-  fill: var(--momo-nose);
+.mascot-badge {
+  background-color: #f9d8dd;
 }
 
 /* The speech bubble borrows Momo's colours, in both themes. */
@@ -328,28 +284,10 @@ body {
   border-color: var(--mascot-bubble-line);
 }
 
-/* Momo's ears twitch now and then, like she is listening to the page. */
-.rabbit-ear {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: rabbit-ear-sway 4.8s ease-in-out infinite;
-}
-
-.rabbit-ear-delay {
-  animation-delay: -1.7s;
-}
-
-@keyframes rabbit-ear-sway {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  38% {
-    transform: rotate(-4deg);
-  }
-  68% {
-    transform: rotate(2.5deg);
-  }
+/* Momo's portrait dims a touch while she naps; the drifting z's do the rest. */
+.mascot-napping {
+  filter: saturate(0.72) brightness(0.97);
+  transition: filter 400ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -367,8 +305,7 @@ body {
   }
 
   .marquee-track,
-  .status-dot,
-  .rabbit-ear {
+  .status-dot {
     animation: none !important;
   }
 }
