@@ -29,7 +29,7 @@ export type MomoExpression =
   | "finger_heart";
 
 export const MOMO_STICKERS: Record<MomoExpression, string> = {
-  neutral: "/momo/stickers/momo-neutral.png",
+  neutral: "/momo/momo-default.png",
   wink_thumbs: "/momo/stickers/momo-wink-thumbs-up.png",
   double_thumbs: "/momo/stickers/momo-double-thumbs-up.png",
   love: "/momo/stickers/momo-love-chin.png",

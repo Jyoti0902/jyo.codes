@@ -60,7 +60,7 @@ type RabbitState = {
   expression: MomoExpression;
 };
 
-const noop = () => {};
+const noop = () => { };
 
 const RabbitActionsContext = createContext<RabbitActions>({
   say: noop,
@@ -479,6 +479,9 @@ function Zzz({ still = false }: { still?: boolean }) {
   );
 }
 
+// The default portrait already has the pink circle background baked in.
+const DEFAULT_PORTRAIT = "/momo/momo-default.png";
+
 function Bunny({
   sleeping,
   expression = "neutral",
@@ -486,15 +489,15 @@ function Bunny({
   sleeping: boolean;
   expression?: MomoExpression;
 }) {
+  const isDefault = !sleeping && expression === "neutral";
   const stickerPath = sleeping
     ? MOMO_STICKERS.sleepy
-    : MOMO_STICKERS[expression] || MOMO_STICKERS.neutral;
+    : MOMO_STICKERS[expression] || DEFAULT_PORTRAIT;
 
   return (
     <span
-      className={`mascot-badge relative block h-full w-full overflow-hidden rounded-full shadow-inner ${
-        sleeping ? "mascot-napping" : ""
-      }`}
+      className={`mascot-badge relative block h-full w-full overflow-hidden rounded-full shadow-inner ${sleeping ? "mascot-napping" : ""
+        }`}
     >
       <Image
         key={stickerPath}
@@ -504,7 +507,10 @@ function Bunny({
         height={350}
         priority
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-[105%] w-full object-contain object-bottom transition-all duration-300 drop-shadow-sm"
+        className={`absolute inset-0 w-full transition-all duration-300 
+  
+            bottom-0 top-auto h-full object-contain object-bottom drop-shadow-sm"
+        `}
       />
     </span>
   );
