@@ -134,7 +134,7 @@ export function RabbitProvider({ children }: { children: ReactNode }) {
       clearMessageTimer();
       messageTimer.current = window.setTimeout(() => {
         setMessage((current) => (current?.id === id ? null : current));
-        setExpression((current) => (sleepingRef.current ? "sleepy" : "neutral"));
+        setExpression(sleepingRef.current ? "sleepy" : "neutral");
         messageTimer.current = null;
       }, options.hold ?? DEFAULT_HOLD);
     },
@@ -489,7 +489,6 @@ function Bunny({
   sleeping: boolean;
   expression?: MomoExpression;
 }) {
-  const isDefault = !sleeping && expression === "neutral";
   const stickerPath = sleeping
     ? MOMO_STICKERS.sleepy
     : MOMO_STICKERS[expression] || DEFAULT_PORTRAIT;

@@ -319,4 +319,3 @@ export const site = {
 } as const;
 
 export type Project = (typeof site.projects)[number];
-export type SkillGroup = (typeof site.skills)[number];

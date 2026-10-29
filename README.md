@@ -65,7 +65,7 @@ her, and clicking her directly always produces a line. Her bubble is announced
 through `aria-live="polite"`, and everything — the drift, the hop, the sleep
 state — is switched off for `prefers-reduced-motion`.
 
-The portrait is [`public/momo/momo-portrait.png`](public/momo/momo-portrait.png):
+The portrait is [`public/momo/momo-default.png`](public/momo/momo-default.png):
 the photo with its white background flood-filled away and a small transparent
 margin trimmed, so it sits on the pink circle like a sticker. Swap the file to
 change the face; keep the subject centred and cut out.
@@ -104,7 +104,7 @@ lib/rabbit.ts             Every line Momo can say
 lib/theme.ts              Theme read/write helpers
 public/
   projects/<slug>/        Real screenshots, three per project
-  momo/momo-portrait.png  Cut-out portrait for the corner badge
+  momo/momo-default.png  Cut-out portrait for the corner badge
   Jyoti-Resume.pdf        Downloadable résumé (phone number removed)
   og.png                  Social sharing image
 ```

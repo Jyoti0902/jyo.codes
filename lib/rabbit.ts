@@ -49,28 +49,6 @@ export const MOMO_STICKERS: Record<MomoExpression, string> = {
   finger_heart: "/momo/stickers/momo-finger-heart-wink.png",
 };
 
-export function getStickerForMood(
-  mood?: RabbitMood,
-  expression?: MomoExpression,
-): string {
-  if (expression && MOMO_STICKERS[expression]) {
-    return MOMO_STICKERS[expression];
-  }
-  switch (mood) {
-    case "sleepy":
-      return MOMO_STICKERS.sleepy;
-    case "excited":
-      return MOMO_STICKERS.celebrate;
-    case "curious":
-      return MOMO_STICKERS.thinking;
-    case "happy":
-      return MOMO_STICKERS.waving;
-    case "idle":
-    default:
-      return MOMO_STICKERS.neutral;
-  }
-}
-
 export const rabbitLines = {
   greeting: [
     "Hi, I'm Momo! 👋 Hover anything and I'll tell you what's inside.",

@@ -57,14 +57,6 @@ export function Mail(props: IconProps) {
   );
 }
 
-export function Phone(props: IconProps) {
-  return (
-    <svg {...base(props)}>
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
-    </svg>
-  );
-}
-
 export function MapPin(props: IconProps) {
   return (
     <svg {...base(props)}>
@@ -171,14 +163,6 @@ export function Sparkles(props: IconProps) {
   return (
     <svg {...base(props)}>
       <path d="m12 3 1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3ZM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15ZM5 14l.6 1.6L7 16l-1.4.4L5 18l-.6-1.6L3 16l1.4-.4L5 14Z" />
-    </svg>
-  );
-}
-
-export function ChevronDown(props: IconProps) {
-  return (
-    <svg {...base(props)}>
-      <path d="m6 9 6 6 6-6" />
     </svg>
   );
 }
