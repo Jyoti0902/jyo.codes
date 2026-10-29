@@ -57,14 +57,14 @@ export const rabbitLines = {
 
   sleep: [
     "Wake me up when you need me… 💤",
-    "Napping right here in my circle! Move around to wake me 😴",
+    "Napping right here in my corner! Move around to wake me 😴",
   ],
 
   click: [
     "Boop! Jyoti builds with React, Next.js and Node ✨",
     "DialysisOnGo is the flagship — clinic booking across India 🩺",
     "Five live client products live under Work 👀",
-    "Since Jan 2024: Software Engineer at Sensation Software Solutions 💼",
+    "Since Jun 2024: Software Engineer at Sensation Software Solutions 💼",
     "MCA, Panjab University — and a lot of production code 🎓",
   ],
 
@@ -78,12 +78,12 @@ export const rabbitLines = {
       "Healthcare, real estate and events — all shipped for real clients ✨",
     ],
     experience: [
-      "Software Engineer at Sensation since Jan 2024, Mohali 💼",
+      "Software Engineer at Sensation since Jun 2024, Mohali 💼",
       "React, Next, Node and Express, with AWS and Docker for delivery 🧰",
     ],
     skills: [
       "React, Next, TypeScript, Node, Express, MongoDB, PostgreSQL, AWS, Docker 🛠️",
-      "Ten frontend tools, six backend, three databases, six cloud 🌸",
+      "Eleven frontend tools, six backend, three databases, six cloud 🌸",
     ],
     about: [
       "MCA from Panjab University, B.Sc. from Kurukshetra 🌸",
@@ -101,11 +101,11 @@ export const rabbitLines = {
       "Each project has three real screenshots — arrows page through them ✨",
     ],
     experience: [
-      "Sensation Software Solutions, Jan 2024 → now: six lines of real impact 💼",
+      "Sensation Software Solutions, Jun 2024 → now: five lines of real impact 💼",
       "React, Next, TypeScript, Node, Express, MongoDB, Postgres, AWS, Docker 🧰",
     ],
     skills: [
-      "Ten frontend tools, six backend, three databases, six cloud 🛠️",
+      "Eleven frontend tools, six backend, three databases, six cloud 🛠️",
       "Hover a card — I'll name what's actually inside 🌸",
     ],
     about: [
@@ -164,7 +164,7 @@ export const rabbitLines = {
   skillGroup: {
     frontend: [
       "React, Next, TypeScript, Redux Toolkit, Tailwind, SWR, TanStack Query 🌸",
-      "Ten tools for interfaces that hold up in production ✨",
+      "Eleven tools for interfaces that hold up in production ✨",
     ],
     backend: [
       "Node and Express APIs with JWT auth, RBAC and WebSockets 🔧",
@@ -175,13 +175,17 @@ export const rabbitLines = {
       "AWS EC2, S3, Docker and CI/CD — plus Render and Vercel deploys 🚀",
       "Six ways to ship, and she has used all of them ✨",
     ],
-    tools: ["Git, GitHub, Postman, VS Code, MongoDB Compass 🛠️"],
+    tools: ["Git, GitHub, Postman, VS Code, MongoDB Compass, API integration, performance 🛠️"],
   },
 
   experience: {
     role: [
-      "Software Engineer at Sensation Software Solutions, Jan 2024 → now 💼",
+      "Software Engineer at Sensation Software Solutions, Jun 2024 → now 💼",
       "Full-time in Mohali — healthcare, real estate and event products ✨",
+    ],
+    internship: [
+      "Intern Jan → Jun 2024: TraceMenu, a QR-based restaurant platform 🍽️",
+      "Redux carts, MongoDB transactions and 60% fewer search API calls ✨",
     ],
     toolkit: ["React, Next, TypeScript, Node, Express, MongoDB, Postgres, AWS, Docker 🧰"],
     numbers: [

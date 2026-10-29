@@ -50,8 +50,8 @@ on hover or focus.
 
 ## Momo, the site guide
 
-**Momo** lives in the bottom-right corner as a round badge: a cut-out portrait
-sticker on the logo's pale pink (`#f9d8dd`), the same in both themes. She reads
+**Momo** lives in the bottom-right corner as a cut-out portrait sticker that
+floats directly on the page — no background circle, the same in both themes. She reads
 along as you browse: hovering a nav item, project tab, skill card or contact
 panel makes her say a short, contextual tip, and each section introduces itself
 the first time it reaches the middle of the screen. The whole line catalogue
@@ -60,14 +60,14 @@ place.
 
 After roughly four seconds without pointer, keyboard or scroll activity she
 naps — the portrait dims slightly, drifting `z`s appear and she says *"Wake me
-up when you need me"* — she stays in the same round badge. Any interaction wakes
+up when you need me"* — she stays in the same spot. Any interaction wakes
 her, and clicking her directly always produces a line. Her bubble is announced
 through `aria-live="polite"`, and everything — the drift, the hop, the sleep
 state — is switched off for `prefers-reduced-motion`.
 
 The portrait is [`public/momo/momo-default.png`](public/momo/momo-default.png):
 the photo with its white background flood-filled away and a small transparent
-margin trimmed, so it sits on the pink circle like a sticker. Swap the file to
+margin trimmed, so it sits on the page like a sticker. Swap the file to
 change the face; keep the subject centred and cut out.
 
 Components can opt in with `useRabbit().say(...)` from
@@ -91,7 +91,7 @@ app/
     reveal.tsx            Scroll-reveal helpers
     site-header.tsx       Sticky header, active section, mobile nav
     site-footer.tsx       Footer navigation + links
-    rabbit.tsx            Momo the guide: provider, portrait badge, sleep/wake
+    rabbit.tsx            Momo the guide: provider, portrait sticker, sleep/wake
     hint.tsx              Hover/focus wrapper that makes Momo speak
     tilt.tsx              Pointer-following 3D tilt + glare
     theme-toggle.tsx      Light/dark switch
@@ -104,8 +104,8 @@ lib/rabbit.ts             Every line Momo can say
 lib/theme.ts              Theme read/write helpers
 public/
   projects/<slug>/        Real screenshots, three per project
-  momo/momo-default.png  Cut-out portrait for the corner badge
-  Jyoti-Resume.pdf        Downloadable résumé (phone number removed)
+  momo/momo-default.png  Cut-out portrait for the corner sticker
+  Jyoti-Resume.pdf        Downloadable résumé
   og.png                  Social sharing image
 ```
 

@@ -110,7 +110,7 @@ export const site = {
         "Integrated APIs using SWR.",
         "Implemented forms, validation, and dashboard features.",
       ],
-      stack: ["React.js", ".NET", "SQL"],
+      stack: ["React.js", ".NET", "SQL", "SWR"],
       href: "https://crm.sunnyhomes.com.au/",
       images: [
         "/projects/sunnyhomes/01.jpg",
@@ -126,15 +126,15 @@ export const site = {
       index: "03",
       title: "TraceVenue",
       category: "Event platform",
-      client: "Multi-role marketplace",
+      client: "Multi-tenant B2B2C",
       description:
-        "A multi-role event marketplace where planners discover venues, request and compare quotations, and manage contracts with vendors and service providers.",
+        "A multi-tenant B2B2C venue booking platform where planners discover venues, request and compare quotations, and manage contracts — with real-time booking sync across customers, venue admins and super admins.",
       contribution: [
-        "Developed features for bookings, quotations, users, and vendors.",
-        "Built and integrated REST APIs.",
-        "Supported quotation, contract, and real-time notification workflows.",
+        "Engineered the platform on the MERN stack with Socket.IO real-time booking synchronisation.",
+        "Implemented JWT authentication and RBAC across customer, venue-admin and super-admin roles.",
+        "Automated proposal workflows and supported 100+ venue bookings, deployed on AWS EC2, Docker and S3.",
       ],
-      stack: ["React.js", "Node.js", "Express.js", "MongoDB"],
+      stack: ["React.js", "Node.js", "Express.js", "MongoDB", "Socket.IO"],
       href: "https://tracevenue.com/",
       images: [
         "/projects/tracevenue/01.jpg",
@@ -158,7 +158,7 @@ export const site = {
         "Integrated APIs and managed application state.",
         "Improved reusable components and healthcare workflows.",
       ],
-      stack: ["React.js", ".NET", "SQL"],
+      stack: ["React.js", ".NET", "SQL", "REST APIs"],
       href: "https://vitalwatch365.com/",
       images: [
         "/projects/vitalwatch/01.jpg",
@@ -182,7 +182,7 @@ export const site = {
         "Implemented and maintained responsive UI components.",
         "Integrated APIs and improved application state management.",
       ],
-      stack: ["React.js", ".NET", "SQL"],
+      stack: ["React.js", ".NET", "SQL", "REST APIs"],
       href: "https://appysaude.co.ao/",
       images: [
         "/projects/appysaude/01.jpg",
@@ -199,17 +199,16 @@ export const site = {
     company: "Sensation Software Solutions Pvt. Ltd.",
     role: "Software Engineer",
     type: "Full-time",
-    period: "January 2024 — Present",
+    period: "Jun 2024 — Present",
     location: "Mohali, Punjab",
     summary:
-      "Building and maintaining production web applications for clients across healthcare, real estate and events — from reusable front-end systems to secure APIs and cloud deployments.",
+      "Building and maintaining production web applications for clients across healthcare, real estate, events and e-commerce — from reusable front-end systems to secure APIs and cloud deployments.",
     bullets: [
-      "Develop and maintain production web applications using React.js, Next.js, Node.js, Express.js, and MongoDB.",
-      "Build responsive and reusable UI components.",
-      "Integrate REST APIs using TanStack Query and SWR.",
-      "Implement JWT-based authentication and role-based access control.",
-      "Work with AWS EC2, AWS S3, Docker, and deployment configurations.",
-      "Collaborate with cross-functional teams to troubleshoot issues and improve application performance.",
+      "Engineered TraceVenue, a multi-tenant B2B2C venue booking platform on the MERN stack, with Socket.IO real-time booking sync and JWT-based auth with RBAC across customer, venue-admin and super-admin roles.",
+      "Supported 100+ venue bookings and deployed the platform with AWS EC2, Docker and Amazon S3.",
+      "Developed and enhanced Econiya (econiya.com) with Next.js, reusable front-end components and a custom CMS for content management.",
+      "Built production web applications with React.js, Next.js, Node.js, Express.js and MongoDB, integrating REST APIs to support scalable features and efficient data exchange.",
+      "Supported deployment and infrastructure on AWS EC2, S3 and Docker, and collaborated with cross-functional teams to improve reliability and performance.",
     ],
     stack: [
       "React.js",
@@ -219,9 +218,22 @@ export const site = {
       "Express.js",
       "MongoDB",
       "PostgreSQL",
+      "Socket.IO",
       "AWS",
       "Docker",
     ],
+    internship: {
+      role: "Software Engineer Intern",
+      period: "Jan 2024 — Jun 2024",
+      summary:
+        "Built React components and REST APIs for TraceMenu, a QR-based restaurant management platform.",
+      bullets: [
+        "Developed React components and RESTful APIs for TraceMenu, contributing to a 30% improvement in operational efficiency across 50+ restaurants.",
+        "Implemented Redux-based cart management with automatic quantity aggregation and persistent state across refreshes.",
+        "Used MongoDB transactions to keep orders, payments and inventory consistent, with rollback handling for failed payments.",
+        "Optimised search with debouncing (60% fewer API calls) and added Socket.IO updates, pagination and Nodemailer email notifications.",
+      ],
+    },
   },
 
   skills: [
@@ -238,6 +250,7 @@ export const site = {
         "CSS3",
         "Redux Toolkit",
         "Tailwind CSS",
+        "React Bootstrap",
         "SWR",
         "TanStack Query",
       ],
@@ -277,13 +290,15 @@ export const site = {
         "Postman",
         "VS Code",
         "MongoDB Compass",
+        "API Integration",
+        "Performance Optimization",
       ],
     },
   ],
 
   about: [
     "I’m a Software Engineer with 2.5+ years of professional experience building production web applications. My work sits across responsive frontend engineering, API integration and the delivery details that make a product dependable.",
-    "I’ve shipped client platforms across healthcare, real estate and events — working with React, Next.js, TypeScript, Node.js and Express, alongside SQL and NoSQL databases. I’m comfortable implementing authentication, managing application state and supporting deployments on AWS and Docker.",
+    "I’ve shipped client platforms across healthcare, real estate, events and e-commerce — working with React, Next.js, TypeScript, Node.js and Express, alongside SQL and NoSQL databases. I’m comfortable building real-time booking flows, custom CMS tooling, authentication and role-based access, and supporting deployments on AWS and Docker.",
     "I care about clear interfaces, reliable data flows and code that stays easy to change. I’m continuously learning and focused on building products that hold up for real users.",
   ],
 

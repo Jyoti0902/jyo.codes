@@ -425,7 +425,7 @@ function RabbitMascot() {
           style={{ x, y, rotate }}
           aria-label={MESSAGES[sleeping ? 0 : 1]}
           title={MESSAGES[sleeping ? 0 : 1]}
-          className="group relative block size-[92px] cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:size-[112px]"
+          className="group relative block size-[92px] cursor-pointer rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:size-[112px]"
         >
           <motion.span
             animate={
@@ -479,7 +479,7 @@ function Zzz({ still = false }: { still?: boolean }) {
   );
 }
 
-// The default portrait already has the pink circle background baked in.
+// The portrait is a transparent cut-out, so it floats without a badge circle.
 const DEFAULT_PORTRAIT = "/momo/momo-default.png";
 
 function Bunny({
@@ -495,7 +495,7 @@ function Bunny({
 
   return (
     <span
-      className={`mascot-badge relative block h-full w-full overflow-hidden rounded-full shadow-inner ${sleeping ? "mascot-napping" : ""
+      className={`relative block h-full w-full ${sleeping ? "mascot-napping" : ""
         }`}
     >
       <Image

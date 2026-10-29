@@ -260,14 +260,6 @@ body {
   animation: pulse-dot 2.6s ease-out infinite;
 }
 
-/* ---------------------------------------------------------------------------
-   Momo's badge
-   The portrait sticker sits in a pale pink circle, the same in both themes.
-   --------------------------------------------------------------------------- */
-.mascot-badge {
-  background-color: #f9d8dd;
-}
-
 /* The speech bubble borrows Momo's colours, in both themes. */
 .mascot-bubble {
   --mascot-bubble-bg: #fdebf1;
